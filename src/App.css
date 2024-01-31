@@ -36,3 +36,116 @@
     transform: rotate(360deg);
   }
 }
+
+h1, #board, #results, #enter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+}
+
+#enter, #firstPlayer, #secondPlayer, #submit  {
+  font-size: 24px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#enter {
+  margin-top: 200px;
+}
+
+th, td {
+  text-align: center;
+}
+
+h1 {
+  font-size: 4em;
+  border-bottom: 1px solid black;
+}
+
+h2, .names {
+  font-size: 2em;
+  margin: 4px;
+}
+
+.names {
+  width: 180px;
+}
+
+#board {
+  height: 550px;
+}
+
+.XO, .X, .O{
+  height: 150px;
+  width: 150px;
+  font-size: 64px;
+  background-color: black;
+  margin: 0;
+  vertical-align: middle; /* Adjust as needed */
+  color: white;
+  border: none;
+}
+
+#XO11 {
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+}
+
+#XO12 {
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  border-left: 2px solid white;
+}
+
+#XO13 {
+  border-bottom: 2px solid white;
+  border-left: 2px solid white;
+}
+
+#XO21 {
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+}
+
+#XO22 {
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+  border-bottom: 2px solid white;
+  border-left: 2px solid white;
+}
+
+#XO23 {
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+  border-left: 2px solid white;
+}
+
+#XO31 {
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+}
+
+#XO32 {
+  border-top: 2px solid white;
+  border-right: 2px solid white;
+  border-left: 2px solid white;
+}
+
+#XO33 {
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+}
+
+.downButtons {
+  position: fixed;
+  top: 810px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.reset, .nextGame, .exit {
+  font-size: 32px;
+  margin: 40px;
+}
