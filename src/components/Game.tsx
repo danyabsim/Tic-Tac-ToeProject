@@ -9,9 +9,45 @@ function Game(props: GameProps) {
         <div>
             <header>
                 <h1>Tic-Tac-Toe</h1><br/>
-                <Results X={props.X} O={props.O}/>
-                <Board/>
-                <BottomButtons/>
+                <Results
+                    firstPlayerResults={props.firstPlayerResults}
+                    setFirstPlayerResults={props.setFirstPlayerResults}
+                    tieResults={props.tieResults}
+                    setTieResults={props.setTieResults}
+                    secondPlayerResults={props.secondPlayerResults}
+                    setSecondPlayerResults={props.setSecondPlayerResults}
+                    firstPlayerName={props.firstPlayerName}
+                    secondPlayerName={props.secondPlayerName}
+                    isFirstPlayerStars={props.isFirstPlayerStars}
+                    setIsFirstPlayerStars={props.setIsFirstPlayerStars}
+                    XOArray={props.XOArray}
+                    setXOArray={props.setXOArray} />
+                <Board
+                    firstPlayerResults={props.firstPlayerResults}
+                    setFirstPlayerResults={props.setFirstPlayerResults}
+                    tieResults={props.tieResults}
+                    setTieResults={props.setTieResults}
+                    secondPlayerResults={props.secondPlayerResults}
+                    setSecondPlayerResults={props.setSecondPlayerResults}
+                    firstPlayerName={props.firstPlayerName}
+                    secondPlayerName={props.secondPlayerName}
+                    isFirstPlayerStars={props.isFirstPlayerStars}
+                    setIsFirstPlayerStars={props.setIsFirstPlayerStars}
+                    XOArray={props.XOArray}
+                    setXOArray={props.setXOArray} />
+                <BottomButtons
+                    firstPlayerResults={props.firstPlayerResults}
+                    setFirstPlayerResults={props.setFirstPlayerResults}
+                    tieResults={props.tieResults}
+                    setTieResults={props.setTieResults}
+                    secondPlayerResults={props.secondPlayerResults}
+                    setSecondPlayerResults={props.setSecondPlayerResults}
+                    firstPlayerName={props.firstPlayerName}
+                    secondPlayerName={props.secondPlayerName}
+                    isFirstPlayerStars={props.isFirstPlayerStars}
+                    setIsFirstPlayerStars={props.setIsFirstPlayerStars}
+                    XOArray={props.XOArray}
+                    setXOArray={props.setXOArray} />
             </header>
         </div>
     );

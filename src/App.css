@@ -76,7 +76,7 @@ h2, .names {
   height: 550px;
 }
 
-.XO, .X, .O{
+.XO {
   height: 150px;
   width: 150px;
   font-size: 64px;

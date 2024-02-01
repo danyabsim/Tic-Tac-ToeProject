@@ -3,35 +3,37 @@ import {GameProps} from "./GameProps";
 import {setFirstPlayer, setSecondPlayer} from "../XOScript";
 
 function Results(props: GameProps) {
-    setFirstPlayer(props.X);
-    setSecondPlayer(props.O);
+    setFirstPlayer(props.firstPlayerName);
+    setSecondPlayer(props.secondPlayerName);
     return (
         <form id="results">
             <table>
-                <tr>
-                    <td>
-                        <label className="names">{props.X}</label>
-                    </td>
-                    <td>
-                        <h2 id="XResults">0</h2>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label className="names"><b><u>Tie</u></b></label>
-                    </td>
-                    <td>
-                        <h2 id="tieResults">0</h2>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label className="names">{props.O}</label>
-                    </td>
-                    <td>
-                        <h2 id="OResults">0</h2>
-                    </td>
-                </tr>
+                <tbody>
+                    <tr>
+                        <td>
+                            <label className="names">{props.firstPlayerName}</label>
+                        </td>
+                        <td>
+                            <h2 id="firstPlayerResults">{props.firstPlayerResults}</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label className="names"><b><u>Tie</u></b></label>
+                        </td>
+                        <td>
+                            <h2 id="tieResults">{props.tieResults}</h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label className="names">{props.secondPlayerName}</label>
+                        </td>
+                        <td>
+                            <h2 id="secondPlayerResults">{props.secondPlayerResults}</h2>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
         </form>
     );
