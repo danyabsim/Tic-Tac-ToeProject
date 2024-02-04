@@ -1,0 +1,11 @@
+.downButtons {
+    position: fixed;
+    top: 810px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.reset, .nextGame, .exit {
+    font-size: 32px;
+    margin: 40px;
+}

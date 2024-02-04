@@ -1,0 +1,12 @@
+h2, .names {
+    font-size: 2em;
+    margin: 4px;
+}
+
+.names {
+    width: 180px;
+}
+
+.h2results {
+    color: #3900FF;
+}

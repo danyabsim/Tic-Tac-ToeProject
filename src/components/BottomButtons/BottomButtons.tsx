@@ -1,18 +1,22 @@
 import React from "react";
-import {GameProps} from "./GameProps";
+import {BottomButtonsProps} from "./BottomButtonsProps";
+import './BottomButtonsStyle.css';
+import {resetXOScript} from "../../XOScript";
 
-function BottomButtons(props: GameProps) {
+function BottomButtons(props: BottomButtonsProps) {
+
     function resetHandler() {
         props.setIsFirstPlayerStars(true);
         props.setFirstPlayerResults(0);
         props.setTieResults(0);
         props.setSecondPlayerResults(0);
         props.setXOArray([["","",""],["","",""],["","",""]]);
+        resetXOScript();
     }
 
     function nextGameHandler() {
-        props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
         props.setXOArray([["","",""],["","",""],["","",""]]);
+        resetXOScript();
     }
 
     return (

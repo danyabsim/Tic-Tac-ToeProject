@@ -1,29 +1,16 @@
 export let XOCount: number = 0;
-let solved: boolean = false;
-let firstPlayer = "";
-let secondPlayer = "";
-let firstPlayerSign = 'X';
-let secondPlayerSign = 'O';
-let isFirstPlayerStars = true;
+export let isFirstPlayerStars = true;
 
-export function setFirstPlayer(value: string) {
-  firstPlayer = value;
+export function resetXOScript() {
+  XOCount = 0;
 }
 
-export function setSecondPlayer(value: string) {
-  secondPlayer = value;
-}
-export function setIsFirstPlayerStars(value: boolean) {
+export function SetIsFirstPlayerStars(value: boolean) {
   isFirstPlayerStars = value;
 }
 
-export function setSolved(value: boolean) {
-  solved = value;
-}
-
 export function onClickXOElement(XOElement: HTMLInputElement): void {
-  if (XOElement.value === "" && !solved) {
-    //XOElement.disabled = true;
+  if (XOElement.value === "") {
     XOCount++;
     if (XOCount % 2 === 1) {
       XOElement.value = (isFirstPlayerStars ? "X" : "O");
@@ -33,43 +20,44 @@ export function onClickXOElement(XOElement: HTMLInputElement): void {
   }
 }
 
-export function checkIfPathIsWin(firstXOButtonValue: string, secondXOButtonValue: string, thirdXOButtonValue: string): boolean {
-  return (firstXOButtonValue === secondXOButtonValue && firstXOButtonValue === thirdXOButtonValue && firstXOButtonValue !== "");
+export function checkIfPathIsWin(...values: string[]): boolean {
+  return values.every(value => value === values[0] && value !== "");
 }
 
-export function checkBoard(board: string[][]): [boolean, string[]] {
-  for (let i: number = 0; i <= 2; i++) {
+export function checkBoard(board: string[][]): [boolean, string] {
+  const size = board.length;
+
+  for (let i: number = 0; i < size; i++) {
     // Checking per Row
-    if (checkIfPathIsWin(board[i][0], board[i][1], board[i][2]))
-    {
-      return [true, [board[i][0], board[i][1], board[i][2]]];
+    if (checkIfPathIsWin(...board[i])) {
+      return [true, board[i][0]];
     }
+
     // Checking per Column
-    if (checkIfPathIsWin(board[0][i], board[1][i], board[2][i]))
-    {
-      return [true, [board[0][i], board[1][i], board[2][i]]];
+    if (checkIfPathIsWin(...board.map(row => row[i]))) {
+      return [true, board[0][i]];
     }
   }
 
   // Checking per Diagonal
-  if (checkIfPathIsWin(board[0][0], board[1][1], board[2][2])) {
-    return [true, [board[0][0], board[1][1], board[2][2]]];
+  if (checkIfPathIsWin(...board.map((row, index) => row[index]))) {
+    return [true, board[0][0]];
   }
 
-  if (checkIfPathIsWin(board[0][2], board[1][1], board[2][0])){
-    return [true, [board[0][2], board[1][1], board[2][0]]];
+  if (checkIfPathIsWin(...board.map((row, index) => row[size - 1 - index]))) {
+    return [true, board[0][size - 1]];
   }
 
-  return [false, ['', '', '']];
+  return [false, ''];
 }
 
-export function gameTimeoutAlert(value: [boolean, string[]]): void {
+export function gameTimeoutAlert(value: [boolean, string], firstPlayerName: string, secondPlayerName: string): void {
   let alertText: string = "";
-  if (value[0] && (value[1][0] === 'X' || value[1][0] === 'O')) {
-    if (firstPlayerSign === value[1][0]) {
-      alertText = firstPlayer + " (" + firstPlayerSign + ") Won!";
+  if (value[0] && (value[1] === 'X' || value[1] === 'O')) {
+    if ('X' === value[1][0]) {
+      alertText = firstPlayerName + " (X) Won!";
     } else {
-      alertText = secondPlayer + " (" + secondPlayerSign + ") Won!";
+      alertText = secondPlayerName + " (O) Won!";
     }
   } else {
     if (XOCount !== 9) {
@@ -81,4 +69,11 @@ export function gameTimeoutAlert(value: [boolean, string[]]): void {
   setTimeout(function(): void {
     alert(alertText);
   }, 10);
+}
+
+// Print the XOArray in the alert. Used only in Debugging!
+function printXOArray(XOArray: string[][]) {
+  alert(XOArray
+      .map((row) => row.join(", ")) // Join each row's elements
+      .join("\n"));
 }
