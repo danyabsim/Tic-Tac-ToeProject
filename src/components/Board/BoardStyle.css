@@ -1,5 +1,7 @@
 #board {
-    height: 550px;
+    display: grid;
+    margin: 0;
+    grid-template-columns: repeat(3, 0fr); /* Three columns, each taking equal space */
 }
 
 .XO {
@@ -7,10 +9,10 @@
     width: 150px;
     font-size: 64px;
     background-color: black;
-    margin: 0;
-    vertical-align: middle; /* Adjust as needed */
     color: white;
     border: none;
+    text-align: center;
+    margin-bottom: 0;
 }
 
 #XO11 {
@@ -18,18 +20,18 @@
     border-bottom: 2px solid white;
 }
 
-#XO12 {
+#XO21 {
     border-right: 2px solid white;
     border-bottom: 2px solid white;
     border-left: 2px solid white;
 }
 
-#XO13 {
+#XO31 {
     border-bottom: 2px solid white;
     border-left: 2px solid white;
 }
 
-#XO21 {
+#XO12 {
     border-top: 2px solid white;
     border-right: 2px solid white;
     border-bottom: 2px solid white;
@@ -42,18 +44,18 @@
     border-left: 2px solid white;
 }
 
-#XO23 {
+#XO32 {
     border-top: 2px solid white;
     border-bottom: 2px solid white;
     border-left: 2px solid white;
 }
 
-#XO31 {
+#XO13 {
     border-top: 2px solid white;
     border-right: 2px solid white;
 }
 
-#XO32 {
+#XO23 {
     border-top: 2px solid white;
     border-right: 2px solid white;
     border-left: 2px solid white;

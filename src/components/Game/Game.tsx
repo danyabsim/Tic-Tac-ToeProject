@@ -6,7 +6,7 @@ import {GameProps} from "./GameProps";
 
 function Game(props: GameProps) {
     const [isFirstPlayerStars, setIsFirstPlayerStars] = useState(true);
-    const [XOArray, setXOArray] = useState([["","",""],["","",""],["","",""]]);
+    const [XOArray, setXOArray] = useState([["", "", ""], ["", "", ""], ["", "", ""]]);
     const [firstPlayerResults, setFirstPlayerResults] = useState(0);
     const [secondPlayerResults, setSecondPlayerResults] = useState(0);
     const [tieResults, setTieResults] = useState(0);
@@ -40,6 +40,7 @@ function Game(props: GameProps) {
                     setSecondPlayerResults={setSecondPlayerResults}
                     isFirstPlayerStars={isFirstPlayerStars}
                     setIsFirstPlayerStars={setIsFirstPlayerStars}
+                    XOArray={XOArray}
                     setXOArray={setXOArray} />
             </header>
         </div>

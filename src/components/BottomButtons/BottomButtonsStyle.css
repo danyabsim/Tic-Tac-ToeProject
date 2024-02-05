@@ -1,11 +1,15 @@
 .downButtons {
-    position: fixed;
-    top: 810px;
-    left: 50%;
-    transform: translateX(-50%);
+    /*position: fixed;*/
+    /*left: 50%;*/
+    /*transform: translateX(-50%);*/
+    margin-top: 50px;
 }
 
-.reset, .nextGame, .exit {
+#reset, #nextGame, #exit {
     font-size: 32px;
-    margin: 40px;
+    background-color: #4FFF00;
+    color: black;
+    border: none;
+    margin-left: 40px;
+    font-weight: bold;
 }

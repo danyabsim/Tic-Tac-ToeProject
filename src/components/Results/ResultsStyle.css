@@ -1,6 +1,7 @@
 h2, .names {
     font-size: 2em;
     margin: 4px;
+    color: white
 }
 
 .names {
@@ -8,5 +9,5 @@ h2, .names {
 }
 
 .h2results {
-    color: #3900FF;
+    color: #4FFF00;
 }

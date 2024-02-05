@@ -1,0 +1,12 @@
+#OKButton {
+    font-size: 32px;
+    background-color: #4FFF00;
+    color: black;
+    border: none;
+    margin-top: 40px;
+    font-weight: bold;
+}
+
+#alertText {
+    color: black;
+}

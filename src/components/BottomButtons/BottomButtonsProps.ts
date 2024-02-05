@@ -6,5 +6,6 @@ export interface BottomButtonsProps {
     setSecondPlayerResults: Dispatch<SetStateAction<number>>;
     isFirstPlayerStars: boolean;
     setIsFirstPlayerStars: Dispatch<SetStateAction<boolean>>;
+    XOArray: string[][];
     setXOArray: Dispatch<SetStateAction<string[][]>>;
 }

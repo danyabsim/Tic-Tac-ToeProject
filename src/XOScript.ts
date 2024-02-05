@@ -1,11 +1,12 @@
 export let XOCount: number = 0;
 export let isFirstPlayerStars = true;
 
-export function resetXOScript() {
+export function resetXOScript(propsIsFirstPlayerStars: boolean) {
   XOCount = 0;
+  setIsFirstPlayerStars(propsIsFirstPlayerStars);
 }
 
-export function SetIsFirstPlayerStars(value: boolean) {
+export function setIsFirstPlayerStars(value: boolean) {
   isFirstPlayerStars = value;
 }
 
@@ -20,55 +21,41 @@ export function onClickXOElement(XOElement: HTMLInputElement): void {
   }
 }
 
-export function checkIfPathIsWin(...values: string[]): boolean {
-  return values.every(value => value === values[0] && value !== "");
+export function checkIfPathIsWin(...values: string[]): [boolean, number[]] {
+  const isWin = values.every(value => value === values[0] && value !== "");
+  const indexes = isWin ? Array.from({ length: values.length }, (_, i) => i) : [];
+  return [isWin, indexes];
 }
 
-export function checkBoard(board: string[][]): [boolean, string] {
+export function checkBoard(board: string[][]): [boolean, string, number[][]] {
   const size = board.length;
 
   for (let i: number = 0; i < size; i++) {
     // Checking per Row
-    if (checkIfPathIsWin(...board[i])) {
-      return [true, board[i][0]];
+    const [isRowWin, rowIndexes] = checkIfPathIsWin(...board[i]);
+    if (isRowWin) {
+      return [true, board[i][0], rowIndexes.map(index => [i, index])];
     }
 
     // Checking per Column
-    if (checkIfPathIsWin(...board.map(row => row[i]))) {
-      return [true, board[0][i]];
+    const [isColumnWin, columnIndexes] = checkIfPathIsWin(...board.map(row => row[i]));
+    if (isColumnWin) {
+      return [true, board[0][i], columnIndexes.map(index => [index, i])];
     }
   }
 
   // Checking per Diagonal
-  if (checkIfPathIsWin(...board.map((row, index) => row[index]))) {
-    return [true, board[0][0]];
+  const [isDiagonal1Win, diagonal1Indexes] = checkIfPathIsWin(...board.map((row, index) => row[index]));
+  if (isDiagonal1Win) {
+    return [true, board[0][0], diagonal1Indexes.map(index => [index, index])];
   }
 
-  if (checkIfPathIsWin(...board.map((row, index) => row[size - 1 - index]))) {
-    return [true, board[0][size - 1]];
+  const [isDiagonal2Win, diagonal2Indexes] = checkIfPathIsWin(...board.map((row, index) => row[size - 1 - index]));
+  if (isDiagonal2Win) {
+    return [true, board[0][size - 1], diagonal2Indexes.map(index => [index, size - 1 - index])];
   }
 
-  return [false, ''];
-}
-
-export function gameTimeoutAlert(value: [boolean, string], firstPlayerName: string, secondPlayerName: string): void {
-  let alertText: string = "";
-  if (value[0] && (value[1] === 'X' || value[1] === 'O')) {
-    if ('X' === value[1][0]) {
-      alertText = firstPlayerName + " (X) Won!";
-    } else {
-      alertText = secondPlayerName + " (O) Won!";
-    }
-  } else {
-    if (XOCount !== 9) {
-      return;
-    }
-    alertText = "Game Ended With a Tie!";
-  }
-
-  setTimeout(function(): void {
-    alert(alertText);
-  }, 10);
+  return [false, '', []];
 }
 
 // Print the XOArray in the alert. Used only in Debugging!
