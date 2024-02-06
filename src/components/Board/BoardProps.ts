@@ -1,12 +1,12 @@
 import {Dispatch, SetStateAction} from "react";
 
 export interface BoardProps {
-    firstPlayerResults: number;
-    setFirstPlayerResults: Dispatch<SetStateAction<number>>;
-    tieResults: number;
-    setTieResults: Dispatch<SetStateAction<number>>;
-    secondPlayerResults: number;
-    setSecondPlayerResults: Dispatch<SetStateAction<number>>;
+    firstPlayerWins: number;
+    setFirstPlayerWins: Dispatch<SetStateAction<number>>;
+    ties: number;
+    setTies: Dispatch<SetStateAction<number>>;
+    secondPlayerWins: number;
+    setSecondPlayerWins: Dispatch<SetStateAction<number>>;
     isFirstPlayerStars: boolean;
     setIsFirstPlayerStars: Dispatch<SetStateAction<boolean>>;
     XOArray: string[][];

@@ -1,47 +1,46 @@
 import React, {useState} from "react";
 import Results from "../Results/Results";
 import Board from "../Board/Board";
-import BottomButtons from "../BottomButtons/BottomButtons";
+import EndGameButton from "../EndGameButton/EndGameButton";
 import {GameProps} from "./GameProps";
+import {initialHistoryState} from "../../redux/HistoryReducer";
+import './GameStyle.css';
 
 function Game(props: GameProps) {
     const [isFirstPlayerStars, setIsFirstPlayerStars] = useState(true);
     const [XOArray, setXOArray] = useState([["", "", ""], ["", "", ""], ["", "", ""]]);
-    const [firstPlayerResults, setFirstPlayerResults] = useState(0);
-    const [secondPlayerResults, setSecondPlayerResults] = useState(0);
-    const [tieResults, setTieResults] = useState(0);
+    const [firstPlayerWins, setFirstPlayerWins] = useState(0);
+    const [ties, setTies] = useState(0);
+    const [secondPlayerWins, setSecondPlayerWins] = useState(0);
+    const [historyGameState, setHistoryGameState] = useState(initialHistoryState);
 
     return (
         <div>
             <header>
                 <h1>Tic-Tac-Toe</h1><br/>
                 <Results
-                    firstPlayerResults={firstPlayerResults}
-                    tieResults={tieResults}
-                    secondPlayerResults={secondPlayerResults}
                     firstPlayerName={props.firstPlayerName}
-                    secondPlayerName={props.secondPlayerName} />
+                    secondPlayerName={props.secondPlayerName}
+                    firstPlayerWins={firstPlayerWins}
+                    ties={ties}
+                    secondPlayerWins={secondPlayerWins}
+                />
                 <Board
-                    firstPlayerResults={firstPlayerResults}
-                    setFirstPlayerResults={setFirstPlayerResults}
-                    tieResults={tieResults}
-                    setTieResults={setTieResults}
-                    secondPlayerResults={secondPlayerResults}
-                    setSecondPlayerResults={setSecondPlayerResults}
+                    firstPlayerWins={firstPlayerWins}
+                    setFirstPlayerWins={setFirstPlayerWins}
+                    ties={ties}
+                    setTies={setTies}
+                    secondPlayerWins={secondPlayerWins}
+                    setSecondPlayerWins={setSecondPlayerWins}
                     isFirstPlayerStars={isFirstPlayerStars}
                     setIsFirstPlayerStars={setIsFirstPlayerStars}
                     XOArray={XOArray}
                     setXOArray={setXOArray}
                     firstPlayerName={props.firstPlayerName}
-                    secondPlayerName={props.secondPlayerName} />
-                <BottomButtons
-                    setFirstPlayerResults={setFirstPlayerResults}
-                    setTieResults={setTieResults}
-                    setSecondPlayerResults={setSecondPlayerResults}
-                    isFirstPlayerStars={isFirstPlayerStars}
-                    setIsFirstPlayerStars={setIsFirstPlayerStars}
-                    XOArray={XOArray}
-                    setXOArray={setXOArray} />
+                    secondPlayerName={props.secondPlayerName}
+                    historyGameState={historyGameState}
+                    setHistoryGameState={setHistoryGameState} />
+                <EndGameButton/>
             </header>
         </div>
     );

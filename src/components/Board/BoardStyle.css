@@ -4,15 +4,25 @@
     grid-template-columns: repeat(3, 0fr); /* Three columns, each taking equal space */
 }
 
-.XO {
+input[type="button"].XO, input[type="button"].WinningXO
+{
     height: 150px;
     width: 150px;
     font-size: 64px;
-    background-color: black;
-    color: white;
     border: none;
     text-align: center;
     margin-bottom: 0;
+    font-weight: unset;
+}
+
+input[type="button"].XO {
+    background-color: black;
+    color: white;
+}
+
+input[type="button"].WinningXO {
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 #XO11 {

@@ -1,0 +1,12 @@
+#enter, #firstPlayer, #secondPlayer {
+    font-size: 24px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#enter {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}

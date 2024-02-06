@@ -1,16 +1,14 @@
+import {ActionTypes, HistoryReducer} from "./redux/HistoryReducer";
+import {HistoryProps} from "./redux/HistoryProps";
+import {ResultsProps} from "./components/Results/ResultsProps";
+
 export let XOCount: number = 0;
-export let isFirstPlayerStars = true;
 
-export function resetXOScript(propsIsFirstPlayerStars: boolean) {
+export function resetXOScript() {
   XOCount = 0;
-  setIsFirstPlayerStars(propsIsFirstPlayerStars);
 }
 
-export function setIsFirstPlayerStars(value: boolean) {
-  isFirstPlayerStars = value;
-}
-
-export function onClickXOElement(XOElement: HTMLInputElement): void {
+export function onClickXOElement(XOElement: HTMLInputElement, isFirstPlayerStars: boolean): void {
   if (XOElement.value === "") {
     XOCount++;
     if (XOCount % 2 === 1) {
@@ -56,6 +54,41 @@ export function checkBoard(board: string[][]): [boolean, string, number[][]] {
   }
 
   return [false, '', []];
+}
+
+export function addToHistory(props: HistoryProps & ResultsProps) {
+  props.setHistoryGameState(HistoryReducer(props.historyGameState, {
+    type: ActionTypes.ADD_HISTORY,
+    history: {
+      firstPlayerName: props.firstPlayerName,
+      secondPlayerName: props.secondPlayerName,
+      firstPlayerWins: props.firstPlayerWins,
+      ties: props.ties,
+      secondPlayerWins: props.secondPlayerWins
+    }
+  }));
+}
+
+export function removeOldestHistory(props: HistoryProps & ResultsProps) {
+  props.setHistoryGameState(HistoryReducer(props.historyGameState, {type: ActionTypes.CONSOLE_PRINT, history: {
+      firstPlayerName: props.firstPlayerName,
+      secondPlayerName: props.secondPlayerName,
+      firstPlayerWins: props.firstPlayerWins,
+      ties: props.ties,
+      secondPlayerWins: props.secondPlayerWins
+    }
+  }));
+}
+
+export function showHistory(props: HistoryProps & ResultsProps) {
+  props.setHistoryGameState(HistoryReducer(props.historyGameState, {type: ActionTypes.CONSOLE_PRINT, history: {
+      firstPlayerName: props.firstPlayerName,
+      secondPlayerName: props.secondPlayerName,
+      firstPlayerWins: props.firstPlayerWins,
+      ties: props.ties,
+      secondPlayerWins: props.secondPlayerWins
+    }
+  }));
 }
 
 // Print the XOArray in the alert. Used only in Debugging!

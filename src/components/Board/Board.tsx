@@ -1,96 +1,119 @@
-import React, {HTMLProps, useState} from 'react';
+import React, {useState} from 'react';
 import BoardButton from "../BoardButton/BoardButton";
 import {BoardProps} from "./BoardProps";
 import {
     checkBoard,
     onClickXOElement,
-    setIsFirstPlayerStars,
+    resetXOScript,
     XOCount
 } from "../../XOScript";
 import "./BoardStyle.css";
 import {GameProps} from "../Game/GameProps";
-import {JSX} from "react/jsx-runtime";
 import GameAlert from "../GameAlert/GameAlert";
+import {HistoryProps} from "../../redux/HistoryProps";
 
-function Board(props: BoardProps & GameProps) {
+function Board(props: BoardProps & GameProps & HistoryProps) {
     const [countSolved, setCountSolved] = useState(0);
-    const [XOArrayDesign, setXOArrayDesign] = useState<(JSX.IntrinsicAttributes & HTMLProps<HTMLInputElement> | undefined)[][]>([
-        [undefined, undefined, undefined],
-        [undefined, undefined, undefined],
-        [undefined, undefined, undefined],
+    const [XOClassNames, setXOClassNames] = useState([
+        ["XO", "XO", "XO"],
+        ["XO", "XO", "XO"],
+        ["XO", "XO", "XO"],
     ]);
     const [alertText, setAlertText] = useState("");
     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [solvedChar, setSolvedChar] = useState("");
 
-    const defaultCellStyle: JSX.IntrinsicAttributes & HTMLProps<HTMLInputElement> = {
-        style: { backgroundColor: '#4FFF00' },
-    };
+    function resetHandler() {
+        props.setIsFirstPlayerStars(true);
+        props.setFirstPlayerWins(0);
+        props.setTies(0);
+        props.setSecondPlayerWins(0);
+        props.setXOArray([
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""],
+        ]);
+        setXOClassNames([
+            ["XO", "XO", "XO"],
+            ["XO", "XO", "XO"],
+            ["XO", "XO", "XO"],
+        ]);
+        resetXOScript();
+    }
+
+    function nextGameHandler() {
+        props.setXOArray([
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""],
+        ]);
+        setXOClassNames([
+            ["XO", "XO", "XO"],
+            ["XO", "XO", "XO"],
+            ["XO", "XO", "XO"],
+        ]);
+        resetXOScript();
+    }
 
     function designWinningPath(indexes: number[][]) {
-        const newXOArrayDesign = [...XOArrayDesign];
+        const newXOClassNames = [...XOClassNames];
 
         indexes.forEach(([row, col]) => {
-            newXOArrayDesign[row][col] = defaultCellStyle
+            newXOClassNames[row][col] = "WinningXO";
         });
 
-        setXOArrayDesign(newXOArrayDesign);
+        setXOClassNames(newXOClassNames);
     }
 
     function onClickBoardButtonElement(event : React.MouseEvent<HTMLInputElement>) {
         if (props.XOArray.every(row => row.every(item => item === ""))) {
             setCountSolved(0);
+            setSolvedChar("");
         }
         if (checkBoard(props.XOArray)[0]) {
             return;
         }
-        onClickXOElement(event.currentTarget);
+        onClickXOElement(event.currentTarget, props.isFirstPlayerStars);
         let XOArray : string[][] = props.XOArray;
         const XO_Column = parseInt(event.currentTarget.id.charAt(2));
         const XO_Row = parseInt(event.currentTarget.id.charAt(3));
         XOArray[XO_Column - 1][XO_Row - 1] = event.currentTarget.value;
         props.setXOArray(XOArray);
-        const [solvedBoard, solvedChar, indexes] = checkBoard(props.XOArray);
-
+        const [solvedBoard, innerSolvedChar, indexes] = checkBoard(props.XOArray);
+        setSolvedChar(innerSolvedChar);
         if ((solvedBoard && countSolved === 0) || XOCount === 9) {
             designWinningPath(indexes);
             setCountSolved(countSolved + 1);
-            if (solvedBoard && (solvedChar === 'X' || solvedChar === 'O')) {
-                if ('X' === solvedChar) {
+            if (solvedBoard && (innerSolvedChar === 'X' || innerSolvedChar === 'O')) {
+                if ('X' === innerSolvedChar) {
                     setAlertText(props.firstPlayerName + " (X) Won!");
                 } else {
                     setAlertText(props.secondPlayerName + " (O) Won!");
                 }
             } else {
-                if (XOCount !== 9) {
-                    return;
-                }
                 setAlertText("Game Ended With a Tie!");
             }
             setTimeout(function(): void {
                 setModalIsOpen(true);
             }, 100);
-            switch (solvedChar) {
+            switch (innerSolvedChar) {
                 case 'X':
-                    props.setFirstPlayerResults(props.firstPlayerResults + 1);
+                    props.setFirstPlayerWins(props.firstPlayerWins + 1);
                     if (props.isFirstPlayerStars) {
                         props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
                     }
                     break;
                 case 'O':
-                    props.setSecondPlayerResults(props.secondPlayerResults + 1);
+                    props.setSecondPlayerWins(props.secondPlayerWins + 1);
                     if (!props.isFirstPlayerStars) {
                         props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
                     }
                     break;
                 case '':
-                    props.setTieResults(props.tieResults + 1);
+                    props.setTies(props.ties + 1);
                     props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
                     break;
             }
-            setIsFirstPlayerStars(!props.isFirstPlayerStars);
-            // alert(XOArrayDesign
-            //     .map((row) => row.join(", ")) // Join each row's elements
-            //     .join("\n"));
         }
     }
 
@@ -98,18 +121,28 @@ function Board(props: BoardProps & GameProps) {
         <div>
             <GameAlert
                 alertText={alertText}
+                solvedChar={solvedChar}
                 modalIsOpen={modalIsOpen}
-                setModalIsOpen={setModalIsOpen} />
+                setModalIsOpen={setModalIsOpen}
+                resetHandler={resetHandler}
+                nextGameHandler={nextGameHandler}
+                firstPlayerName={props.firstPlayerName}
+                secondPlayerName={props.secondPlayerName}
+                firstPlayerWins={props.firstPlayerWins}
+                ties={props.ties}
+                secondPlayerWins={props.secondPlayerWins}
+                historyGameState={props.historyGameState}
+                setHistoryGameState={props.setHistoryGameState} />
             <form id="board">
                 {props.XOArray.map((row, rowIndex) => (
                     <div key={`row-${rowIndex}`} className="form-group">
                         {row.map((cell, colIndex) => (
                             <BoardButton
+                                className={XOClassNames[rowIndex][colIndex]}
                                 key={`cell-${rowIndex}-${colIndex}`}
                                 id={`XO${rowIndex + 1}${colIndex + 1}`}
                                 value={cell}
                                 onClick={onClickBoardButtonElement}
-                                style={XOArrayDesign[rowIndex][colIndex]}
                             />
                         ))}
                     </div>

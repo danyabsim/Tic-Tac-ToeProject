@@ -37,50 +37,17 @@
   }
 }
 
-
-#enter, #firstPlayer, #secondPlayer, #submit  {
-  font-size: 24px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-h1, #board, #results, #downButtons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-}
-
-h1 {
-  font-size: 4em;
-  border-bottom: 1px solid white;
-  background-color: #4FFF00;
-}
-
 body {
   background-color: black;
   color: white;
   text-align: center;
 }
 
-#submit, h1 {
-  background-color: #4FFF00;
-  border: none;
-  color: black;
-}
-
 .centered-form {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Adjust as needed */
-}
-
-#enter {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
+  height: 100vh;
 }
 
 .form-group {
@@ -96,4 +63,12 @@ label {
 input {
   display: block;
   margin-bottom: 10px;
+}
+
+input[type="button"], input[type="submit"] {
+  font-size: 32px;
+  background-color: #4FFF00;
+  color: black;
+  border: none;
+  font-weight: bold;
 }
