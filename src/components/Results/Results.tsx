@@ -11,7 +11,7 @@ function Results(props: ResultsProps) {
                     <h2 className="h2results" id="firstPlayerResults">{props.firstPlayerWins}</h2>
                 </div>
                 <div className="form-group">
-                    <label className="names"><b><u>Tie</u></b></label>
+                    <label className="names"><b><u>Ties</u></b></label>
                     <h2 className="h2results" id="tieResults">{props.ties}</h2>
                 </div>
                 <div className="form-group">
