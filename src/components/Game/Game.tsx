@@ -3,8 +3,9 @@ import Results from "../Results/Results";
 import Board from "../Board/Board";
 import EndGameButton from "../EndGameButton/EndGameButton";
 import {GameProps} from "./GameProps";
-import {initialHistoryState} from "../../redux/HistoryReducer";
 import './GameStyle.css';
+import {removeAllHistory} from "../../redux/historySlice";
+import {useDispatch} from "react-redux";
 
 function Game(props: GameProps) {
     const [isFirstPlayerStars, setIsFirstPlayerStars] = useState(true);
@@ -12,7 +13,33 @@ function Game(props: GameProps) {
     const [firstPlayerWins, setFirstPlayerWins] = useState(0);
     const [ties, setTies] = useState(0);
     const [secondPlayerWins, setSecondPlayerWins] = useState(0);
-    const [historyGameState, setHistoryGameState] = useState(initialHistoryState);
+    const dispatch = useDispatch();
+
+    function resetHandler() {
+        setIsFirstPlayerStars(true);
+        setFirstPlayerWins(0);
+        setTies(0);
+        setSecondPlayerWins(0);
+        setXOArray([
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""],
+        ]);
+    }
+
+    function nextGameHandler() {
+        setXOArray([
+            ["", "", ""],
+            ["", "", ""],
+            ["", "", ""],
+        ]);
+    }
+
+    function resetTheApp() {
+        dispatch(removeAllHistory());
+        resetHandler();
+        props.resetTheApp();
+    }
 
     return (
         <div>
@@ -26,6 +53,8 @@ function Game(props: GameProps) {
                     secondPlayerWins={secondPlayerWins}
                 />
                 <Board
+                    firstPlayerName={props.firstPlayerName}
+                    secondPlayerName={props.secondPlayerName}
                     firstPlayerWins={firstPlayerWins}
                     setFirstPlayerWins={setFirstPlayerWins}
                     ties={ties}
@@ -36,11 +65,13 @@ function Game(props: GameProps) {
                     setIsFirstPlayerStars={setIsFirstPlayerStars}
                     XOArray={XOArray}
                     setXOArray={setXOArray}
-                    firstPlayerName={props.firstPlayerName}
-                    secondPlayerName={props.secondPlayerName}
-                    historyGameState={historyGameState}
-                    setHistoryGameState={setHistoryGameState} />
-                <EndGameButton/>
+                    resetHandler={resetHandler}
+                    nextGameHandler={nextGameHandler}
+                    resetTheApp={resetTheApp}
+                />
+                <EndGameButton
+                    resetTheApp={resetTheApp}
+                />
             </header>
         </div>
     );

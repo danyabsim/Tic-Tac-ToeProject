@@ -4,15 +4,13 @@ import {BoardProps} from "./BoardProps";
 import {
     checkBoard,
     onClickXOElement,
-    resetXOScript,
     XOCount
 } from "../../XOScript";
 import "./BoardStyle.css";
 import {GameProps} from "../Game/GameProps";
 import GameAlert from "../GameAlert/GameAlert";
-import {HistoryProps} from "../../redux/HistoryProps";
 
-function Board(props: BoardProps & GameProps & HistoryProps) {
+function Board(props: BoardProps & GameProps) {
     const [countSolved, setCountSolved] = useState(0);
     const [XOClassNames, setXOClassNames] = useState([
         ["XO", "XO", "XO"],
@@ -24,35 +22,21 @@ function Board(props: BoardProps & GameProps & HistoryProps) {
     const [solvedChar, setSolvedChar] = useState("");
 
     function resetHandler() {
-        props.setIsFirstPlayerStars(true);
-        props.setFirstPlayerWins(0);
-        props.setTies(0);
-        props.setSecondPlayerWins(0);
-        props.setXOArray([
-            ["", "", ""],
-            ["", "", ""],
-            ["", "", ""],
-        ]);
+        props.resetHandler();
         setXOClassNames([
             ["XO", "XO", "XO"],
             ["XO", "XO", "XO"],
             ["XO", "XO", "XO"],
         ]);
-        resetXOScript();
     }
 
     function nextGameHandler() {
-        props.setXOArray([
-            ["", "", ""],
-            ["", "", ""],
-            ["", "", ""],
-        ]);
+        props.nextGameHandler();
         setXOClassNames([
             ["XO", "XO", "XO"],
             ["XO", "XO", "XO"],
             ["XO", "XO", "XO"],
         ]);
-        resetXOScript();
     }
 
     function designWinningPath(indexes: number[][]) {
@@ -131,8 +115,8 @@ function Board(props: BoardProps & GameProps & HistoryProps) {
                 firstPlayerWins={props.firstPlayerWins}
                 ties={props.ties}
                 secondPlayerWins={props.secondPlayerWins}
-                historyGameState={props.historyGameState}
-                setHistoryGameState={props.setHistoryGameState} />
+                resetTheApp={props.resetTheApp}
+            />
             <form id="board">
                 {props.XOArray.map((row, rowIndex) => (
                     <div key={`row-${rowIndex}`} className="form-group">

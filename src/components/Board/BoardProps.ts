@@ -11,4 +11,7 @@ export interface BoardProps {
     setIsFirstPlayerStars: Dispatch<SetStateAction<boolean>>;
     XOArray: string[][];
     setXOArray: Dispatch<SetStateAction<string[][]>>;
+    resetHandler: () => void;
+    nextGameHandler: () => void;
+    resetTheApp: () => void;
 }

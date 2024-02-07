@@ -1,10 +1,14 @@
-import {ActionTypes, HistoryReducer} from "./redux/HistoryReducer";
-import {HistoryProps} from "./redux/HistoryProps";
+import {removeTheOldestHistory} from "./redux/historySlice";
 import {ResultsProps} from "./components/Results/ResultsProps";
+import {Dispatch} from "react";
+import {UnknownAction} from "redux";
 
 export let XOCount: number = 0;
 
-export function resetXOScript() {
+export function resetXOScript(dispatch: Dispatch<UnknownAction>, historyArray: ResultsProps[]) {
+  if (historyArray.length === 3) {
+    dispatch(removeTheOldestHistory());
+  }
   XOCount = 0;
 }
 
@@ -21,7 +25,7 @@ export function onClickXOElement(XOElement: HTMLInputElement, isFirstPlayerStars
 
 export function checkIfPathIsWin(...values: string[]): [boolean, number[]] {
   const isWin = values.every(value => value === values[0] && value !== "");
-  const indexes = isWin ? Array.from({ length: values.length }, (_, i) => i) : [];
+  const indexes = isWin ? values.map((_, i) => i) : [];
   return [isWin, indexes];
 }
 
@@ -54,41 +58,6 @@ export function checkBoard(board: string[][]): [boolean, string, number[][]] {
   }
 
   return [false, '', []];
-}
-
-export function addToHistory(props: HistoryProps & ResultsProps) {
-  props.setHistoryGameState(HistoryReducer(props.historyGameState, {
-    type: ActionTypes.ADD_HISTORY,
-    history: {
-      firstPlayerName: props.firstPlayerName,
-      secondPlayerName: props.secondPlayerName,
-      firstPlayerWins: props.firstPlayerWins,
-      ties: props.ties,
-      secondPlayerWins: props.secondPlayerWins
-    }
-  }));
-}
-
-export function removeOldestHistory(props: HistoryProps & ResultsProps) {
-  props.setHistoryGameState(HistoryReducer(props.historyGameState, {type: ActionTypes.CONSOLE_PRINT, history: {
-      firstPlayerName: props.firstPlayerName,
-      secondPlayerName: props.secondPlayerName,
-      firstPlayerWins: props.firstPlayerWins,
-      ties: props.ties,
-      secondPlayerWins: props.secondPlayerWins
-    }
-  }));
-}
-
-export function showHistory(props: HistoryProps & ResultsProps) {
-  props.setHistoryGameState(HistoryReducer(props.historyGameState, {type: ActionTypes.CONSOLE_PRINT, history: {
-      firstPlayerName: props.firstPlayerName,
-      secondPlayerName: props.secondPlayerName,
-      firstPlayerWins: props.firstPlayerWins,
-      ties: props.ties,
-      secondPlayerWins: props.secondPlayerWins
-    }
-  }));
 }
 
 // Print the XOArray in the alert. Used only in Debugging!
