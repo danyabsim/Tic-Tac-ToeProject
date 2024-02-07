@@ -1,12 +1,3 @@
-#OKButton {
-    font-size: 32px;
-    background-color: #4FFF00;
-    color: black;
-    border: none;
-    margin-top: 40px;
-    font-weight: bold;
-}
-
 #alertText {
     color: black;
 }
@@ -16,4 +7,12 @@
     margin-right: 15px;
     display: inline;
     margin-bottom: 0;
+}
+
+.historyArray {
+    font-size: 32px;
+    background-color: #4FFF00;
+    color: black;
+    border: none;
+    font-weight: bold;
 }
