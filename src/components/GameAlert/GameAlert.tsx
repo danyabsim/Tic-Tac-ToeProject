@@ -6,7 +6,7 @@ import React, {useRef, useState} from "react";
 import {ResultsProps} from "../Results/ResultsProps";
 import { RootState } from '../../redux/store';
 import { useSelector, useDispatch } from 'react-redux';
-import {addHistory, updateLatestHistory, consolePrint, removeTheOldestHistory} from '../../redux/historySlice';
+import {addHistory, updateLatestHistory, consolePrint} from '../../redux/historySlice';
 import {resetXOScript} from "../../XOScript";
 
 function GameAlert(props : GameAlertProps & ResultsProps) {
