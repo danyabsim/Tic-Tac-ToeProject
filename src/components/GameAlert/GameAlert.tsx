@@ -18,7 +18,7 @@ function GameAlert(props : GameAlertProps & ResultsProps) {
 
     // Function to close the modal and perform additional action
     const closeModalAndPerformAction = () => {
-        console.log(historyArray);
+        dispatch(consolePrint());
         resetXOScript();
         props.setModalIsOpen(false);
         console.log('User Clicked On One of The Buttons!');
@@ -26,7 +26,6 @@ function GameAlert(props : GameAlertProps & ResultsProps) {
 
     function resetHandler() {
         closeModalAndPerformAction();
-        dispatch(consolePrint());
         props.resetHandler();
     }
 
