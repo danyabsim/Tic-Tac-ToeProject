@@ -24,16 +24,18 @@ function App() {
     function onEnter(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         // connection to a server to check if such username with that password exists.
-        if (firstPlayerName !== "" && secondPlayerName !== "" && firstPlayerName !== secondPlayerName
-        && firstPlayerSign !== "" && secondPlayerSign !== "" && firstPlayerSign !== secondPlayerSign) {
-            if (firstPlayerSign.length === 1 && secondPlayerSign.length === 1) {
-                setIsOnEnter(false);
+        if (firstPlayerName !== "" && secondPlayerName !== "" && firstPlayerName !== secondPlayerName) {
+            if (firstPlayerSign !== " " && secondPlayerSign !== " " && firstPlayerSign !== secondPlayerSign) {
+                if (firstPlayerSign.length === 1 && secondPlayerSign.length === 1) {
+                    setIsOnEnter(false);
+                } else {
+                    alert("The length of at least one of the signs is not 1!");
+                }
             } else {
-                alert("The length of at least one of the signs is not 1!");
+                alert("Either at least one of the signs contain only space or both are the same!");
             }
-
         } else {
-            alert("Either at least one of the names or signs are not set up or both are the same!");
+            alert("Either at least one of the names are not set up or both are the same!");
         }
     }
 
