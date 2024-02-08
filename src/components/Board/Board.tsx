@@ -69,7 +69,7 @@ function Board(props: BoardProps & GameProps) {
             designWinningPath(indexes);
             setCountSolved(countSolved + 1);
             if (solvedBoard && (innerSolvedChar === props.firstPlayerSign || innerSolvedChar === props.secondPlayerSign)) {
-                if ('X' === innerSolvedChar) {
+                if (props.firstPlayerSign === innerSolvedChar) {
                     setAlertText(props.firstPlayerName + " (" + props.firstPlayerSign + ") Won!");
                 } else {
                     setAlertText(props.secondPlayerName + " (" + props.secondPlayerSign + ") Won!");
@@ -81,13 +81,13 @@ function Board(props: BoardProps & GameProps) {
                 setModalIsOpen(true);
             }, 100);
             switch (innerSolvedChar) {
-                case 'X':
+                case props.firstPlayerSign:
                     props.setFirstPlayerWins(props.firstPlayerWins + 1);
                     if (props.isFirstPlayerStars) {
                         props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
                     }
                     break;
-                case 'O':
+                case props.secondPlayerSign:
                     props.setSecondPlayerWins(props.secondPlayerWins + 1);
                     if (!props.isFirstPlayerStars) {
                         props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
