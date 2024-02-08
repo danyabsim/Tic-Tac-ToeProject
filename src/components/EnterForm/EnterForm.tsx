@@ -3,6 +3,8 @@ import {EnterFormProps} from "./EnterFormProps";
 import './EnterFormStyle.css';
 
 function EnterForm(props: EnterFormProps) {
+    const maxLengthOfSigns = 1;
+
     return (
         <form id="enter" onSubmit={props.onEnter}>
             <div className="form-group">
@@ -19,6 +21,7 @@ function EnterForm(props: EnterFormProps) {
                     type="text"
                     value={props.firstPlayerSign}
                     onChange={(event) => {props.setFirstPlayerSign(event.currentTarget.value)}}
+                    maxLength={maxLengthOfSigns}
                     data-testid="firstPlayerSign" />
             </div>
 
@@ -36,6 +39,7 @@ function EnterForm(props: EnterFormProps) {
                     type="text"
                     value={props.secondPlayerSign}
                     onChange={(event) => {props.setSecondPlayerSign(event.currentTarget.value)}}
+                    maxLength={maxLengthOfSigns}
                     data-testid="secondPlayerSign" />
             </div>
 
