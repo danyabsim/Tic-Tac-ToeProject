@@ -1,14 +1,6 @@
-import {removeTheOldestHistory} from "./redux/historySlice";
-import {ResultsProps} from "./components/Results/ResultsProps";
-import {Dispatch} from "react";
-import {UnknownAction} from "redux";
-
 export let XOCount: number = 0;
 
-export function resetXOScript(dispatch: Dispatch<UnknownAction>, historyArray: ResultsProps[]) {
-    if (historyArray.length === 3) {
-        dispatch(removeTheOldestHistory());
-    }
+export function resetXOScript() {
     XOCount = 0;
 }
 

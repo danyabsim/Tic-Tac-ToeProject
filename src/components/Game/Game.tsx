@@ -4,8 +4,6 @@ import Board from "../Board/Board";
 import EndGameButton from "../EndGameButton/EndGameButton";
 import {GameProps} from "./GameProps";
 import './GameStyle.css';
-import {removeAllHistory} from "../../redux/historySlice";
-import {useDispatch} from "react-redux";
 
 function Game(props: GameProps) {
     const [isFirstPlayerStars, setIsFirstPlayerStars] = useState(true);
@@ -13,7 +11,6 @@ function Game(props: GameProps) {
     const [firstPlayerWins, setFirstPlayerWins] = useState(0);
     const [ties, setTies] = useState(0);
     const [secondPlayerWins, setSecondPlayerWins] = useState(0);
-    const dispatch = useDispatch();
 
     function resetHandler() {
         setIsFirstPlayerStars(true);
@@ -36,7 +33,6 @@ function Game(props: GameProps) {
     }
 
     function resetTheApp() {
-        dispatch(removeAllHistory());
         resetHandler();
         props.resetTheApp();
     }

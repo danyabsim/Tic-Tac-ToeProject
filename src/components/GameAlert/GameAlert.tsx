@@ -18,9 +18,10 @@ function GameAlert(props : GameAlertProps & ResultsProps) {
 
     // Function to close the modal and perform additional action
     const closeModalAndPerformAction = () => {
-        resetXOScript(dispatch, historyArray);
+        console.log(historyArray);
+        resetXOScript();
         props.setModalIsOpen(false);
-        console.log('User clicked On One of The Buttons!');
+        console.log('User Clicked On One of The Buttons!');
     };
 
     function resetHandler() {
@@ -51,6 +52,7 @@ function GameAlert(props : GameAlertProps & ResultsProps) {
         if (audioRef.current) {
             audioRef.current.play().then(r => r);
         }
+        console.log(historyArray);
     }
 
     return (
@@ -79,10 +81,9 @@ function GameAlert(props : GameAlertProps & ResultsProps) {
         >
             <audio ref={audioRef} src={process.env.PUBLIC_URL + '/sounds/Audience_Applause-Matthiew11-1206899159.wav'} onError={(e) => console.error('Audio error:', e)} />
             <div className="form-group" id="reactModal">
-                {historyArray.map((item, index) => (
-                    <div className="historyArray" key={index}>
-                        {item.firstPlayerName}: {item.firstPlayerWins} (Ties: {item.ties}) {item.secondPlayerName}: {item.secondPlayerWins}</div>
-                ))}
+                <div className="historyArray">
+                    {historyArray[0]?.firstPlayerName}: {historyArray[0]?.firstPlayerWins} (Ties: {historyArray[0]?.ties}) {historyArray[0]?.secondPlayerName}: {historyArray[0]?.secondPlayerWins}
+                </div>
                 <h2 id="alertText">{props.alertText}</h2>
                 <input type="button" className="form-group" id="reset" onClick={resetHandler} value="Reset" />
                 <input type="button" className="form-group" id="nextGame" onClick={nextGameHandler} value="Next Game" />

@@ -1,15 +1,10 @@
 import './EndGameButtonStyle.css';
 import {EndGameButtonProps} from "./EndGameButtonProps";
 import {resetXOScript} from "../../XOScript";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../redux/store";
 
 function EndGameButton(props: EndGameButtonProps) {
-    const dispatch = useDispatch();
-    const historyArray = useSelector((state: RootState) => state.history.historyArray);
-
     function exitHandler() {
-        resetXOScript(dispatch, historyArray);
+        resetXOScript();
         props.resetTheApp();
     }
 
