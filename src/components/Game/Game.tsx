@@ -55,6 +55,8 @@ function Game(props: GameProps) {
                 <Board
                     firstPlayerName={props.firstPlayerName}
                     secondPlayerName={props.secondPlayerName}
+                    firstPlayerSign={props.firstPlayerSign}
+                    secondPlayerSign={props.secondPlayerSign}
                     firstPlayerWins={firstPlayerWins}
                     setFirstPlayerWins={setFirstPlayerWins}
                     ties={ties}

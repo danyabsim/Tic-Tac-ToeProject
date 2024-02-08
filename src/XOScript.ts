@@ -12,13 +12,13 @@ export function resetXOScript(dispatch: Dispatch<UnknownAction>, historyArray: R
   XOCount = 0;
 }
 
-export function onClickXOElement(XOElement: HTMLInputElement, isFirstPlayerStars: boolean): void {
+export function onClickXOElement(XOElement: HTMLInputElement, isFirstPlayerStars: boolean, firstPlayerSign: string,  secondPlayerSign: string): void {
   if (XOElement.value === "") {
     XOCount++;
     if (XOCount % 2 === 1) {
-      XOElement.value = (isFirstPlayerStars ? "X" : "O");
+      XOElement.value = (isFirstPlayerStars ? firstPlayerSign : secondPlayerSign);
     } else {
-      XOElement.value = (isFirstPlayerStars ? "O" : "X");
+      XOElement.value = (isFirstPlayerStars ? secondPlayerSign : firstPlayerSign);
     }
   }
 }

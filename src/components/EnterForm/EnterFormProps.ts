@@ -6,4 +6,8 @@ export interface EnterFormProps {
     secondPlayerName: string;
     setFirstPlayerName: Dispatch<SetStateAction<string>>;
     setSecondPlayerName: Dispatch<SetStateAction<string>>;
+    firstPlayerSign: string;
+    secondPlayerSign: string;
+    setFirstPlayerSign: Dispatch<SetStateAction<string>>;
+    setSecondPlayerSign: Dispatch<SetStateAction<string>>;
 }

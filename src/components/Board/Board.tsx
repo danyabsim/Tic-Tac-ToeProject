@@ -57,7 +57,7 @@ function Board(props: BoardProps & GameProps) {
         if (checkBoard(props.XOArray)[0]) {
             return;
         }
-        onClickXOElement(event.currentTarget, props.isFirstPlayerStars);
+        onClickXOElement(event.currentTarget, props.isFirstPlayerStars, props.firstPlayerSign,  props.secondPlayerSign);
         let XOArray : string[][] = props.XOArray;
         const XO_Column = parseInt(event.currentTarget.id.charAt(2));
         const XO_Row = parseInt(event.currentTarget.id.charAt(3));
@@ -68,11 +68,11 @@ function Board(props: BoardProps & GameProps) {
         if ((solvedBoard && countSolved === 0) || XOCount === 9) {
             designWinningPath(indexes);
             setCountSolved(countSolved + 1);
-            if (solvedBoard && (innerSolvedChar === 'X' || innerSolvedChar === 'O')) {
+            if (solvedBoard && (innerSolvedChar === props.firstPlayerSign || innerSolvedChar === props.secondPlayerSign)) {
                 if ('X' === innerSolvedChar) {
-                    setAlertText(props.firstPlayerName + " (X) Won!");
+                    setAlertText(props.firstPlayerName + " (" + props.firstPlayerSign + ") Won!");
                 } else {
-                    setAlertText(props.secondPlayerName + " (O) Won!");
+                    setAlertText(props.secondPlayerName + " (" + props.secondPlayerSign + ") Won!");
                 }
             } else {
                 setAlertText("Game Ended With a Tie!");

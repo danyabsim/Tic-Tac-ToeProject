@@ -6,23 +6,37 @@ function EnterForm(props: EnterFormProps) {
     return (
         <form id="enter" onSubmit={props.onEnter}>
             <div className="form-group">
-                <label htmlFor="firstPlayer">First Player Name (X):</label>
+                <label htmlFor="firstPlayerName">First Player Name:</label>
                 <input
-                    id="firstPlayer"
+                    id="firstPlayerName"
                     type="text"
                     value={props.firstPlayerName}
                     onChange={(event) => {props.setFirstPlayerName(event.currentTarget.value)}}
-                    data-testid="firstPlayer" />
+                    data-testid="firstPlayerName" />
+                <label htmlFor="firstPlayerSign">First Player Sign:</label>
+                <input
+                    id="firstPlayerSign"
+                    type="text"
+                    value={props.firstPlayerSign}
+                    onChange={(event) => {props.setFirstPlayerSign(event.currentTarget.value)}}
+                    data-testid="firstPlayerSign" />
             </div>
 
             <div className="form-group">
-                <label htmlFor="secondPlayer">Second Player Name (O):</label>
+                <label htmlFor="secondPlayerName">Second Player Name:</label>
                 <input
-                    id="secondPlayer"
+                    id="secondPlayerName"
                     type="text"
                     value={props.secondPlayerName}
                     onChange={(event) => {props.setSecondPlayerName(event.currentTarget.value)}}
-                    data-testid="secondPlayer" />
+                    data-testid="secondPlayerName" />
+                <label htmlFor="secondPlayerSign">Second Player Sign:</label>
+                <input
+                    id="secondPlayerSign"
+                    type="text"
+                    value={props.secondPlayerSign}
+                    onChange={(event) => {props.setSecondPlayerSign(event.currentTarget.value)}}
+                    data-testid="secondPlayerSign" />
             </div>
 
             <div className="form-group">
