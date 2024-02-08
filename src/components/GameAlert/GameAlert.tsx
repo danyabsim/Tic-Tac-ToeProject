@@ -25,7 +25,6 @@ function GameAlert(props : GameAlertProps & ResultsProps) {
 
     function resetHandler() {
         closeModalAndPerformAction();
-        dispatch(addHistory({ ...props }));
         dispatch(consolePrint());
         props.resetHandler();
     }
