@@ -116,6 +116,8 @@ function Board(props: BoardProps & GameProps) {
                 ties={props.ties}
                 secondPlayerWins={props.secondPlayerWins}
                 resetTheApp={props.resetTheApp}
+                firstPlayerSign={props.firstPlayerSign}
+                secondPlayerSign={props.secondPlayerSign}
             />
             <form id="board">
                 {props.XOArray.map((row, rowIndex) => (

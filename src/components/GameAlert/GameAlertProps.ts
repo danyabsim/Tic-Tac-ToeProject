@@ -8,4 +8,6 @@ export interface GameAlertProps {
     resetHandler: () => void;
     nextGameHandler: () => void;
     resetTheApp: () => void;
+    firstPlayerSign: string;
+    secondPlayerSign: string;
 }
