@@ -1,12 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ResultsProps } from "../components/Results/ResultsProps";
 
-// Renamed the interface to avoid naming conflicts
-export interface HistoryReducerState {
-    historyArray: ResultsProps[];
+export interface historyArrayProps {
+    firstPlayerName: string;
+    secondPlayerName: string;
+    firstPlayerWins: number;
+    ties: number;
+    secondPlayerWins: number;
 }
 
-// Renamed the initial state variable
+export interface HistoryReducerState {
+    historyArray: historyArrayProps[];
+}
+
 export const initialHistoryState: HistoryReducerState = {
     historyArray: [],
 };
@@ -17,9 +22,6 @@ const historySlice = createSlice({
     reducers: {
         addHistory: (state, action) => {
             state.historyArray = [...state.historyArray, action.payload];
-        },
-        removeTheOldestHistory: (state) => {
-            state.historyArray = state.historyArray.slice(1);
         },
         updateLatestHistory: (state, action) => {
             const lastIndex = state.historyArray.length - 1;
@@ -36,5 +38,5 @@ const historySlice = createSlice({
     },
 });
 
-export const { addHistory, removeTheOldestHistory, updateLatestHistory, removeAllHistory, consolePrint } = historySlice.actions;
+export const { addHistory, updateLatestHistory, removeAllHistory, consolePrint } = historySlice.actions;
 export default historySlice.reducer;

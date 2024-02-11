@@ -1,16 +1,13 @@
 import React, {useState} from 'react';
 import BoardButton from "../BoardButton/BoardButton";
 import {BoardProps} from "./BoardProps";
-import {
-    checkBoard,
-    onClickXOElement,
-    XOCount
-} from "../../XOScript";
+import {checkBoard, OnClickXOButton, XOCount} from "../../XOScript";
 import "./BoardStyle.css";
-import {GameProps} from "../Game/GameProps";
 import GameAlert from "../GameAlert/GameAlert";
+import {useDispatch} from "react-redux";
+import {addTie, firstPlayerWon, secondPlayerWon} from "../../redux/resultsSlice";
 
-function Board(props: BoardProps & GameProps) {
+function Board(props: BoardProps) {
     const [countSolved, setCountSolved] = useState(0);
     const [XOClassNames, setXOClassNames] = useState([
         ["XO", "XO", "XO"],
@@ -20,6 +17,13 @@ function Board(props: BoardProps & GameProps) {
     const [alertText, setAlertText] = useState("");
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [solvedChar, setSolvedChar] = useState("");
+    const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
+    const [XOFileURLs, setXOFiles] = useState<(string | null)[][]>([
+        [noImage, noImage, noImage],
+        [noImage, noImage, noImage],
+        [noImage, noImage, noImage],
+    ]);
+    const dispatch = useDispatch();
 
     function resetHandler() {
         props.resetHandler();
@@ -27,6 +31,11 @@ function Board(props: BoardProps & GameProps) {
             ["XO", "XO", "XO"],
             ["XO", "XO", "XO"],
             ["XO", "XO", "XO"],
+        ]);
+        setXOFiles([
+            [noImage, noImage, noImage],
+            [noImage, noImage, noImage],
+            [noImage, noImage, noImage],
         ]);
     }
 
@@ -36,6 +45,11 @@ function Board(props: BoardProps & GameProps) {
             ["XO", "XO", "XO"],
             ["XO", "XO", "XO"],
             ["XO", "XO", "XO"],
+        ]);
+        setXOFiles([
+            [noImage, noImage, noImage],
+            [noImage, noImage, noImage],
+            [noImage, noImage, noImage],
         ]);
     }
 
@@ -49,7 +63,7 @@ function Board(props: BoardProps & GameProps) {
         setXOClassNames(newXOClassNames);
     }
 
-    function onClickBoardButtonElement(event : React.MouseEvent<HTMLInputElement>) {
+    function onClickBoardButtonElement(event: React.MouseEvent<HTMLInputElement>) {
         if (props.XOArray.every(row => row.every(item => item === ""))) {
             setCountSolved(0);
             setSolvedChar("");
@@ -57,12 +71,32 @@ function Board(props: BoardProps & GameProps) {
         if (checkBoard(props.XOArray)[0]) {
             return;
         }
-        onClickXOElement(event.currentTarget, props.isFirstPlayerStars, props.firstPlayerSign,  props.secondPlayerSign);
-        let XOArray : string[][] = props.XOArray;
+        let XOArray: string[][] = props.XOArray;
         const XO_Column = parseInt(event.currentTarget.id.charAt(2));
         const XO_Row = parseInt(event.currentTarget.id.charAt(3));
-        XOArray[XO_Column - 1][XO_Row - 1] = event.currentTarget.value;
+        console.log(XOArray[XO_Column - 1][XO_Row - 1])
+        if (XOArray[XO_Column - 1][XO_Row - 1] === "") {
+            OnClickXOButton();
+            if (XOCount % 2 === 1) {
+                XOArray[XO_Column - 1][XO_Row - 1] = (props.isFirstPlayerStars ? props.firstPlayerSign : props.secondPlayerSign);
+            } else {
+                XOArray[XO_Column - 1][XO_Row - 1] = (props.isFirstPlayerStars ? props.secondPlayerSign : props.firstPlayerSign);
+            }
+        }
+        console.log(XOArray[XO_Column - 1][XO_Row - 1])
         props.setXOArray(XOArray);
+
+        let tempXOFileURLs: (string | null)[][] = XOFileURLs;
+        tempXOFileURLs[XO_Column - 1][XO_Row - 1] = (
+            XOArray[XO_Column - 1][XO_Row - 1] === props.firstPlayerSign
+                ? props.fileFirstPlayerURL
+                : (XOArray[XO_Column - 1][XO_Row - 1] === props.secondPlayerSign
+                        ? props.fileSecondPlayerURL
+                        : noImage
+                )
+        );
+        setXOFiles(tempXOFileURLs);
+
         const [solvedBoard, innerSolvedChar, indexes] = checkBoard(props.XOArray);
         setSolvedChar(innerSolvedChar);
         if ((solvedBoard && countSolved === 0) || XOCount === 9) {
@@ -77,24 +111,24 @@ function Board(props: BoardProps & GameProps) {
             } else {
                 setAlertText("Game Ended With a Tie!");
             }
-            setTimeout(function(): void {
+            setTimeout(function (): void {
                 setModalIsOpen(true);
             }, 100);
             switch (innerSolvedChar) {
                 case props.firstPlayerSign:
-                    props.setFirstPlayerWins(props.firstPlayerWins + 1);
+                    dispatch(firstPlayerWon());
                     if (props.isFirstPlayerStars) {
                         props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
                     }
                     break;
                 case props.secondPlayerSign:
-                    props.setSecondPlayerWins(props.secondPlayerWins + 1);
+                    dispatch(secondPlayerWon());
                     if (!props.isFirstPlayerStars) {
                         props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
                     }
                     break;
                 case '':
-                    props.setTies(props.ties + 1);
+                    dispatch(addTie());
                     props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
                     break;
             }
@@ -110,14 +144,11 @@ function Board(props: BoardProps & GameProps) {
                 setModalIsOpen={setModalIsOpen}
                 resetHandler={resetHandler}
                 nextGameHandler={nextGameHandler}
-                firstPlayerName={props.firstPlayerName}
-                secondPlayerName={props.secondPlayerName}
-                firstPlayerWins={props.firstPlayerWins}
-                ties={props.ties}
-                secondPlayerWins={props.secondPlayerWins}
                 resetTheApp={props.resetTheApp}
                 firstPlayerSign={props.firstPlayerSign}
                 secondPlayerSign={props.secondPlayerSign}
+                firstPlayerName={props.firstPlayerName}
+                secondPlayerName={props.secondPlayerName}
             />
             <form id="board">
                 {props.XOArray.map((row, rowIndex) => (
@@ -129,6 +160,7 @@ function Board(props: BoardProps & GameProps) {
                                 id={`XO${rowIndex + 1}${colIndex + 1}`}
                                 value={cell}
                                 onClick={onClickBoardButtonElement}
+                                fileURL={XOFileURLs[rowIndex][colIndex]}
                             />
                         ))}
                     </div>

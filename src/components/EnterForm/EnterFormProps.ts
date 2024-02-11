@@ -10,4 +10,8 @@ export interface EnterFormProps {
     secondPlayerSign: string;
     setFirstPlayerSign: Dispatch<SetStateAction<string>>;
     setSecondPlayerSign: Dispatch<SetStateAction<string>>;
+    setSelectedFirstPlayerFile: Dispatch<SetStateAction<File | null>>
+    setSelectedSecondPlayerFile: Dispatch<SetStateAction<File | null>>
+    setFileFirstPlayerURL: Dispatch<SetStateAction<string | null>>
+    setFileSecondPlayerURL: Dispatch<SetStateAction<string | null>>
 }

@@ -4,4 +4,6 @@ export interface GameProps {
     resetTheApp: () => void;
     firstPlayerSign: string;
     secondPlayerSign: string;
+    fileFirstPlayerURL: string | null;
+    fileSecondPlayerURL: string | null;
 }

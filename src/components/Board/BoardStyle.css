@@ -4,6 +4,12 @@
     grid-template-columns: repeat(3, 0fr); /* Three columns, each taking equal space */
 }
 
+img {
+    height: 90px;
+    width: 90px;
+    background-size: cover;
+}
+
 input[type="button"].XO, input[type="button"].WinningXO
 {
     height: 150px;

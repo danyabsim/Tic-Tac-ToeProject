@@ -1,7 +1,6 @@
 export interface ResultsProps {
     firstPlayerName: string;
     secondPlayerName: string;
-    firstPlayerWins: number;
-    ties: number;
-    secondPlayerWins: number;
+    fileFirstPlayerURL: string | null;
+    fileSecondPlayerURL: string | null;
 }

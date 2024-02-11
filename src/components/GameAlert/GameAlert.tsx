@@ -2,16 +2,16 @@ import Modal from 'react-modal';
 import {GameAlertProps} from "./GameAlertProps";
 import './GameAlertStyle.css';
 import React, {useRef, useState} from "react";
-import {ResultsProps} from "../Results/ResultsProps";
 import {RootState} from '../../redux/store';
 import {useDispatch, useSelector} from 'react-redux';
 import {addHistory, consolePrint, updateLatestHistory} from '../../redux/historySlice';
 import {resetXOScript} from "../../XOScript";
 import {contentStyles, overlayStyles} from "./GameAlertScriptsStyle";
 
-function GameAlert(props: GameAlertProps & ResultsProps) {
+function GameAlert(props: GameAlertProps) {
     const dispatch = useDispatch();
     const historyArray = useSelector((state: RootState) => state.history.historyArray);
+    const {firstPlayerWins, ties, secondPlayerWins} = useSelector((state: RootState) => state.results);
     const [countUpdate, setCountUpdate] = useState(0);
 
     // Function to close the modal and perform additional action
@@ -41,9 +41,21 @@ function GameAlert(props: GameAlertProps & ResultsProps) {
 
     function openModalAndPerformAction() {
         if (countUpdate === 0) {
-            dispatch(addHistory({...props}));
+            dispatch(addHistory({
+                firstPlayerName: props.firstPlayerName,
+                secondPlayerName: props.secondPlayerName,
+                firstPlayerWins: firstPlayerWins,
+                ties: ties,
+                secondPlayerWins: secondPlayerWins,
+                }));
         } else {
-            dispatch(updateLatestHistory({...props}));
+            dispatch(updateLatestHistory({
+                firstPlayerName: props.firstPlayerName,
+                secondPlayerName: props.secondPlayerName,
+                firstPlayerWins: firstPlayerWins,
+                ties: ties,
+                secondPlayerWins: secondPlayerWins,
+            }));
         }
         setCountUpdate(countUpdate + 1);
         if (audioRef.current) {

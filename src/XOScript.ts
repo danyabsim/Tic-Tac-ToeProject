@@ -4,15 +4,8 @@ export function resetXOScript() {
     XOCount = 0;
 }
 
-export function onClickXOElement(XOElement: HTMLInputElement, isFirstPlayerStars: boolean, firstPlayerSign: string, secondPlayerSign: string): void {
-    if (XOElement.value === "") {
-        XOCount++;
-        if (XOCount % 2 === 1) {
-            XOElement.value = (isFirstPlayerStars ? firstPlayerSign : secondPlayerSign);
-        } else {
-            XOElement.value = (isFirstPlayerStars ? secondPlayerSign : firstPlayerSign);
-        }
-    }
+export function OnClickXOButton() {
+    XOCount = XOCount + 1;
 }
 
 export function checkIfPathIsWin(...values: string[]): [boolean, number[]] {

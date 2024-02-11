@@ -10,4 +10,6 @@ export interface GameAlertProps {
     resetTheApp: () => void;
     firstPlayerSign: string;
     secondPlayerSign: string;
+    firstPlayerName: string;
+    secondPlayerName: string;
 }

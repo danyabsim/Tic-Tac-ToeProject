@@ -4,19 +4,19 @@ import Board from "../Board/Board";
 import EndGameButton from "../EndGameButton/EndGameButton";
 import {GameProps} from "./GameProps";
 import './GameStyle.css';
+import {useDispatch} from "react-redux";
+import {resetTheResults} from "../../redux/resultsSlice";
+import {removeAllHistory} from "../../redux/historySlice";
 
 function Game(props: GameProps) {
     const [isFirstPlayerStars, setIsFirstPlayerStars] = useState(true);
     const [XOArray, setXOArray] = useState([["", "", ""], ["", "", ""], ["", "", ""]]);
-    const [firstPlayerWins, setFirstPlayerWins] = useState(0);
-    const [ties, setTies] = useState(0);
-    const [secondPlayerWins, setSecondPlayerWins] = useState(0);
+    const dispatch = useDispatch();
 
     function resetHandler() {
+        dispatch(removeAllHistory());
+        dispatch(resetTheResults());
         setIsFirstPlayerStars(true);
-        setFirstPlayerWins(0);
-        setTies(0);
-        setSecondPlayerWins(0);
         setXOArray([
             ["", "", ""],
             ["", "", ""],
@@ -44,21 +44,14 @@ function Game(props: GameProps) {
                 <Results
                     firstPlayerName={props.firstPlayerName}
                     secondPlayerName={props.secondPlayerName}
-                    firstPlayerWins={firstPlayerWins}
-                    ties={ties}
-                    secondPlayerWins={secondPlayerWins}
+                    fileFirstPlayerURL={props.fileFirstPlayerURL}
+                    fileSecondPlayerURL={props.fileSecondPlayerURL}
                 />
                 <Board
                     firstPlayerName={props.firstPlayerName}
                     secondPlayerName={props.secondPlayerName}
                     firstPlayerSign={props.firstPlayerSign}
                     secondPlayerSign={props.secondPlayerSign}
-                    firstPlayerWins={firstPlayerWins}
-                    setFirstPlayerWins={setFirstPlayerWins}
-                    ties={ties}
-                    setTies={setTies}
-                    secondPlayerWins={secondPlayerWins}
-                    setSecondPlayerWins={setSecondPlayerWins}
                     isFirstPlayerStars={isFirstPlayerStars}
                     setIsFirstPlayerStars={setIsFirstPlayerStars}
                     XOArray={XOArray}
@@ -66,6 +59,8 @@ function Game(props: GameProps) {
                     resetHandler={resetHandler}
                     nextGameHandler={nextGameHandler}
                     resetTheApp={resetTheApp}
+                    fileFirstPlayerURL={props.fileFirstPlayerURL}
+                    fileSecondPlayerURL={props.fileSecondPlayerURL}
                 />
                 <EndGameButton
                     resetTheApp={resetTheApp}

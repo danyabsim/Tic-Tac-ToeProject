@@ -12,6 +12,10 @@ function App() {
     const [secondPlayerName, setSecondPlayerName] = useState('');
     const [firstPlayerSign, setFirstPlayerSign] = useState('X');
     const [secondPlayerSign, setSecondPlayerSign] = useState('O');
+    const [selectedFirstPlayerFile, setSelectedFirstPlayerFile] = useState<File | null>(null);
+    const [selectedSecondPlayerFile, setSelectedSecondPlayerFile] = useState<File | null>(null);
+    const [fileFirstPlayerURL, setFileFirstPlayerURL] = useState<string | null>(null);
+    const [fileSecondPlayerURL, setFileSecondPlayerURL] = useState<string | null>(null);
 
     function resetTheApp() {
         setIsOnEnter(true);
@@ -19,6 +23,10 @@ function App() {
         setSecondPlayerName("");
         setFirstPlayerSign('X');
         setSecondPlayerSign('O');
+        setSelectedFirstPlayerFile(null);
+        setSelectedSecondPlayerFile(null);
+        setFileFirstPlayerURL(null);
+        setFileSecondPlayerURL(null);
     }
 
     function onEnter(event: React.FormEvent<HTMLFormElement>) {
@@ -35,6 +43,10 @@ function App() {
             }
         } else {
             alert("Either at least one of the names are not set up or both are the same!");
+        }
+        if (selectedFirstPlayerFile && selectedSecondPlayerFile) {
+            setFirstPlayerSign('X');
+            setSecondPlayerSign('O');
         }
     }
 
@@ -57,6 +69,10 @@ function App() {
                                         setFirstPlayerSign={setFirstPlayerSign}
                                         secondPlayerSign={secondPlayerSign}
                                         setSecondPlayerSign={setSecondPlayerSign}
+                                        setSelectedFirstPlayerFile={setSelectedFirstPlayerFile}
+                                        setSelectedSecondPlayerFile={setSelectedSecondPlayerFile}
+                                        setFileFirstPlayerURL={setFileFirstPlayerURL}
+                                        setFileSecondPlayerURL={setFileSecondPlayerURL}
                                     />
                                 ) : (
                                     <Navigate to="/game" />
@@ -73,6 +89,8 @@ function App() {
                                         resetTheApp={resetTheApp}
                                         firstPlayerSign={firstPlayerSign}
                                         secondPlayerSign={secondPlayerSign}
+                                        fileFirstPlayerURL={fileFirstPlayerURL}
+                                        fileSecondPlayerURL={fileSecondPlayerURL}
                                     />
                                 ) : (
                                     <Navigate to="/" />
