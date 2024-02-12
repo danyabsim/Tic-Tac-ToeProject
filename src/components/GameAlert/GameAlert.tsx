@@ -13,6 +13,7 @@ function GameAlert(props: GameAlertProps) {
     const historyArray = useSelector((state: RootState) => state.history.historyArray);
     const {firstPlayerWins, ties, secondPlayerWins} = useSelector((state: RootState) => state.results);
     const [countUpdate, setCountUpdate] = useState(0);
+    const currentHistory = historyArray[historyArray.length - 1];
 
     // Function to close the modal and perform additional action
     const closeModalAndPerformAction = () => {
@@ -47,7 +48,7 @@ function GameAlert(props: GameAlertProps) {
                 firstPlayerWins: firstPlayerWins,
                 ties: ties,
                 secondPlayerWins: secondPlayerWins,
-                }));
+            }));
         } else {
             dispatch(updateLatestHistory({
                 firstPlayerName: props.firstPlayerName,
@@ -81,7 +82,7 @@ function GameAlert(props: GameAlertProps) {
                    onError={(e) => console.error('Audio error:', e)}/>
             <div className="form-group" id="reactModal">
                 <div className="historyArray">
-                    {historyArray[0]?.firstPlayerName}: {historyArray[0]?.firstPlayerWins} (Ties: {historyArray[0]?.ties}) {historyArray[0]?.secondPlayerName}: {historyArray[0]?.secondPlayerWins}
+                    {currentHistory?.firstPlayerName}: {currentHistory?.firstPlayerWins} (Ties: {currentHistory?.ties}) {currentHistory?.secondPlayerName}: {currentHistory?.secondPlayerWins}
                 </div>
                 <h2 id="alertText">{props.alertText}</h2>
                 <input type="button" className="form-group" id="reset" onClick={resetHandler} value="Reset"/>

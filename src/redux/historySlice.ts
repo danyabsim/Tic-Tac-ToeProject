@@ -1,4 +1,5 @@
-import { createSlice } from '@reduxjs/toolkit';
+import {createSlice} from '@reduxjs/toolkit';
+import {saveAs} from 'file-saver';
 
 export interface historyArrayProps {
     firstPlayerName: string;
@@ -35,8 +36,20 @@ const historySlice = createSlice({
         consolePrint: (state) => {
             console.log(state.historyArray);
         },
+        exportHistoryToFile: (state) => {
+            if (state.historyArray.length !== 0) {
+                // Convert the historyArray to a JSON string
+                const jsonData = JSON.stringify(state.historyArray, null, 2);
+
+                // Convert the JSON string to a Blob
+                const blob = new Blob([jsonData], {type: 'application/json;charset=utf-8'});
+
+                // Use FileSaver to save the Blob as a file
+                saveAs(blob, 'historyData.json');
+            }
+        },
     },
 });
 
-export const { addHistory, updateLatestHistory, removeAllHistory, consolePrint } = historySlice.actions;
+export const {addHistory, updateLatestHistory, removeAllHistory, consolePrint, exportHistoryToFile} = historySlice.actions;
 export default historySlice.reducer;

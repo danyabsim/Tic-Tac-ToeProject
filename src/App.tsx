@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import Game from "./components/Game/Game";
-import {BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import EnterForm from "./components/EnterForm/EnterForm";
 import store from "./redux/store";
 import {Provider} from "react-redux";
@@ -37,7 +37,7 @@ function App() {
                 && secondPlayerSign !== " " && secondPlayerSign !== ""
                 && firstPlayerSign !== secondPlayerSign
                 && firstPlayerSign.length === 1 && secondPlayerSign.length === 1) {
-                    setIsOnEnter(false);
+                setIsOnEnter(false);
             } else {
                 alert("Either at least one of the signs contain only space or empty or both are the same!");
             }
@@ -75,7 +75,7 @@ function App() {
                                         setFileSecondPlayerURL={setFileSecondPlayerURL}
                                     />
                                 ) : (
-                                    <Navigate to="/game" />
+                                    <Navigate to="/game"/>
                                 )
                             }
                         />
@@ -93,7 +93,7 @@ function App() {
                                         fileSecondPlayerURL={fileSecondPlayerURL}
                                     />
                                 ) : (
-                                    <Navigate to="/" />
+                                    <Navigate to="/"/>
                                 )
                             }
                         />

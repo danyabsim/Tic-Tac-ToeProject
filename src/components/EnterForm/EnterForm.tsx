@@ -1,9 +1,29 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useEffect} from "react";
 import {EnterFormProps} from "./EnterFormProps";
 import './EnterFormStyle.css';
+import {exportHistoryToFile} from "../../redux/historySlice";
+import {useDispatch} from "react-redux";
 
 function EnterForm(props: EnterFormProps) {
     const maxLengthOfSigns = 1;
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+            // Your logic here, for example, show a confirmation message
+            const confirmationMessage = 'Are you sure you want to reload the page?';
+            event.returnValue = confirmationMessage; // Standard for most browsers
+            dispatch(exportHistoryToFile());
+            return confirmationMessage; // For some older browsers
+        };
+
+        window.addEventListener('beforeunload', handleBeforeUnload);
+
+        // Cleanup the event listener when the component is unmounted
+        return () => {
+            window.removeEventListener('beforeunload', handleBeforeUnload);
+        };
+    }, [dispatch]);
 
     function handleFileChange(event: ChangeEvent<HTMLInputElement>, where: string) {
         const files = event.target.files;
@@ -61,7 +81,7 @@ function EnterForm(props: EnterFormProps) {
                     }}
                     maxLength={maxLengthOfSigns}
                     data-testid="firstPlayerSign"/>
-                <input type="file" onChange={handleFirstPlayerFileChange} accept="image/*" />
+                <input type="file" onChange={handleFirstPlayerFileChange} accept="image/*"/>
             </div>
 
             <div className="form-group">
@@ -84,7 +104,7 @@ function EnterForm(props: EnterFormProps) {
                     }}
                     maxLength={maxLengthOfSigns}
                     data-testid="secondPlayerSign"/>
-                <input type="file" onChange={handleSecondPlayerFileChange} accept="image/*" />
+                <input type="file" onChange={handleSecondPlayerFileChange} accept="image/*"/>
             </div>
 
             <div className="form-group">
