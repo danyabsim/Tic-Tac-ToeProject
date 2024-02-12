@@ -1,19 +1,22 @@
 import React from "react";
 import {BoardButtonProps} from "./BoardButtonProps";
+import {divStyle} from "./BoardButtonScriptsStyle";
 
 function BoardButton(props: BoardButtonProps) {
     const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
 
     function onClickXOElement(event: React.MouseEvent<HTMLDivElement>) {
-        // @ts-ignore
-        props.onClick(event);
+        if (props.onClick) {
+            props.onClick(event);
+        }
     }
 
     return (
         <div
-            style={{width: "150px", height: "150px", overflow: "hidden", margin: 0}}
+            style={divStyle()}
             id={props.id}
-            onClick={onClickXOElement} className={props.className}
+            onClick={onClickXOElement}
+            className={props.className}
         >
             {(props.fileURL === noImage) ? (
                 <input
