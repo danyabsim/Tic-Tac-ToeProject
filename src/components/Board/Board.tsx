@@ -63,7 +63,7 @@ function Board(props: BoardProps) {
         setXOClassNames(newXOClassNames);
     }
 
-    function onClickBoardButtonElement(event: React.MouseEvent<HTMLInputElement>) {
+    function onClickBoardButtonElement(event: React.MouseEvent<HTMLDivElement>) {
         if (props.XOArray.every(row => row.every(item => item === ""))) {
             setCountSolved(0);
             setSolvedChar("");
@@ -86,16 +86,18 @@ function Board(props: BoardProps) {
         console.log(XOArray[XO_Column - 1][XO_Row - 1])
         props.setXOArray(XOArray);
 
-        let tempXOFileURLs: (string | null)[][] = XOFileURLs;
-        tempXOFileURLs[XO_Column - 1][XO_Row - 1] = (
-            XOArray[XO_Column - 1][XO_Row - 1] === props.firstPlayerSign
-                ? props.fileFirstPlayerURL
-                : (XOArray[XO_Column - 1][XO_Row - 1] === props.secondPlayerSign
-                        ? props.fileSecondPlayerURL
-                        : noImage
-                )
-        );
-        setXOFiles(tempXOFileURLs);
+        setXOFiles(prevXOFiles => {
+            let tempXOFileURLs = [...prevXOFiles];
+            tempXOFileURLs[XO_Column - 1][XO_Row - 1] = (
+                XOArray[XO_Column - 1][XO_Row - 1] === props.firstPlayerSign
+                    ? props.fileFirstPlayerURL
+                    : (XOArray[XO_Column - 1][XO_Row - 1] === props.secondPlayerSign
+                            ? props.fileSecondPlayerURL
+                            : noImage
+                    )
+            );
+            return tempXOFileURLs;
+        });
 
         const [solvedBoard, innerSolvedChar, indexes] = checkBoard(props.XOArray);
         setSolvedChar(innerSolvedChar);

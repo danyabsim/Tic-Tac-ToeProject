@@ -10,10 +10,14 @@ img {
     background-size: cover;
 }
 
-input[type="button"].XO, input[type="button"].WinningXO
+.XO, .WinningXO, input[type="button"].XO, input[type="button"].WinningXO
 {
-    height: 150px;
-    width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #4FFF00;
+    color: black;
+    cursor: pointer;
     font-size: 64px;
     border: none;
     text-align: center;
@@ -21,12 +25,12 @@ input[type="button"].XO, input[type="button"].WinningXO
     font-weight: unset;
 }
 
-input[type="button"].XO {
+.XO, input[type="button"].XO {
     background-color: black;
     color: white;
 }
 
-input[type="button"].WinningXO {
+.WinningXO, input[type="button"].WinningXO {
     font-weight: bold;
     text-decoration: underline;
 }
