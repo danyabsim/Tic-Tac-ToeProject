@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ResultsProps } from "../components/Results/ResultsProps";
 
 export interface ResultsReducerState {
     firstPlayerWins: number;

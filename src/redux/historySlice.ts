@@ -30,9 +30,6 @@ const historySlice = createSlice({
                 state.historyArray[lastIndex] = action.payload;
             }
         },
-        removeAllHistory: (state) => {
-            state.historyArray = [];
-        },
         consolePrint: (state) => {
             console.log(state.historyArray);
         },
@@ -51,5 +48,5 @@ const historySlice = createSlice({
     },
 });
 
-export const {addHistory, updateLatestHistory, removeAllHistory, consolePrint, exportHistoryToFile} = historySlice.actions;
+export const {addHistory, updateLatestHistory, consolePrint, exportHistoryToFile} = historySlice.actions;
 export default historySlice.reducer;

@@ -1,29 +1,11 @@
-import React, {ChangeEvent, useEffect} from "react";
+import React, {ChangeEvent} from "react";
 import {EnterFormProps} from "./EnterFormProps";
 import './EnterFormStyle.css';
-import {exportHistoryToFile} from "../../redux/historySlice";
-import {useDispatch} from "react-redux";
+import {ExportFile} from "../ExportFile/ExportFile";
 
 function EnterForm(props: EnterFormProps) {
     const maxLengthOfSigns = 1;
-    const dispatch = useDispatch();
-
-    useEffect(() => {
-        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-            // Your logic here, for example, show a confirmation message
-            const confirmationMessage = 'Are you sure you want to reload the page?';
-            event.returnValue = confirmationMessage; // Standard for most browsers
-            dispatch(exportHistoryToFile());
-            return confirmationMessage; // For some older browsers
-        };
-
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        // Cleanup the event listener when the component is unmounted
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, [dispatch]);
+    ExportFile();
 
     function handleFileChange(event: ChangeEvent<HTMLInputElement>, where: string) {
         const files = event.target.files;

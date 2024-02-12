@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Results from "../Results/Results";
 import Board from "../Board/Board";
 import EndGameButton from "../EndGameButton/EndGameButton";
@@ -6,29 +6,13 @@ import {GameProps} from "./GameProps";
 import './GameStyle.css';
 import {useDispatch} from "react-redux";
 import {resetTheResults} from "../../redux/resultsSlice";
-import {exportHistoryToFile} from "../../redux/historySlice";
+import {ExportFile} from "../ExportFile/ExportFile";
 
 function Game(props: GameProps) {
     const [isFirstPlayerStars, setIsFirstPlayerStars] = useState(true);
     const [XOArray, setXOArray] = useState([["", "", ""], ["", "", ""], ["", "", ""]]);
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-            // Your logic here, for example, show a confirmation message
-            const confirmationMessage = 'Are you sure you want to reload the page?';
-            event.returnValue = confirmationMessage; // Standard for most browsers
-            dispatch(exportHistoryToFile());
-            return confirmationMessage; // For some older browsers
-        };
-
-        window.addEventListener('beforeunload', handleBeforeUnload);
-
-        // Cleanup the event listener when the component is unmounted
-        return () => {
-            window.removeEventListener('beforeunload', handleBeforeUnload);
-        };
-    }, [dispatch]);
+    ExportFile();
 
     function resetHandler() {
         dispatch(resetTheResults());
