@@ -8,7 +8,7 @@ export function ExportFile() {
     useEffect(() => {
         const handleBeforeUnload = (event: BeforeUnloadEvent) => {
             // Your logic here, for example, show a confirmation message
-            const confirmationMessage = 'Are you sure you want to reload or exit the page?';
+            const confirmationMessage = 'Are you sure you want to leave?';
             event.returnValue = confirmationMessage; // Standard for most browsers
             dispatch(exportHistoryToFile());
             return confirmationMessage; // For some older browsers
