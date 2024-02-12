@@ -1,4 +1,5 @@
 import {Dispatch, SetStateAction} from "react";
+import {Player} from "../Player/Player";
 
 export interface GameAlertProps {
     alertText: string;
@@ -8,8 +9,6 @@ export interface GameAlertProps {
     resetHandler: () => void;
     nextGameHandler: () => void;
     resetTheApp: () => void;
-    firstPlayerSign: string;
-    secondPlayerSign: string;
-    firstPlayerName: string;
-    secondPlayerName: string;
+    firstPlayer: Player;
+    secondPlayer: Player;
 }

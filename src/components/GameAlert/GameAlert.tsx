@@ -4,9 +4,8 @@ import './GameAlertStyle.css';
 import React, {useRef, useState} from "react";
 import {RootState} from '../../redux/store';
 import {useDispatch, useSelector} from 'react-redux';
-import {addHistory, consolePrint, updateLatestHistory} from '../../redux/historySlice';
+import {addHistory, consolePrint, exportHistoryToFile, updateLatestHistory} from '../../redux/historySlice';
 import {resetXOScript} from "../../XOScript";
-import {contentStyles, overlayStyles} from "./GameAlertScriptsStyle";
 
 function GameAlert(props: GameAlertProps) {
     const dispatch = useDispatch();
@@ -43,16 +42,16 @@ function GameAlert(props: GameAlertProps) {
     function openModalAndPerformAction() {
         if (countUpdate === 0) {
             dispatch(addHistory({
-                firstPlayerName: props.firstPlayerName,
-                secondPlayerName: props.secondPlayerName,
+                firstPlayerName: props.firstPlayer.name,
+                secondPlayerName: props.secondPlayer.name,
                 firstPlayerWins: firstPlayerWins,
                 ties: ties,
                 secondPlayerWins: secondPlayerWins,
             }));
         } else {
             dispatch(updateLatestHistory({
-                firstPlayerName: props.firstPlayerName,
-                secondPlayerName: props.secondPlayerName,
+                firstPlayerName: props.firstPlayer.name,
+                secondPlayerName: props.secondPlayer.name,
                 firstPlayerWins: firstPlayerWins,
                 ties: ties,
                 secondPlayerWins: secondPlayerWins,
@@ -72,9 +71,12 @@ function GameAlert(props: GameAlertProps) {
             onAfterOpen={openModalAndPerformAction}
             contentLabel="Game Result"
             shouldCloseOnOverlayClick={false}
+            id="modalContent"
             style={{
-                overlay: overlayStyles(),
-                content: contentStyles(props.solvedChar, props.firstPlayerSign, props.secondPlayerSign)
+                content: {
+                    marginLeft: (props.solvedChar === props.firstPlayer.sign ? '0' : 'auto'),
+                    marginRight: (props.solvedChar === props.secondPlayer.sign ? '0' : 'auto')
+                }
             }}
         >
             <audio ref={audioRef}
@@ -86,9 +88,10 @@ function GameAlert(props: GameAlertProps) {
                 </div>
                 <h2 id="alertText">{props.alertText}</h2>
                 <input type="button" className="form-group" id="reset" onClick={resetHandler} value="Reset"/>
-                <input type="button" className="form-group" id="nextGame" onClick={nextGameHandler}
-                       value="Next Game"/>
+                <input type="button" className="form-group" id="nextGame" onClick={nextGameHandler} value="Next Game"/>
                 <input type="submit" className="form-group" id="exit" onClick={exitHandler} value="Exit"/>
+                <input type="button" className="form-group" id="exportGameAlert" value="Export History"
+                       onClick={() => dispatch(exportHistoryToFile())}/>
             </div>
         </Modal>
     );

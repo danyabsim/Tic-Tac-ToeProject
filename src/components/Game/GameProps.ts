@@ -1,9 +1,7 @@
+import {Player} from "../Player/Player";
+
 export interface GameProps {
-    firstPlayerName: string;
-    secondPlayerName: string;
+    firstPlayer: Player;
+    secondPlayer: Player;
     resetTheApp: () => void;
-    firstPlayerSign: string;
-    secondPlayerSign: string;
-    fileFirstPlayerURL: string | null;
-    fileSecondPlayerURL: string | null;
 }

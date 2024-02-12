@@ -1,11 +1,9 @@
 import React, {ChangeEvent} from "react";
 import {EnterFormProps} from "./EnterFormProps";
 import './EnterFormStyle.css';
-import {ExportFile} from "../ExportFile/ExportFile";
 
 function EnterForm(props: EnterFormProps) {
     const maxLengthOfSigns = 1;
-    ExportFile();
 
     function handleFileChange(event: ChangeEvent<HTMLInputElement>, where: string) {
         const files = event.target.files;

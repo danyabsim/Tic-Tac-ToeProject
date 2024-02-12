@@ -78,9 +78,9 @@ function Board(props: BoardProps) {
         if (XOArray[XO_Column - 1][XO_Row - 1] === "") {
             OnClickXOButton();
             if (XOCount % 2 === 1) {
-                XOArray[XO_Column - 1][XO_Row - 1] = (props.isFirstPlayerStars ? props.firstPlayerSign : props.secondPlayerSign);
+                XOArray[XO_Column - 1][XO_Row - 1] = (props.isFirstPlayerStars ? props.firstPlayer.sign : props.secondPlayer.sign);
             } else {
-                XOArray[XO_Column - 1][XO_Row - 1] = (props.isFirstPlayerStars ? props.secondPlayerSign : props.firstPlayerSign);
+                XOArray[XO_Column - 1][XO_Row - 1] = (props.isFirstPlayerStars ? props.secondPlayer.sign : props.firstPlayer.sign);
             }
         }
         console.log(XOArray[XO_Column - 1][XO_Row - 1])
@@ -89,10 +89,10 @@ function Board(props: BoardProps) {
         setXOFiles(prevXOFiles => {
             let tempXOFileURLs = [...prevXOFiles];
             tempXOFileURLs[XO_Column - 1][XO_Row - 1] = (
-                XOArray[XO_Column - 1][XO_Row - 1] === props.firstPlayerSign
-                    ? props.fileFirstPlayerURL
-                    : (XOArray[XO_Column - 1][XO_Row - 1] === props.secondPlayerSign
-                            ? props.fileSecondPlayerURL
+                XOArray[XO_Column - 1][XO_Row - 1] === props.firstPlayer.sign
+                    ? props.firstPlayer.URL
+                    : (XOArray[XO_Column - 1][XO_Row - 1] === props.secondPlayer.sign
+                            ? props.secondPlayer.URL
                             : noImage
                     )
             );
@@ -104,11 +104,11 @@ function Board(props: BoardProps) {
         if ((solvedBoard && countSolved === 0) || XOCount === 9) {
             designWinningPath(indexes);
             setCountSolved(countSolved + 1);
-            if (solvedBoard && (innerSolvedChar === props.firstPlayerSign || innerSolvedChar === props.secondPlayerSign)) {
-                if (props.firstPlayerSign === innerSolvedChar) {
-                    setAlertText(props.firstPlayerName + " (" + props.firstPlayerSign + ") Won!");
+            if (solvedBoard && (innerSolvedChar === props.firstPlayer.sign || innerSolvedChar === props.secondPlayer.sign)) {
+                if (props.firstPlayer.sign === innerSolvedChar) {
+                    setAlertText(props.firstPlayer.name + " (" + props.firstPlayer.sign + ") Won!");
                 } else {
-                    setAlertText(props.secondPlayerName + " (" + props.secondPlayerSign + ") Won!");
+                    setAlertText(props.secondPlayer.name + " (" + props.secondPlayer.sign + ") Won!");
                 }
             } else {
                 setAlertText("Game Ended With a Tie!");
@@ -117,13 +117,13 @@ function Board(props: BoardProps) {
                 setModalIsOpen(true);
             }, 100);
             switch (innerSolvedChar) {
-                case props.firstPlayerSign:
+                case props.firstPlayer.sign:
                     dispatch(firstPlayerWon());
                     if (props.isFirstPlayerStars) {
                         props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
                     }
                     break;
-                case props.secondPlayerSign:
+                case props.secondPlayer.sign:
                     dispatch(secondPlayerWon());
                     if (!props.isFirstPlayerStars) {
                         props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
@@ -147,10 +147,8 @@ function Board(props: BoardProps) {
                 resetHandler={resetHandler}
                 nextGameHandler={nextGameHandler}
                 resetTheApp={props.resetTheApp}
-                firstPlayerSign={props.firstPlayerSign}
-                secondPlayerSign={props.secondPlayerSign}
-                firstPlayerName={props.firstPlayerName}
-                secondPlayerName={props.secondPlayerName}
+                firstPlayer={props.firstPlayer}
+                secondPlayer={props.secondPlayer}
             />
             <form id="board">
                 {props.XOArray.map((row, rowIndex) => (

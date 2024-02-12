@@ -12,8 +12,8 @@ function App() {
     const [secondPlayerName, setSecondPlayerName] = useState('');
     const [firstPlayerSign, setFirstPlayerSign] = useState('X');
     const [secondPlayerSign, setSecondPlayerSign] = useState('O');
-    const [selectedFirstPlayerFile, setSelectedFirstPlayerFile] = useState<File | null>(null);
-    const [selectedSecondPlayerFile, setSelectedSecondPlayerFile] = useState<File | null>(null);
+    const [, setSelectedFirstPlayerFile] = useState<File | null>(null);
+    const [, setSelectedSecondPlayerFile] = useState<File | null>(null);
     const [fileFirstPlayerURL, setFileFirstPlayerURL] = useState<string | null>(null);
     const [fileSecondPlayerURL, setFileSecondPlayerURL] = useState<string | null>(null);
 
@@ -43,10 +43,6 @@ function App() {
             }
         } else {
             alert("Either at least one of the names are not set up or both are the same!");
-        }
-        if (selectedFirstPlayerFile && selectedSecondPlayerFile) {
-            setFirstPlayerSign('X');
-            setSecondPlayerSign('O');
         }
     }
 
@@ -84,13 +80,9 @@ function App() {
                             element={
                                 !isOnEnter ? (
                                     <Game
-                                        firstPlayerName={firstPlayerName}
-                                        secondPlayerName={secondPlayerName}
+                                        firstPlayer={{name: firstPlayerName, sign: firstPlayerSign, URL: fileFirstPlayerURL}}
+                                        secondPlayer={{name: secondPlayerName, sign: secondPlayerSign, URL: fileSecondPlayerURL}}
                                         resetTheApp={resetTheApp}
-                                        firstPlayerSign={firstPlayerSign}
-                                        secondPlayerSign={secondPlayerSign}
-                                        fileFirstPlayerURL={fileFirstPlayerURL}
-                                        fileSecondPlayerURL={fileSecondPlayerURL}
                                     />
                                 ) : (
                                     <Navigate to="/"/>

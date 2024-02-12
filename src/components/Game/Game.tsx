@@ -6,13 +6,11 @@ import {GameProps} from "./GameProps";
 import './GameStyle.css';
 import {useDispatch} from "react-redux";
 import {resetTheResults} from "../../redux/resultsSlice";
-import {ExportFile} from "../ExportFile/ExportFile";
 
 function Game(props: GameProps) {
     const [isFirstPlayerStars, setIsFirstPlayerStars] = useState(true);
     const [XOArray, setXOArray] = useState([["", "", ""], ["", "", ""], ["", "", ""]]);
     const dispatch = useDispatch();
-    ExportFile();
 
     function resetHandler() {
         dispatch(resetTheResults());
@@ -42,16 +40,12 @@ function Game(props: GameProps) {
             <header>
                 <h1>Tic-Tac-Toe</h1><br/>
                 <Results
-                    firstPlayerName={props.firstPlayerName}
-                    secondPlayerName={props.secondPlayerName}
-                    fileFirstPlayerURL={props.fileFirstPlayerURL}
-                    fileSecondPlayerURL={props.fileSecondPlayerURL}
+                    firstPlayer={props.firstPlayer}
+                    secondPlayer={props.secondPlayer}
                 />
                 <Board
-                    firstPlayerName={props.firstPlayerName}
-                    secondPlayerName={props.secondPlayerName}
-                    firstPlayerSign={props.firstPlayerSign}
-                    secondPlayerSign={props.secondPlayerSign}
+                    firstPlayer={props.firstPlayer}
+                    secondPlayer={props.secondPlayer}
                     isFirstPlayerStars={isFirstPlayerStars}
                     setIsFirstPlayerStars={setIsFirstPlayerStars}
                     XOArray={XOArray}
@@ -59,8 +53,6 @@ function Game(props: GameProps) {
                     resetHandler={resetHandler}
                     nextGameHandler={nextGameHandler}
                     resetTheApp={resetTheApp}
-                    fileFirstPlayerURL={props.fileFirstPlayerURL}
-                    fileSecondPlayerURL={props.fileSecondPlayerURL}
                 />
                 <EndGameButton
                     resetTheApp={resetTheApp}

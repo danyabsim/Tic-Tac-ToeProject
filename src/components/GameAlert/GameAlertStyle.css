@@ -2,11 +2,18 @@
     color: black;
 }
 
-#reset, #nextGame, #exit {
-    margin-left: 15px;
-    margin-right: 15px;
+#reset, #nextGame, #exit, #export {
+    margin-left: 10px;
+    margin-right: 10px;
     display: inline;
     margin-bottom: 0;
+}
+
+#exportGameAlert {
+    margin-left: 10px;
+    margin-right: 10px;
+    display: inline;
+    margin-top: 30px;
 }
 
 .historyArray {
@@ -15,4 +22,17 @@
     color: black;
     border: none;
     font-weight: bold;
+}
+
+#modalContent {
+    z-index: 50;
+    width: 600px;
+    height: 300px;
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('https://i.pinimg.com/originals/e4/d2/c1/e4d2c1d0da356797359acd9270bcdd77.gif');
 }

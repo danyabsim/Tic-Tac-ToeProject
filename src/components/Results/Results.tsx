@@ -11,8 +11,8 @@ function Results(props: ResultsProps) {
         <div>
             <form id="results">
                 <div className="form-group">
-                    <img src={props.fileFirstPlayerURL ? props.fileFirstPlayerURL : noImage} alt=""/>
-                    <label className="names">{props.firstPlayerName}</label>
+                    <img src={props.firstPlayer.URL ? props.firstPlayer.URL : noImage} alt=""/>
+                    <label className="names">{props.firstPlayer.name}</label>
                     <h2 className="h2results" id="firstPlayerResults">{currentResults.firstPlayerWins}</h2>
                 </div>
                 <div className="form-group">
@@ -21,8 +21,8 @@ function Results(props: ResultsProps) {
                     <h2 className="h2results" id="tieResults">{currentResults.ties}</h2>
                 </div>
                 <div className="form-group">
-                    <img src={props.fileSecondPlayerURL ? props.fileSecondPlayerURL : noImage} alt=""/>
-                    <label className="names">{props.secondPlayerName}</label>
+                    <img src={props.secondPlayer.URL ? props.secondPlayer.URL : noImage} alt=""/>
+                    <label className="names">{props.secondPlayer.name}</label>
                     <h2 className="h2results" id="secondPlayerResults">{currentResults.secondPlayerWins}</h2>
                 </div>
             </form>

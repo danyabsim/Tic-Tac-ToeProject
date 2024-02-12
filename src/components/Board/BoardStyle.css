@@ -21,8 +21,11 @@ img {
     font-size: 64px;
     border: none;
     text-align: center;
-    margin-bottom: 0;
     font-weight: unset;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    margin: 0;
 }
 
 .XO, input[type="button"].XO {
@@ -35,53 +38,18 @@ img {
     text-decoration: underline;
 }
 
-#XO11 {
-    border-right: 2px solid white;
+#XO11, #XO21, #XO31, #XO12, #XO22, #XO32 {
     border-bottom: 2px solid white;
 }
 
-#XO21 {
-    border-right: 2px solid white;
-    border-bottom: 2px solid white;
-    border-left: 2px solid white;
-}
-
-#XO31 {
-    border-bottom: 2px solid white;
-    border-left: 2px solid white;
-}
-
-#XO12 {
-    border-top: 2px solid white;
-    border-right: 2px solid white;
-    border-bottom: 2px solid white;
-}
-
-#XO22 {
-    border-top: 2px solid white;
-    border-right: 2px solid white;
-    border-bottom: 2px solid white;
-    border-left: 2px solid white;
-}
-
-#XO32 {
-    border-top: 2px solid white;
-    border-bottom: 2px solid white;
-    border-left: 2px solid white;
-}
-
-#XO13 {
-    border-top: 2px solid white;
+#XO11, #XO21, #XO12, #XO22, #XO13, #XO23 {
     border-right: 2px solid white;
 }
 
-#XO23 {
-    border-top: 2px solid white;
-    border-right: 2px solid white;
+#XO21, #XO31, #XO22, #XO32, #XO23, #XO33 {
     border-left: 2px solid white;
 }
 
-#XO33 {
+#XO12, #XO22, #XO32, #XO13, #XO23, #XO33 {
     border-top: 2px solid white;
-    border-left: 2px solid white;
 }

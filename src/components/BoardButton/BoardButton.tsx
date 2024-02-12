@@ -1,6 +1,5 @@
 import React from "react";
 import {BoardButtonProps} from "./BoardButtonProps";
-import {divStyle} from "./BoardButtonScriptsStyle";
 
 function BoardButton(props: BoardButtonProps) {
     const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
@@ -13,7 +12,6 @@ function BoardButton(props: BoardButtonProps) {
 
     return (
         <div
-            style={divStyle()}
             id={props.id}
             onClick={onClickXOElement}
             className={props.className}
