@@ -74,7 +74,6 @@ function Board(props: BoardProps) {
         let XOArray: string[][] = props.XOArray;
         const XO_Column = parseInt(event.currentTarget.id.charAt(2));
         const XO_Row = parseInt(event.currentTarget.id.charAt(3));
-        console.log(XOArray[XO_Column - 1][XO_Row - 1])
         if (XOArray[XO_Column - 1][XO_Row - 1] === "") {
             OnClickXOButton();
             if (XOCount % 2 === 1) {
@@ -83,7 +82,6 @@ function Board(props: BoardProps) {
                 XOArray[XO_Column - 1][XO_Row - 1] = (props.isFirstPlayerStars ? props.secondPlayer.sign : props.firstPlayer.sign);
             }
         }
-        console.log(XOArray[XO_Column - 1][XO_Row - 1])
         props.setXOArray(XOArray);
 
         setXOFiles(prevXOFiles => {
