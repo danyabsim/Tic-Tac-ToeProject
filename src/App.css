@@ -1,3 +1,7 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
 .App {
   text-align: center;
 }
@@ -35,41 +39,4 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-body {
-  background-color: black;
-  color: white;
-  text-align: center;
-}
-
-.centered-form {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-.form-group {
-  margin-bottom: 10px;
-  justify-content: space-between;
-}
-
-label {
-  display: block;
-  margin-bottom: 5px;
-}
-
-input {
-  display: block;
-  margin-bottom: 10px;
-}
-
-input[type="button"], input[type="submit"] {
-  font-size: 32px;
-  background-color: #4FFF00;
-  color: black;
-  border: 2px solid black;
-  font-weight: bold;
-  cursor: pointer;
 }

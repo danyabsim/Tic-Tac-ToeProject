@@ -48,7 +48,7 @@ function App() {
 
     return (
         <Provider store={store}>
-            <div className="centered-form">
+            <div className="flex items-center justify-center h-screen bg-black text-white text-center">
                 <Router>
                     <Routes>
                         <Route

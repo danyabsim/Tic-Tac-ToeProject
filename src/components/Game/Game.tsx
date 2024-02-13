@@ -3,7 +3,6 @@ import Results from "../Results/Results";
 import Board from "../Board/Board";
 import EndGameButton from "../EndGameButton/EndGameButton";
 import {GameProps} from "./GameProps";
-import './GameStyle.css';
 import {useDispatch} from "react-redux";
 import {resetTheResults} from "../../redux/resultsSlice";
 
@@ -38,7 +37,7 @@ function Game(props: GameProps) {
     return (
         <div>
             <header>
-                <h1>Tic-Tac-Toe</h1><br/>
+                <h1 className="text-4xl border-b-0 bg-green-500 text-black m-0">Tic-Tac-Toe</h1><br/>
                 <Results
                     firstPlayer={props.firstPlayer}
                     secondPlayer={props.secondPlayer}

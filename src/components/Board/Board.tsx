@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import BoardButton from "../BoardButton/BoardButton";
 import {BoardProps} from "./BoardProps";
 import {checkBoard, OnClickXOButton, XOCount} from "../../XOScript";
-import "./BoardStyle.css";
 import GameAlert from "../GameAlert/GameAlert";
 import {useDispatch} from "react-redux";
 import {addTie, firstPlayerWon, secondPlayerWon} from "../../redux/resultsSlice";
@@ -72,8 +71,8 @@ function Board(props: BoardProps) {
             return;
         }
         let XOArray: string[][] = props.XOArray;
-        const XO_Column = parseInt(event.currentTarget.id.charAt(2));
-        const XO_Row = parseInt(event.currentTarget.id.charAt(3));
+        let XO_Column = parseInt(event.currentTarget.id.charAt(2));
+        let XO_Row = parseInt(event.currentTarget.id.charAt(3));
         if (XOArray[XO_Column - 1][XO_Row - 1] === "") {
             OnClickXOButton();
             if (XOCount % 2 === 1) {
@@ -136,7 +135,7 @@ function Board(props: BoardProps) {
     }
 
     return (
-        <div>
+        <div className="flex justify-center items-center">
             <GameAlert
                 alertText={alertText}
                 solvedChar={solvedChar}
@@ -148,9 +147,9 @@ function Board(props: BoardProps) {
                 firstPlayer={props.firstPlayer}
                 secondPlayer={props.secondPlayer}
             />
-            <form id="board">
+            <form className="grid grid-cols-3 gap-0 m-0">
                 {props.XOArray.map((row, rowIndex) => (
-                    <div key={`row-${rowIndex}`} className="form-group">
+                    <div key={`row-${rowIndex}`}>
                         {row.map((cell, colIndex) => (
                             <BoardButton
                                 className={XOClassNames[rowIndex][colIndex]}
