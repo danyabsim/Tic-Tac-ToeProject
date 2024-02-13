@@ -9,4 +9,8 @@ module.exports = {
     extend: {},
   },
   plugins: [],
+  // Enable the @apply feature
+  experimental: {
+    applyComplexClasses: true,
+  },
 }
