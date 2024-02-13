@@ -8,41 +8,42 @@ export function OnClickXOButton() {
     XOCount = XOCount + 1;
 }
 
-export function checkIfPathIsWin(...values: string[]): [boolean, number[]] {
-    const isWin = values.every(value => value === values[0] && value !== "");
-    const indexes = isWin ? values.map((_, i) => i) : [];
-    return [isWin, indexes];
-}
-
 export function checkBoard(board: string[][]): [boolean, string, number[][]] {
     const size = board.length;
 
-    for (let i: number = 0; i < size; i++) {
-        // Checking per Row
-        const [isRowWin, rowIndexes] = checkIfPathIsWin(...board[i]);
-        if (isRowWin) {
-            return [true, board[i][0], rowIndexes.map(index => [i, index])];
+    function checkPath(indexes: number[][]): [boolean, string, number[][]] {
+        const path = indexes.map(([row, col]) => board[row][col]);
+        const isWin = path.every(value => value === path[0] && value !== "");
+
+        return [isWin, path[0], isWin ? indexes : []];
+    }
+
+    const winningIndexes: number[][] = [];
+
+    for (let i = 0; i < size; i++) {
+        const rowIndexes = Array.from({ length: size }, (_, index) => [i, index]);
+        const colIndexes = Array.from({ length: size }, (_, index) => [index, i]);
+        const diagonal1Indexes = Array.from({ length: size }, (_, index) => [index, index]);
+        const diagonal2Indexes = Array.from({ length: size }, (_, index) => [index, size - 1 - index]);
+
+        const results = [
+            checkPath(rowIndexes),
+            checkPath(colIndexes),
+            checkPath(diagonal1Indexes),
+            checkPath(diagonal2Indexes)
+        ];
+
+        for (const [isWin,, indexes] of results) {
+            if (isWin) {
+                winningIndexes.push(...indexes);
+            }
         }
-
-        // Checking per Column
-        const [isColumnWin, columnIndexes] = checkIfPathIsWin(...board.map(row => row[i]));
-        if (isColumnWin) {
-            return [true, board[0][i], columnIndexes.map(index => [index, i])];
-        }
     }
 
-    // Checking per Diagonal
-    const [isDiagonal1Win, diagonal1Indexes] = checkIfPathIsWin(...board.map((row, index) => row[index]));
-    if (isDiagonal1Win) {
-        return [true, board[0][0], diagonal1Indexes.map(index => [index, index])];
-    }
+    const isWin = winningIndexes.length > 0;
+    const symbol = isWin ? board[winningIndexes[0][0]][winningIndexes[0][1]] : '';
 
-    const [isDiagonal2Win, diagonal2Indexes] = checkIfPathIsWin(...board.map((row, index) => row[size - 1 - index]));
-    if (isDiagonal2Win) {
-        return [true, board[0][size - 1], diagonal2Indexes.map(index => [index, size - 1 - index])];
-    }
-
-    return [false, '', []];
+    return [isWin, symbol, winningIndexes];
 }
 
 // Print the XOArray in the alert. Used only in Debugging!
