@@ -47,6 +47,7 @@ export function checkBoard(board: string[][]): [boolean, string, number[][]] {
 }
 
 // Print the XOArray in the alert. Used only in Debugging!
+// eslint-disable-next-line
 function printXOArray(XOArray: string[][]) {
     alert(XOArray
         .map((row) => row.join(", ")) // Join each row's elements
