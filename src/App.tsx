@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom
 import EnterForm from "./components/EnterForm/EnterForm";
 import store from "./redux/store";
 import {Provider} from "react-redux";
-import {Player} from "./components/Player/Player";
+import {Player} from "./interfaces/Player";
 
 function App() {
     const [isOnEnter, setIsOnEnter] = useState(true);

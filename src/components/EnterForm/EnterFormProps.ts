@@ -1,5 +1,5 @@
 import {ChangeEvent, Dispatch, FormEventHandler, SetStateAction} from "react";
-import {Player} from "../Player/Player";
+import {Player} from "../../interfaces/Player";
 
 export interface EnterFormProps {
     onEnter: FormEventHandler<HTMLFormElement>;

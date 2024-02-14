@@ -1,5 +1,5 @@
 import {Dispatch, SetStateAction} from "react";
-import {Player} from "../Player/Player";
+import {Player} from "../../interfaces/Player";
 
 export interface GameAlertProps {
     alertText: string;

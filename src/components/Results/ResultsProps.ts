@@ -1,4 +1,4 @@
-import {Player} from "../Player/Player";
+import {Player} from "../../interfaces/Player";
 
 export interface ResultsProps {
     firstPlayer: Player;
