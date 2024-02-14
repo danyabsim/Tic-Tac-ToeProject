@@ -72,13 +72,16 @@ function GameAlert(props: GameAlertProps) {
             onAfterOpen={openModalAndPerformAction}
             contentLabel="Game Result"
             shouldCloseOnOverlayClick={false}
-            className={`text-black text-4xl text-center font-bold flex flex-col justify-center items-center ${props.solvedChar === props.firstPlayer.sign ? 'ml-0' : 'ml-auto'} ${props.solvedChar === props.secondPlayer.sign ? 'mr-0' : 'mr-auto'}`}
+            className={`text-black text-4xl text-center font-bold flex flex-col justify-center items-center`}
         >
-            <BackgroundImage>
+            <BackgroundImage
+                $marginLeft={props.solvedChar === props.firstPlayer.sign ? '0' : 'auto'}
+                $marginRight={props.solvedChar === props.secondPlayer.sign ? '0' : 'auto'}
+            >
                 <audio ref={audioRef}
                        src={process.env.PUBLIC_URL + '/sounds/Audience_Applause-Matthiew11-1206899159.wav'}
                        onError={(e) => console.error('Audio error:', e)}/>
-                <div id="reactModal">
+                <div>
                     <div className="bg-green-500 border-none">
                         {currentHistory?.firstPlayerName}: {currentHistory?.firstPlayerWins} (Ties: {currentHistory?.ties}) {currentHistory?.secondPlayerName}: {currentHistory?.secondPlayerWins}
                     </div>
