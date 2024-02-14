@@ -18,19 +18,21 @@ export function checkBoard(board: string[][]): [boolean, string, number[][]] {
         return [isWin, symbols[0], isWin ? pattern : []];
     }
 
-    const patterns = [
-        // Rows
-        Array.from({ length: size }, (_, col) => [0, col]),
-        Array.from({ length: size }, (_, col) => [1, col]),
-        Array.from({ length: size }, (_, col) => [2, col]),
-        // Columns
-        Array.from({ length: size }, (_, row) => [row, 0]),
-        Array.from({ length: size }, (_, row) => [row, 1]),
-        Array.from({ length: size }, (_, row) => [row, 2]),
-        // Diagonals
-        Array.from({ length: size }, (_, index) => [index, index]),
-        Array.from({ length: size }, (_, index) => [index, size - 1 - index]),
-    ];
+    const patterns: number[][][] = [];
+
+    // Rows and Columns
+    for (let i = 0; i < size; i++) {
+        const rowPattern = Array.from({ length: size }, (_, col) => [i, col]);
+        const colPattern = Array.from({ length: size }, (_, row) => [row, i]);
+
+        patterns.push(rowPattern, colPattern);
+    }
+
+    // Diagonals
+    const diagonal1Pattern = Array.from({ length: size }, (_, index) => [index, index]);
+    const diagonal2Pattern = Array.from({ length: size }, (_, index) => [index, size - 1 - index]);
+
+    patterns.push(diagonal1Pattern, diagonal2Pattern);
 
     const winningPatterns: number[][] = [];
 

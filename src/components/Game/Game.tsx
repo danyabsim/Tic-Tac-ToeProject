@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import Results from "../Results/Results";
 import Board from "../Board/Board";
-import EndGameButton from "../EndGameButton/EndGameButton";
+import BottomButtons from "../BottomButtons/BottomButtons";
 import {GameProps} from "./GameProps";
 import {useDispatch} from "react-redux";
 import {resetTheResults} from "../../redux/resultsSlice";
@@ -53,7 +53,7 @@ function Game(props: GameProps) {
                     nextGameHandler={nextGameHandler}
                     resetTheApp={resetTheApp}
                 />
-                <EndGameButton
+                <BottomButtons
                     resetTheApp={resetTheApp}
                 />
             </header>
