@@ -33,7 +33,7 @@ function BoardButton(props: BoardButtonProps) {
         <div
             id={props.id}
             onClick={onClickXOElement}
-            className={`block text-4xl h-24 w-24 ${(props.className === "XO" ? "bg-black text-white" : "font-bold underline bg-green-500")} ${addBorderPerId(props.id as string)}`}
+            className={`flex items-center justify-center text-4xl h-24 w-24 mx-auto ${(props.className === "XO" ? "bg-black text-white" : "font-bold underline bg-green-500")} ${addBorderPerId(props.id as string)}`}
         >
             {(props.fileURL === noImage) ? (
                 <input
