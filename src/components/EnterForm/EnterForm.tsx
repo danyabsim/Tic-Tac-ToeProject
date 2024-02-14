@@ -4,38 +4,12 @@ import {EnterFormProps} from "./EnterFormProps";
 function EnterForm(props: EnterFormProps) {
     const maxLengthOfSigns = 1;
 
-    function handleFileChange(event: ChangeEvent<HTMLInputElement>, where: string) {
-        const files = event.target.files;
-
-        if (files && files.length > 0) {
-            const file = files[0];
-            if (where === "first") {
-                props.setSelectedFirstPlayerFile(file);
-            } else {
-                props.setSelectedSecondPlayerFile(file);
-            }
-
-            // Read the content of the file as a data URL
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                if (e.target && e.target.result) {
-                    if (where === "first") {
-                        props.setFileFirstPlayerURL(e.target.result.toString());
-                    } else {
-                        props.setFileSecondPlayerURL(e.target.result.toString());
-                    }
-                }
-            };
-            reader.readAsDataURL(file);
-        }
-    }
-
     function handleFirstPlayerFileChange(event: ChangeEvent<HTMLInputElement>) {
-        handleFileChange(event, "first");
+        props.handleFileChange(event, "first");
     }
 
     function handleSecondPlayerFileChange(event: ChangeEvent<HTMLInputElement>) {
-        handleFileChange(event, "second");
+        props.handleFileChange(event, "second");
     }
 
     return (
@@ -45,7 +19,7 @@ function EnterForm(props: EnterFormProps) {
                 <input
                     className="inline-block mt-4 mb-4 text-center text-black"
                     type="text"
-                    value={props.firstPlayerName}
+                    value={props.firstPlayer.name}
                     onChange={(event) => {
                         props.setFirstPlayerName(event.currentTarget.value)
                     }}
@@ -54,7 +28,7 @@ function EnterForm(props: EnterFormProps) {
                 <input
                     className="inline-block mt-4 mb-4 text-center text-black"
                     type="text"
-                    value={props.firstPlayerSign}
+                    value={props.firstPlayer.sign}
                     onChange={(event) => {
                         props.setFirstPlayerSign(event.currentTarget.value)
                     }}
@@ -69,7 +43,7 @@ function EnterForm(props: EnterFormProps) {
                 <input
                     className="inline-block mt-4 mb-4 text-center text-black"
                     type="text"
-                    value={props.secondPlayerName}
+                    value={props.secondPlayer.name}
                     onChange={(event) => {
                         props.setSecondPlayerName(event.currentTarget.value)
                     }}
@@ -78,7 +52,7 @@ function EnterForm(props: EnterFormProps) {
                 <input
                     className="inline-block mt-4 mb-4 text-center text-black"
                     type="text"
-                    value={props.secondPlayerSign}
+                    value={props.secondPlayer.sign}
                     onChange={(event) => {
                         props.setSecondPlayerSign(event.currentTarget.value)
                     }}

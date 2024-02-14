@@ -1,17 +1,13 @@
-import {Dispatch, FormEventHandler, SetStateAction} from "react";
+import {ChangeEvent, Dispatch, FormEventHandler, SetStateAction} from "react";
+import {Player} from "../Player/Player";
 
 export interface EnterFormProps {
     onEnter: FormEventHandler<HTMLFormElement>;
-    firstPlayerName: string;
-    secondPlayerName: string;
+    firstPlayer: Player;
+    secondPlayer: Player;
     setFirstPlayerName: Dispatch<SetStateAction<string>>;
     setSecondPlayerName: Dispatch<SetStateAction<string>>;
-    firstPlayerSign: string;
-    secondPlayerSign: string;
     setFirstPlayerSign: Dispatch<SetStateAction<string>>;
     setSecondPlayerSign: Dispatch<SetStateAction<string>>;
-    setSelectedFirstPlayerFile: Dispatch<SetStateAction<File | null>>
-    setSelectedSecondPlayerFile: Dispatch<SetStateAction<File | null>>
-    setFileFirstPlayerURL: Dispatch<SetStateAction<string | null>>
-    setFileSecondPlayerURL: Dispatch<SetStateAction<string | null>>
+    handleFileChange: (event: ChangeEvent<HTMLInputElement>, where: string) => void;
 }

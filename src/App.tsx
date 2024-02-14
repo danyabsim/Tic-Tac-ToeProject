@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import './App.css';
 import Game from "./components/Game/Game";
 import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom';
 import EnterForm from "./components/EnterForm/EnterForm";
 import store from "./redux/store";
 import {Provider} from "react-redux";
+import {Player} from "./components/Player/Player";
 
 function App() {
     const [isOnEnter, setIsOnEnter] = useState(true);
@@ -16,6 +17,8 @@ function App() {
     const [, setSelectedSecondPlayerFile] = useState<File | null>(null);
     const [fileFirstPlayerURL, setFileFirstPlayerURL] = useState<string | null>(null);
     const [fileSecondPlayerURL, setFileSecondPlayerURL] = useState<string | null>(null);
+    const firstPlayer: Player = {name: firstPlayerName, sign: firstPlayerSign, URL: fileFirstPlayerURL};
+    const secondPlayer: Player = {name: secondPlayerName, sign: secondPlayerSign, URL: fileSecondPlayerURL};
 
     function resetTheApp() {
         setIsOnEnter(true);
@@ -46,6 +49,32 @@ function App() {
         }
     }
 
+    function handleFileChange(event: ChangeEvent<HTMLInputElement>, where: string) {
+        const files = event.target.files;
+
+        if (files && files.length > 0) {
+            const file = files[0];
+            if (where === "first") {
+                setSelectedFirstPlayerFile(file);
+            } else {
+                setSelectedSecondPlayerFile(file);
+            }
+
+            // Read the content of the file as a data URL
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (e.target && e.target.result) {
+                    if (where === "first") {
+                        setFileFirstPlayerURL(e.target.result.toString());
+                    } else {
+                        setFileSecondPlayerURL(e.target.result.toString());
+                    }
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+
     return (
         <Provider store={store}>
             <div className="flex items-center justify-center h-screen bg-black text-white text-center">
@@ -57,18 +86,13 @@ function App() {
                                 isOnEnter ? (
                                     <EnterForm
                                         onEnter={onEnter}
-                                        firstPlayerName={firstPlayerName}
+                                        firstPlayer={firstPlayer}
+                                        secondPlayer={secondPlayer}
                                         setFirstPlayerName={setFirstPlayerName}
-                                        secondPlayerName={secondPlayerName}
                                         setSecondPlayerName={setSecondPlayerName}
-                                        firstPlayerSign={firstPlayerSign}
                                         setFirstPlayerSign={setFirstPlayerSign}
-                                        secondPlayerSign={secondPlayerSign}
                                         setSecondPlayerSign={setSecondPlayerSign}
-                                        setSelectedFirstPlayerFile={setSelectedFirstPlayerFile}
-                                        setSelectedSecondPlayerFile={setSelectedSecondPlayerFile}
-                                        setFileFirstPlayerURL={setFileFirstPlayerURL}
-                                        setFileSecondPlayerURL={setFileSecondPlayerURL}
+                                        handleFileChange={handleFileChange}
                                     />
                                 ) : (
                                     <Navigate to="/game"/>
@@ -80,8 +104,8 @@ function App() {
                             element={
                                 !isOnEnter ? (
                                     <Game
-                                        firstPlayer={{name: firstPlayerName, sign: firstPlayerSign, URL: fileFirstPlayerURL}}
-                                        secondPlayer={{name: secondPlayerName, sign: secondPlayerSign, URL: fileSecondPlayerURL}}
+                                        firstPlayer={firstPlayer}
+                                        secondPlayer={secondPlayer}
                                         resetTheApp={resetTheApp}
                                     />
                                 ) : (
