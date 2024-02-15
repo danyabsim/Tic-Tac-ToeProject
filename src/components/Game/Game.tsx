@@ -36,27 +36,25 @@ function Game(props: GameProps) {
 
     return (
         <div>
-            <header>
-                <h1 className="text-4xl border-b-0 bg-green-500 text-black m-0">Tic-Tac-Toe</h1><br/>
-                <Results
-                    firstPlayer={props.firstPlayer}
-                    secondPlayer={props.secondPlayer}
-                />
-                <Board
-                    firstPlayer={props.firstPlayer}
-                    secondPlayer={props.secondPlayer}
-                    isFirstPlayerStars={isFirstPlayerStars}
-                    setIsFirstPlayerStars={setIsFirstPlayerStars}
-                    XOArray={XOArray}
-                    setXOArray={setXOArray}
-                    resetHandler={resetHandler}
-                    nextGameHandler={nextGameHandler}
-                    resetTheApp={resetTheApp}
-                />
-                <BottomButtons
-                    resetTheApp={resetTheApp}
-                />
-            </header>
+            <h1 className="text-4xl border-b-0 bg-green-500 text-black m-0">Tic-Tac-Toe</h1><br/>
+            <Results
+                firstPlayer={props.firstPlayer}
+                secondPlayer={props.secondPlayer}
+            />
+            <Board
+                firstPlayer={props.firstPlayer}
+                secondPlayer={props.secondPlayer}
+                isFirstPlayerStars={isFirstPlayerStars}
+                setIsFirstPlayerStars={setIsFirstPlayerStars}
+                XOArray={XOArray}
+                setXOArray={setXOArray}
+                resetHandler={resetHandler}
+                nextGameHandler={nextGameHandler}
+                resetTheApp={resetTheApp}
+            />
+            <BottomButtons
+                resetTheApp={resetTheApp}
+            />
         </div>
     );
 }

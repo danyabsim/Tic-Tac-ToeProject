@@ -15,56 +15,49 @@ function EnterForm(props: EnterFormProps) {
     return (
         <form className="text-3xl mt-4 mb-4 text-center flex flex-col items-center" onSubmit={props.onEnter}>
             <div className="mb-10 space-y-4">
-                <label className="block mb-2">First Player Name:</label>
+                <label className="block mb-2">Your Player Name:</label>
                 <input
                     className="inline-block mt-4 mb-4 text-center text-black"
                     type="text"
-                    value={props.firstPlayer.name}
+                    value={props.currentPlayer.name}
                     onChange={(event) => {
-                        props.setFirstPlayerName(event.currentTarget.value)
+                        props.setCurrentPlayerName(event.currentTarget.value)
                     }}
-                    data-testid="firstPlayerName"/>
-                <label className="block mb-2">First Player Sign:</label>
+                    data-testid="playerName"/>
+                <label className="block mb-2">Your Player Sign:</label>
                 <input
                     className="inline-block mt-4 mb-4 text-center text-black"
                     type="text"
-                    value={props.firstPlayer.sign}
+                    value={props.currentPlayer.sign}
                     onChange={(event) => {
-                        props.setFirstPlayerSign(event.currentTarget.value)
-                    }}
-                    maxLength={maxLengthOfSigns}
-                    data-testid="firstPlayerSign"/>
-                <br/>
-                <input type="file" className="block text-lg mb-5" onChange={handleFirstPlayerFileChange} accept="image/*"/>
-            </div>
-
-            <div className="mb-10 space-y-4">
-                <label className="block mb-2">Second Player Name:</label>
-                <input
-                    className="inline-block mt-4 mb-4 text-center text-black"
-                    type="text"
-                    value={props.secondPlayer.name}
-                    onChange={(event) => {
-                        props.setSecondPlayerName(event.currentTarget.value)
-                    }}
-                    data-testid="secondPlayerName"/>
-                <label className="block mb-2">Second Player Sign:</label>
-                <input
-                    className="inline-block mt-4 mb-4 text-center text-black"
-                    type="text"
-                    value={props.secondPlayer.sign}
-                    onChange={(event) => {
-                        props.setSecondPlayerSign(event.currentTarget.value)
+                        props.setCurrentPlayerSign(event.currentTarget.value)
                     }}
                     maxLength={maxLengthOfSigns}
-                    data-testid="secondPlayerSign"/>
+                    data-testid="playerSign"/>
                 <br/>
-                <input type="file" className="block text-lg mb-5" onChange={handleSecondPlayerFileChange} accept="image/*"/>
+                <input
+                    type="file"
+                    className="block text-lg mb-5"
+                    onChange={handleFirstPlayerFileChange}
+                    accept="image/*"
+                />
+                <label className="block mb-2">Room Code:</label>
+                <input
+                    className="inline-block mt-4 mb-4 text-center text-black"
+                    type="text"
+                    value={props.roomCode}
+                    onChange={(event) => {
+                        props.setRoomCode(event.currentTarget.value)
+                    }}
+                    data-testid="codeRoom"/>
             </div>
-
             <div>
-                <input className="mb-10 space-y-4 inline-block bg-green-500 text-black border-2 border-black font-bold cursor-pointer" type="submit" value="Enter"
-                       data-testid="submit"/>
+                <input
+                    className="mb-10 space-y-4 inline-block bg-green-500 text-black border-2 border-black font-bold cursor-pointer"
+                    type="submit"
+                    value="Enter"
+                    data-testid="Enter"
+                />
             </div>
         </form>
     );
