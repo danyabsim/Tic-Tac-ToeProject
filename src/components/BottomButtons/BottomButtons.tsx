@@ -1,8 +1,9 @@
 import {BottomButtonsProps} from "./BottomButtonsProps";
 import {resetXOScript} from "../../XOScript";
-import {exportHistoryToFile} from "../../redux/historySlice";
+import {exportHistoryToExcel, exportHistoryToFile} from "../../redux/historySlice";
 import {useDispatch} from "react-redux";
 import GameActionButton from "../GameActionButton/GameActionButton";
+import React from "react";
 
 function BottomButtons(props: BottomButtonsProps) {
     const dispatch = useDispatch();
@@ -20,8 +21,20 @@ function BottomButtons(props: BottomButtonsProps) {
                     value="Exit"
                 />
                 <GameActionButton
-                    value="Export History"
-                    onClick={() => dispatch(exportHistoryToFile())}
+                    value="Export History (JSON)"
+                    onClick={() =>
+                        setTimeout(function (): void {
+                            dispatch(exportHistoryToFile())
+                        }, 100)
+                    }
+                />
+                <GameActionButton
+                    value="Export History (Excel)"
+                    onClick={() =>
+                        setTimeout(function (): void {
+                            dispatch(exportHistoryToExcel())
+                        }, 100)
+                    }
                 />
             </form>
         </div>

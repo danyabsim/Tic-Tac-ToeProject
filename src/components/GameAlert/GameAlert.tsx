@@ -3,7 +3,13 @@ import {GameAlertProps} from "./GameAlertProps";
 import React, {useRef, useState} from "react";
 import {RootState} from '../../redux/store';
 import {useDispatch, useSelector} from 'react-redux';
-import {addHistory, consolePrint, exportHistoryToFile, updateLatestHistory} from '../../redux/historySlice';
+import {
+    addHistory,
+    consolePrint,
+    exportHistoryToExcel,
+    exportHistoryToFile,
+    updateLatestHistory
+} from '../../redux/historySlice';
 import {resetXOScript} from "../../XOScript";
 import {BackgroundImage} from "../../styleComponents/BackgroundImage";
 import GameActionButton from "../GameActionButton/GameActionButton";
@@ -41,6 +47,7 @@ function GameAlert(props: GameAlertProps) {
     const audioRef = useRef<HTMLAudioElement>(null);
 
     function openModalAndPerformAction() {
+        console.log(historyArray);
         if (countUpdate === 0) {
             dispatch(addHistory({
                 firstPlayerName: props.firstPlayer.name,
@@ -98,9 +105,23 @@ function GameAlert(props: GameAlertProps) {
                         onClick={exitHandler}
                         value="Exit"
                     />
+                </div>
+                <div>
                     <GameActionButton
-                        value="Export History"
-                        onClick={() => dispatch(exportHistoryToFile())}
+                        value="Export History (JSON)"
+                        onClick={() =>
+                            setTimeout(function (): void {
+                                dispatch(exportHistoryToFile())
+                            }, 100)
+                        }
+                    />
+                    <GameActionButton
+                        value="Export History (Excel)"
+                        onClick={() =>
+                            setTimeout(function (): void {
+                                dispatch(exportHistoryToExcel())
+                            }, 100)
+                        }
                     />
                 </div>
             </BackgroundImage>

@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {saveAs} from 'file-saver';
+import * as XLSX from 'xlsx';
 
 export interface historyArrayProps {
     firstPlayerName: string;
@@ -45,8 +46,17 @@ const historySlice = createSlice({
                 saveAs(blob, 'historyData.json');
             }
         },
+        exportHistoryToExcel: (state) => {
+            console.log(state.historyArray);
+            if (state.historyArray.length !== 0) {
+                const worksheet = XLSX.utils.json_to_sheet(state.historyArray);
+                const workbook = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+                XLSX.writeFile(workbook, 'historyData.xlsx');
+            }
+        },
     },
 });
 
-export const {addHistory, updateLatestHistory, consolePrint, exportHistoryToFile} = historySlice.actions;
+export const {addHistory, updateLatestHistory, consolePrint, exportHistoryToFile, exportHistoryToExcel} = historySlice.actions;
 export default historySlice.reducer;
