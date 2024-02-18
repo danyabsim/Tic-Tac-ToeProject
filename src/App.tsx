@@ -25,7 +25,9 @@ function App() {
         setCurrentPlayerSign('');
         setSelectedCurrentPlayerFile(null);
         setFileCurrentPlayerURL(null);
-        setRoomCode("");
+        setTimeout(function (): void {
+            setRoomCode("");
+        }, 10);
     }
 
     function onEnter(event: React.FormEvent<HTMLFormElement>) {
@@ -86,15 +88,15 @@ function App() {
                                     />
                                 ) : (
                                     isInRoom && !isOnEnter ? (
-                                        <Navigate to="/room"/>
+                                        <Navigate to={`/room-${roomCode}`}/>
                                     ) : (
-                                        <Navigate to="/game"/>
+                                        <Navigate to={`/game-${roomCode}`}/>
                                     )
                                 )
                             }
                         />
                         <Route
-                            path="/room"
+                            path={`/room-${roomCode}`}
                             element={
                                 isInRoom && !isOnEnter ? (
                                     <Room
@@ -106,13 +108,13 @@ function App() {
                                     isOnEnter && !isInRoom ? (
                                         <Navigate to="/"/>
                                     ) : (
-                                        <Navigate to="/game"/>
+                                        <Navigate to={`/game-${roomCode}`}/>
                                     )
                                 )
                             }
                         />
                         <Route
-                            path="/game"
+                            path={`/game-${roomCode}`}
                             element={
                                 !isInRoom && !isOnEnter ? (
                                     <Game
@@ -124,7 +126,7 @@ function App() {
                                     isOnEnter && !isInRoom ? (
                                         <Navigate to="/"/>
                                     ) : (
-                                        <Navigate to="/room"/>
+                                        <Navigate to={`/room-${roomCode}`}/>
                                     )
                                 )
                             }

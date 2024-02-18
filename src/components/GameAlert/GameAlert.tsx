@@ -23,7 +23,9 @@ function GameAlert(props: GameAlertProps) {
 
     // Function to close the modal and perform additional action
     const closeModalAndPerformAction = () => {
-        dispatch(consolePrint());
+        setTimeout(function (): void {
+            dispatch(consolePrint());
+        }, 100);
         resetXOScript();
         props.setModalIsOpen(false);
         console.log('User Clicked On One of The Buttons!');
