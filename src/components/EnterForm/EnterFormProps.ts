@@ -8,5 +8,5 @@ export interface EnterFormProps {
     setRoomCode: Dispatch<SetStateAction<string>>;
     setCurrentPlayerName: Dispatch<SetStateAction<string>>;
     setCurrentPlayerSign: Dispatch<SetStateAction<string>>;
-    handleFileChange: (event: ChangeEvent<HTMLInputElement>, where: string) => void;
+    handleFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }

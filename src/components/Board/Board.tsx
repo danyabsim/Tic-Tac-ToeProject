@@ -7,6 +7,9 @@ import {useDispatch} from "react-redux";
 import {addTie, firstPlayerWon, secondPlayerWon} from "../../redux/resultsSlice";
 
 function Board(props: BoardProps) {
+    const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
+    const dispatch = useDispatch();
+
     const [countSolved, setCountSolved] = useState(0);
     const [XOClassNames, setXOClassNames] = useState([
         ["XO", "XO", "XO"],
@@ -16,13 +19,11 @@ function Board(props: BoardProps) {
     const [alertText, setAlertText] = useState("");
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [solvedChar, setSolvedChar] = useState("");
-    const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
     const [XOFileURLs, setXOFiles] = useState<(string | null)[][]>([
         [noImage, noImage, noImage],
         [noImage, noImage, noImage],
         [noImage, noImage, noImage],
     ]);
-    const dispatch = useDispatch();
 
     function resetHandler() {
         props.resetHandler();

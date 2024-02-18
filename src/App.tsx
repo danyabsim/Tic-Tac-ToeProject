@@ -17,6 +17,12 @@ function App() {
     const [fileCurrentPlayerURL, setFileCurrentPlayerURL] = useState<string | null>(null);
     const [roomCode, setRoomCode] = useState("");
     const currentPlayer: Player = {name: currentPlayerName, sign: currentPlayerSign, URL: fileCurrentPlayerURL};
+    let defaultPlayer: Player =
+        {
+            name: (currentPlayer.name === 'defaultPlayer' ? 'Abra Cad-bra' : 'defaultPlayer'),
+            sign: (currentPlayer.sign === 'Q' ? 'B' : 'Q'),
+            URL: null
+        };
 
     function resetTheApp() {
         setIsOnRoom(false);
@@ -119,7 +125,7 @@ function App() {
                                 !isInRoom && !isOnEnter ? (
                                     <Game
                                         firstPlayer={currentPlayer}
-                                        secondPlayer={currentPlayer}
+                                        secondPlayer={defaultPlayer}
                                         resetTheApp={resetTheApp}
                                     />
                                 ) : (

@@ -4,12 +4,8 @@ import {EnterFormProps} from "./EnterFormProps";
 function EnterForm(props: EnterFormProps) {
     const maxLengthOfSigns = 1;
 
-    function handleFirstPlayerFileChange(event: ChangeEvent<HTMLInputElement>) {
-        props.handleFileChange(event, "first");
-    }
-
-    function handleSecondPlayerFileChange(event: ChangeEvent<HTMLInputElement>) {
-        props.handleFileChange(event, "second");
+    function handlePlayerFileChange(event: ChangeEvent<HTMLInputElement>) {
+        props.handleFileChange(event);
     }
 
     return (
@@ -38,7 +34,7 @@ function EnterForm(props: EnterFormProps) {
                 <input
                     type="file"
                     className="block text-lg mb-5"
-                    onChange={handleFirstPlayerFileChange}
+                    onChange={handlePlayerFileChange}
                     accept="image/*"
                 />
                 <label className="block mb-2">Room Code:</label>
