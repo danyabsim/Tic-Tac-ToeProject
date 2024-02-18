@@ -4,13 +4,7 @@ import {useState} from "react";
 import GameActionButton from "../GameActionButton/GameActionButton";
 
 function Room(props: RoomProps) {
-    let defaultPlayer: Player =
-        {
-            name: (props.currentPlayer.name === 'defaultPlayer' ? 'Abra Cadbra' : 'defaultPlayer'),
-            sign: (props.currentPlayer.sign === 'Q' ? 'B' : 'Q'),
-            URL: null
-        };
-    let players: Player[] = [props.currentPlayer, defaultPlayer]; // need to be taken from server
+    let players: Player[] = [props.currentPlayer, props.defaultPlayer]; // need to be taken from server
     const [readyBool, setReadyBool] = useState([false, false]); // need to be taken from server
 
     function onClickReadyBool(index: number) {

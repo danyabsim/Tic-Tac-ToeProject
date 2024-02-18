@@ -16,12 +16,14 @@ function App() {
     const [, setSelectedCurrentPlayerFile] = useState<File | null>(null);
     const [fileCurrentPlayerURL, setFileCurrentPlayerURL] = useState<string | null>(null);
     const [roomCode, setRoomCode] = useState("");
+
+    const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
     const currentPlayer: Player = {name: currentPlayerName, sign: currentPlayerSign, URL: fileCurrentPlayerURL};
-    let defaultPlayer: Player =
+    const defaultPlayer: Player =
         {
-            name: (currentPlayer.name === 'defaultPlayer' ? 'Abra Cad-bra' : 'defaultPlayer'),
-            sign: (currentPlayer.sign === 'Q' ? 'B' : 'Q'),
-            URL: null
+            name: (currentPlayer.name === 'Mr. Know It All' ? 'Abra Cad-bra' : 'Mr. Know It All'),
+            sign: (currentPlayer.sign === 'K' ? 'A' : 'K'),
+            URL: noImage
         };
 
     function resetTheApp() {
@@ -107,6 +109,7 @@ function App() {
                                 isInRoom && !isOnEnter ? (
                                     <Room
                                         currentPlayer={currentPlayer}
+                                        defaultPlayer={defaultPlayer}
                                         roomCode={roomCode}
                                         setIsOnRoom={setIsOnRoom}
                                     />
