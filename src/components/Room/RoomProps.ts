@@ -6,4 +6,5 @@ export interface RoomProps {
     defaultPlayer: Player;
     roomCode: string;
     setIsOnRoom: Dispatch<SetStateAction<boolean>>;
+    resetTheApp: () => void;
 }

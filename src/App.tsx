@@ -112,6 +112,7 @@ function App() {
                                         defaultPlayer={defaultPlayer}
                                         roomCode={roomCode}
                                         setIsOnRoom={setIsOnRoom}
+                                        resetTheApp={resetTheApp}
                                     />
                                 ) : (
                                     isOnEnter && !isInRoom ? (

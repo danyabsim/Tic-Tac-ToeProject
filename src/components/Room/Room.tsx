@@ -1,6 +1,6 @@
 import {Player} from "../../interfaces/Player";
 import {RoomProps} from "./RoomProps";
-import {useState} from "react";
+import React, {useState} from "react";
 import GameActionButton from "../GameActionButton/GameActionButton";
 
 function Room(props: RoomProps) {
@@ -42,6 +42,10 @@ function Room(props: RoomProps) {
                 <>
                 </>
             }
+            <GameActionButton
+                onClick={props.resetTheApp}
+                value="Exit"
+            />
         </div>
     );
 }
