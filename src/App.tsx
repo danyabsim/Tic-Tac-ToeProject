@@ -34,8 +34,12 @@ function App() {
         if (currentPlayerName !== "") {
             if (currentPlayerSign !== " " && currentPlayerSign !== ""
                 && currentPlayerSign.length === 1) {
-                setIsOnEnter(false);
-                setIsOnRoom(true);
+                if (roomCode !== "") {
+                    setIsOnEnter(false);
+                    setIsOnRoom(true);
+                } else {
+                    alert("The room code is empty!")
+                }
             } else {
                 alert("The sign contains only space or is empty!");
             }
