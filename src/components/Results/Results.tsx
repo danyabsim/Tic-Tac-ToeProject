@@ -1,11 +1,12 @@
 import React from "react";
-import {ResultsProps} from "./ResultsProps";
+import {IResultsProps} from "./IResultsProps";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 
-function Results(props: ResultsProps) {
+function Results(props: IResultsProps) {
     const currentResults = useSelector((state: RootState) => state.results);
     const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
+
     return (
         <div className="m-0">
             <form className="flex justify-center items-center">

@@ -1,11 +1,11 @@
-import {BottomButtonsProps} from "./BottomButtonsProps";
+import {IBottomButtonsProps} from "./IBottomButtonsProps";
 import {resetXOScript} from "../../XOScript";
-import {exportHistoryToExcel, exportHistoryToFile} from "../../redux/historySlice";
+import {exportHistoryToExcel, exportHistoryToFile} from "../../redux/History/historySlice";
 import {useDispatch} from "react-redux";
 import GameActionButton from "../GameActionButton/GameActionButton";
 import React from "react";
 
-function BottomButtons(props: BottomButtonsProps) {
+function BottomButtons(props: IBottomButtonsProps) {
     const dispatch = useDispatch();
 
     function exitHandler() {

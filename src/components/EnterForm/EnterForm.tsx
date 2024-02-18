@@ -1,16 +1,13 @@
-import React, {ChangeEvent} from "react";
-import {EnterFormProps} from "./EnterFormProps";
+import React from "react";
+import {IEnterFormProps} from "./IEnterFormProps";
 
-function EnterForm(props: EnterFormProps) {
+function EnterForm(props: IEnterFormProps) {
     const maxLengthOfSigns = 1;
-
-    function handlePlayerFileChange(event: ChangeEvent<HTMLInputElement>) {
-        props.handleFileChange(event);
-    }
 
     return (
         <form className="text-3xl mt-4 mb-4 text-center flex flex-col items-center" onSubmit={props.onEnter}>
             <div className="mb-10 space-y-4">
+                {/*<ToggleSwitch isChecked={isChecked} onToggle={onToggle}/>*/}
                 <label className="block mb-2">Your Player Name:</label>
                 <input
                     className="inline-block mt-4 mb-4 text-center text-black"
@@ -34,7 +31,7 @@ function EnterForm(props: EnterFormProps) {
                 <input
                     type="file"
                     className="block text-lg mb-5"
-                    onChange={handlePlayerFileChange}
+                    onChange={props.handleFileChange}
                     accept="image/*"
                 />
                 <label className="block mb-2">Room Code:</label>

@@ -1,9 +1,9 @@
 import {ChangeEvent, Dispatch, FormEventHandler, SetStateAction} from "react";
-import {Player} from "../../interfaces/Player";
+import {IPlayer} from "../../interfaces/IPlayer";
 
-export interface EnterFormProps {
+export interface IEnterFormProps {
     onEnter: FormEventHandler<HTMLFormElement>;
-    currentPlayer: Player;
+    currentPlayer: IPlayer;
     roomCode: string;
     setRoomCode: Dispatch<SetStateAction<string>>;
     setCurrentPlayerName: Dispatch<SetStateAction<string>>;

@@ -1,16 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-export interface ResultsReducerState {
-    firstPlayerWins: number;
-    ties: number;
-    secondPlayerWins: number;
-}
-
-export const initialResultsState: ResultsReducerState = {
-    firstPlayerWins: 0,
-    ties: 0,
-    secondPlayerWins: 0,
-};
+import {initialResultsState} from "./initialResultsState";
 
 const resultsSlice = createSlice({
     name: 'results',

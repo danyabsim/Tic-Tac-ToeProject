@@ -1,20 +1,19 @@
 import Modal from 'react-modal';
-import {GameAlertProps} from "./GameAlertProps";
+import {IGameAlertProps} from "./IGameAlertProps";
 import React, {useRef, useState} from "react";
 import {RootState} from '../../redux/store';
 import {useDispatch, useSelector} from 'react-redux';
 import {
     addHistory,
-    consolePrint,
     exportHistoryToExcel,
     exportHistoryToFile,
     updateLatestHistory
-} from '../../redux/historySlice';
+} from '../../redux/History/historySlice';
 import {resetXOScript} from "../../XOScript";
 import {BackgroundImage} from "../../styleComponents/BackgroundImage";
 import GameActionButton from "../GameActionButton/GameActionButton";
 
-function GameAlert(props: GameAlertProps) {
+function GameAlert(props: IGameAlertProps) {
     const dispatch = useDispatch();
     const historyArray = useSelector((state: RootState) => state.history.historyArray);
     const {firstPlayerWins, ties, secondPlayerWins} = useSelector((state: RootState) => state.results);
@@ -22,27 +21,24 @@ function GameAlert(props: GameAlertProps) {
     const currentHistory = historyArray[historyArray.length - 1];
 
     // Function to close the modal and perform additional action
-    const closeModalAndPerformAction = () => {
-        setTimeout(function (): void {
-            dispatch(consolePrint());
-        }, 100);
+    function CloseModalAndPerformAction() {
         resetXOScript();
         props.setModalIsOpen(false);
         console.log('User Clicked On One of The Buttons!');
-    };
+    }
 
     function resetHandler() {
-        closeModalAndPerformAction();
+        CloseModalAndPerformAction();
         props.resetHandler();
     }
 
     function nextGameHandler() {
-        closeModalAndPerformAction();
+        CloseModalAndPerformAction();
         props.nextGameHandler();
     }
 
     function exitHandler() {
-        closeModalAndPerformAction();
+        CloseModalAndPerformAction();
         props.resetTheApp();
     }
 
@@ -71,13 +67,12 @@ function GameAlert(props: GameAlertProps) {
         if (audioRef.current) {
             audioRef.current.play().then(r => r);
         }
-        console.log(historyArray);
     }
 
     return (
         <Modal
             isOpen={props.modalIsOpen}
-            onRequestClose={closeModalAndPerformAction}
+            onRequestClose={CloseModalAndPerformAction}
             onAfterOpen={openModalAndPerformAction}
             contentLabel="Game Result"
             shouldCloseOnOverlayClick={false}

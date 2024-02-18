@@ -1,7 +1,7 @@
 import {Dispatch, SetStateAction} from "react";
-import {Player} from "../../interfaces/Player";
+import {IPlayer} from "../../interfaces/IPlayer";
 
-export interface GameAlertProps {
+export interface IGameAlertProps {
     alertText: string;
     solvedChar: string;
     modalIsOpen: boolean;
@@ -9,6 +9,6 @@ export interface GameAlertProps {
     resetHandler: () => void;
     nextGameHandler: () => void;
     resetTheApp: () => void;
-    firstPlayer: Player;
-    secondPlayer: Player;
+    firstPlayer: IPlayer;
+    secondPlayer: IPlayer;
 }

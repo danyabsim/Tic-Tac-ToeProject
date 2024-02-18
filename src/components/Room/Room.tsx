@@ -1,10 +1,10 @@
-import {Player} from "../../interfaces/Player";
-import {RoomProps} from "./RoomProps";
+import {IPlayer} from "../../interfaces/IPlayer";
+import {IRoomProps} from "./IRoomProps";
 import React, {useState} from "react";
 import GameActionButton from "../GameActionButton/GameActionButton";
 
-function Room(props: RoomProps) {
-    let players: Player[] = [props.currentPlayer, props.defaultPlayer]; // need to be taken from server
+function Room(props: IRoomProps) {
+    let players: IPlayer[] = [props.currentPlayer, props.defaultPlayer]; // need to be taken from server
     const [readyBool, setReadyBool] = useState([false, false]); // need to be taken from server
 
     function onClickReadyBool(index: number) {

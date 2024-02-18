@@ -1,14 +1,8 @@
 import React from "react";
-import {BoardButtonProps} from "./BoardButtonProps";
+import {IBoardButtonProps} from "./IBoardButtonProps";
 
-function BoardButton(props: BoardButtonProps) {
+function BoardButton(props: IBoardButtonProps) {
     const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
-
-    function onClickXOElement(event: React.MouseEvent<HTMLDivElement>) {
-        if (props.onClick) {
-            props.onClick(event);
-        }
-    }
 
     function addBorderPerId(id: string): string {
         const XO_Column = parseInt(id.charAt(2));
@@ -32,7 +26,7 @@ function BoardButton(props: BoardButtonProps) {
     return (
         <div
             id={props.id}
-            onClick={onClickXOElement}
+            onClick={props.onClick}
             className={`flex items-center justify-center text-4xl h-24 w-24 mx-auto ${(props.className === "XO" ? "bg-black text-white" : "font-bold underline bg-green-500")} ${addBorderPerId(props.id as string)}`}
         >
             {(props.fileURL === noImage) ? (

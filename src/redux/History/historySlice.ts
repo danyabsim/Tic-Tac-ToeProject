@@ -1,22 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {saveAs} from 'file-saver';
 import * as XLSX from 'xlsx';
-
-export interface historyArrayProps {
-    firstPlayerName: string;
-    secondPlayerName: string;
-    firstPlayerWins: number;
-    ties: number;
-    secondPlayerWins: number;
-}
-
-export interface HistoryReducerState {
-    historyArray: historyArrayProps[];
-}
-
-export const initialHistoryState: HistoryReducerState = {
-    historyArray: [],
-};
+import {initialHistoryState} from "./initialHistoryState";
 
 const historySlice = createSlice({
     name: 'history',
@@ -30,9 +15,6 @@ const historySlice = createSlice({
             if (lastIndex >= 0) {
                 state.historyArray[lastIndex] = action.payload;
             }
-        },
-        consolePrint: (state) => {
-            console.log(state.historyArray);
         },
         exportHistoryToFile: (state) => {
             if (state.historyArray.length !== 0) {
@@ -58,5 +40,5 @@ const historySlice = createSlice({
     },
 });
 
-export const {addHistory, updateLatestHistory, consolePrint, exportHistoryToFile, exportHistoryToExcel} = historySlice.actions;
+export const {addHistory, updateLatestHistory, exportHistoryToFile, exportHistoryToExcel} = historySlice.actions;
 export default historySlice.reducer;

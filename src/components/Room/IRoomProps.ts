@@ -1,9 +1,9 @@
-import {Player} from "../../interfaces/Player";
+import {IPlayer} from "../../interfaces/IPlayer";
 import {Dispatch, SetStateAction} from "react";
 
-export interface RoomProps {
-    currentPlayer: Player;
-    defaultPlayer: Player;
+export interface IRoomProps {
+    currentPlayer: IPlayer;
+    defaultPlayer: IPlayer;
     roomCode: string;
     setIsOnRoom: Dispatch<SetStateAction<boolean>>;
     resetTheApp: () => void;

@@ -1,9 +1,9 @@
 import {Dispatch, SetStateAction} from "react";
-import {Player} from "../../interfaces/Player";
+import {IPlayer} from "../../interfaces/IPlayer";
 
-export interface BoardProps {
-    firstPlayer: Player;
-    secondPlayer: Player;
+export interface IBoardProps {
+    firstPlayer: IPlayer;
+    secondPlayer: IPlayer;
     isFirstPlayerStars: boolean;
     setIsFirstPlayerStars: Dispatch<SetStateAction<boolean>>;
     XOArray: string[][];

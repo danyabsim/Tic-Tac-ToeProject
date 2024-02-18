@@ -2,11 +2,11 @@ import React, {useState} from "react";
 import Results from "../Results/Results";
 import Board from "../Board/Board";
 import BottomButtons from "../BottomButtons/BottomButtons";
-import {GameProps} from "./GameProps";
+import {IGameProps} from "./IGameProps";
 import {useDispatch} from "react-redux";
-import {resetTheResults} from "../../redux/resultsSlice";
+import {resetTheResults} from "../../redux/Results/resultsSlice";
 
-function Game(props: GameProps) {
+function Game(props: IGameProps) {
     const [isFirstPlayerStars, setIsFirstPlayerStars] = useState(true);
     const [XOArray, setXOArray] = useState([["", "", ""], ["", "", ""], ["", "", ""]]);
     const dispatch = useDispatch();

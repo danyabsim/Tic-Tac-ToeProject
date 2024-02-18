@@ -1,6 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import historyReducer from './historySlice';
-import resultsReducer from "./resultsSlice";
+import historyReducer from './History/historySlice';
+import resultsReducer from "./Results/resultsSlice";
 
 const rootReducer = combineReducers({
     history: historyReducer,

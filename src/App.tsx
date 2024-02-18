@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom
 import EnterForm from "./components/EnterForm/EnterForm";
 import store from "./redux/store";
 import {Provider} from "react-redux";
-import {Player} from "./interfaces/Player";
+import {IPlayer} from "./interfaces/IPlayer";
 import Room from "./components/Room/Room";
 
 function App() {
@@ -18,8 +18,8 @@ function App() {
     const [roomCode, setRoomCode] = useState("");
 
     const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
-    const currentPlayer: Player = {name: currentPlayerName, sign: currentPlayerSign, URL: fileCurrentPlayerURL};
-    const defaultPlayer: Player =
+    const currentPlayer: IPlayer = {name: currentPlayerName, sign: currentPlayerSign, URL: fileCurrentPlayerURL};
+    const defaultPlayer: IPlayer =
         {
             name: (currentPlayer.name === 'Mr. Know It All' ? 'Abra Cad-bra' : 'Mr. Know It All'),
             sign: (currentPlayer.sign === 'K' ? 'A' : 'K'),
