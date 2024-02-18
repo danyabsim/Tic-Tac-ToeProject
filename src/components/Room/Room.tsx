@@ -17,7 +17,7 @@ function Room(props: RoomProps) {
 
     return (
         <div className="text-black text-4xl text-center">
-            <h1 className="text-4xl border-b-0 bg-green-500 m-0">{players.length === 2 && readyBool.every(value => value) ? "Hello!" : "Waiting For Players..."}</h1>
+            <h1 className="text-4xl border-b-0 bg-green-500 m-0">{players.length === 2 && readyBool.every(value => value) ? "Game will be started shortly!" : "Waiting For Players..."}</h1>
             <h2 className="text-white">Room code: {props.roomCode}</h2>
             {players.map((player, index) => (
                 <div>
@@ -39,13 +39,11 @@ function Room(props: RoomProps) {
                     }}
                 />
                 :
-                <>
-                </>
+                <GameActionButton
+                    onClick={props.resetTheApp}
+                    value="Exit"
+                />
             }
-            <GameActionButton
-                onClick={props.resetTheApp}
-                value="Exit"
-            />
         </div>
     );
 }
