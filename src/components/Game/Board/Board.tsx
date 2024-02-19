@@ -15,34 +15,27 @@ function Board(props: IBoardProps) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [solvedChar, setSolvedChar] = useState("");
     const [XOFileURLs, setXOFiles] = useState<(string | null)[][]>([[noImage, noImage, noImage], [noImage, noImage, noImage], [noImage, noImage, noImage]]);
+
     function resetBoard(additionalCode: () => void) {
         additionalCode();
         setXOClassNames([["XO", "XO", "XO"], ["XO", "XO", "XO"], ["XO", "XO", "XO"]]);
         setXOFiles([[noImage, noImage, noImage], [noImage, noImage, noImage], [noImage, noImage, noImage]]);
+        setCountSolved(0);
+        setSolvedChar("");
     }
 
     function onClickBoardButtonElement(event: React.MouseEvent<HTMLDivElement>) {
-        if (props.XOArray.every(row => row.every(item => item === ""))) {
-            setCountSolved(0);
-            setSolvedChar("");
-        }
         if (checkBoard(props.XOArray)[0]) {
             return;
         }
         let XOArray: string[][] = props.XOArray;
         let XO_Column = parseInt(event.currentTarget.id.charAt(2));
         let XO_Row = parseInt(event.currentTarget.id.charAt(3));
-        if (props.XOArray[XO_Column - 1][XO_Row - 1] === "") {
-            OnClickXOButton();
-            XOArray[XO_Column - 1][XO_Row - 1] = XOCount % 2 === 1 ? (props.isFirstPlayerStars ? props.firstPlayer.sign : props.secondPlayer.sign) : (props.isFirstPlayerStars ? props.secondPlayer.sign : props.firstPlayer.sign);
-        }
-        props.setXOArray(XOArray);
+        props.setXOArray(OnClickXOButton(XOArray, XO_Column, XO_Row, props.isFirstPlayerStars, props.firstPlayer.sign, props.secondPlayer.sign));
 
         setXOFiles(prevXOFiles => {
             let tempXOFileURLs = [...prevXOFiles];
-            tempXOFileURLs[XO_Column - 1][XO_Row - 1] = (
-                props.XOArray[XO_Column - 1][XO_Row - 1] === props.firstPlayer.sign ? props.firstPlayer.URL : (props.XOArray[XO_Column - 1][XO_Row - 1] === props.secondPlayer.sign ? props.secondPlayer.URL : noImage)
-            );
+            tempXOFileURLs[XO_Column - 1][XO_Row - 1] = (props.XOArray[XO_Column - 1][XO_Row - 1] === props.firstPlayer.sign ? props.firstPlayer.URL : (props.XOArray[XO_Column - 1][XO_Row - 1] === props.secondPlayer.sign ? props.secondPlayer.URL : noImage));
             return tempXOFileURLs;
         });
 
@@ -53,10 +46,7 @@ function Board(props: IBoardProps) {
             setCountSolved(countSolved + 1);
             const winner = (innerSolvedChar === props.firstPlayer.sign || innerSolvedChar === props.secondPlayer.sign) ? (innerSolvedChar === props.firstPlayer.sign ? props.firstPlayer : props.secondPlayer) : null;
             setAlertText(winner ? `${winner.name} (${winner.sign}) Won!` : "Game Ended With a Tie!");
-            setTimeout(function (): void {
-                setModalIsOpen(true);
-            }, 200);
-
+            setTimeout(() => setModalIsOpen(true), 100);
             switch (innerSolvedChar) {
                 case props.firstPlayer.sign:
                     dispatch(firstPlayerWon());

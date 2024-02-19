@@ -58,12 +58,10 @@ function GameAlert(props: IGameAlertProps) {
                     <GameActionButton value="Exit" onClick={() => CloseGameAlert(props.resetTheApp)}/>
                 </div>
                 <div>
-                    <GameActionButton value="Export History (JSON)" onClick={() => setTimeout(function (): void {
-                        dispatch(historySlice.exportHistoryToFile())
-                    }, 100)}/>
-                    <GameActionButton value="Export History (Excel)" onClick={() => setTimeout(function (): void {
-                        dispatch(historySlice.exportHistoryToExcel())
-                    }, 100)}/>
+                    <GameActionButton value="Export History (JSON)"
+                                      onClick={() => setTimeout(() => dispatch(historySlice.exportHistoryToFile()), 100)}/>
+                    <GameActionButton value="Export History (Excel)"
+                                      onClick={() => setTimeout(() => dispatch(historySlice.exportHistoryToExcel()), 100)}/>
                 </div>
             </BackgroundImage>
         </Modal>
