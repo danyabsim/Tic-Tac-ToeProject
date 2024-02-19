@@ -1,12 +1,11 @@
 import React, {useState} from 'react';
 import BoardButton from "./BoardButton/BoardButton";
 import {IBoardProps} from "./IBoardProps";
-import {checkBoard, dispatchAndSetWhoPlaysNext, OnClickXOButton, XOCount} from "../../../XOScript";
+import {checkBoard, dispatchAndSetWhoPlaysNext, noImage, OnClickXOButton, XOCount} from "../../../XOScript";
 import GameAlert from "../GameAlert/GameAlert";
 import {useDispatch} from "react-redux";
 
 function Board(props: IBoardProps) {
-    const noImage = process.env.PUBLIC_URL + 'black-textured-background.avif';
     const dispatch = useDispatch();
     const [countSolved, setCountSolved] = useState(0);
     const [XOClassNames, setXOClassNames] = useState([["XO", "XO", "XO"], ["XO", "XO", "XO"], ["XO", "XO", "XO"]]);

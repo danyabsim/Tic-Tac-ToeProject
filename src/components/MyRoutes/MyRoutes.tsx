@@ -4,6 +4,7 @@ import {IPlayer} from "../../interfaces/IPlayer";
 import EnterForm from "../EnterForm/EnterForm";
 import Room from "../Room/Room";
 import Game from "../Game/Game";
+import {noImage} from "../../XOScript";
 
 function MyRoutes() {
     const [isOnEnter, setIsOnEnter] = useState(true);
@@ -13,7 +14,6 @@ function MyRoutes() {
     const [, setSelectedCurrentPlayerFile] = useState<File | null>(null);
     const [fileCurrentPlayerURL, setFileCurrentPlayerURL] = useState<string | null>(null);
     const [roomCode, setRoomCode] = useState("");
-    const noImage = process.env.PUBLIC_URL + 'black-textured-background.avif';
     const currentPlayer: IPlayer = {name: currentPlayerName, sign: currentPlayerSign, URL: fileCurrentPlayerURL};
     const defaultPlayer: IPlayer = {name: (currentPlayer.name === 'Mr. Know It All' ? 'Abra Cad-bra' : 'Mr. Know It All'), sign: (currentPlayer.sign === 'K' ? 'A' : 'K'), URL: noImage};
 

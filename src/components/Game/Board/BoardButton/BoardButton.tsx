@@ -1,9 +1,8 @@
 import React from "react";
 import {IBoardButtonProps} from "./IBoardButtonProps";
+import {noImage} from "../../../../XOScript";
 
 function BoardButton(props: IBoardButtonProps) {
-    const noImage = process.env.PUBLIC_URL + 'black-textured-background.avif';
-
     function addBorderPerId(id: string): string {
         const XO_Column = parseInt(id.charAt(2));
         const XO_Row = parseInt(id.charAt(3));

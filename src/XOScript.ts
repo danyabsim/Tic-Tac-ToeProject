@@ -3,6 +3,7 @@ import {UnknownAction} from "redux";
 import {addTie, firstPlayerWon, secondPlayerWon} from "./redux/Results/resultsSlice";
 
 export let XOCount: number = 0;
+export const noImage = process.env.PUBLIC_URL + 'black-textured-background.avif';
 
 export function resetXOScript() {
     XOCount = 0;
