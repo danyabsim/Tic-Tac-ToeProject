@@ -11,31 +11,21 @@ const historySlice = createSlice({
             state.historyArray = [...state.historyArray, action.payload];
         },
         updateLatestHistory: (state, action) => {
-            const lastIndex = state.historyArray.length - 1;
-            if (lastIndex >= 0) {
-                state.historyArray[lastIndex] = action.payload;
-            }
+            state.historyArray[state.historyArray.length - 1] = action.payload;
         },
         exportHistoryToFile: (state) => {
-            if (state.historyArray.length !== 0) {
-                // Convert the historyArray to a JSON string
-                const jsonData = JSON.stringify(state.historyArray, null, 2);
-
-                // Convert the JSON string to a Blob
-                const blob = new Blob([jsonData], {type: 'application/json;charset=utf-8'});
-
-                // Use FileSaver to save the Blob as a file
-                saveAs(blob, 'historyData.json');
-            }
+            // Convert the historyArray to a JSON string
+            const jsonData = JSON.stringify(state.historyArray, null, 2);
+            // Convert the JSON string to a Blob
+            const blob = new Blob([jsonData], {type: 'application/json;charset=utf-8'});
+            // Use FileSaver to save the Blob as a file
+            saveAs(blob, 'historyData.json');
         },
         exportHistoryToExcel: (state) => {
-            console.log(state.historyArray);
-            if (state.historyArray.length !== 0) {
-                const worksheet = XLSX.utils.json_to_sheet(state.historyArray);
-                const workbook = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
-                XLSX.writeFile(workbook, 'historyData.xlsx');
-            }
+            const worksheet = XLSX.utils.json_to_sheet(state.historyArray);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+            XLSX.writeFile(workbook, 'historyData.xlsx');
         },
     },
 });

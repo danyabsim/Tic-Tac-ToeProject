@@ -53,15 +53,15 @@ function GameAlert(props: IGameAlertProps) {
                         {currentHistory?.firstPlayerName}: {currentHistory?.firstPlayerWins} (Ties: {currentHistory?.ties}) {currentHistory?.secondPlayerName}: {currentHistory?.secondPlayerWins}
                     </div>
                     <h2 className="my-[30px] mb-[100px]">{props.alertText}</h2>
-                    <GameActionButton value="Reset" onClick={() => CloseGameAlert(props.resetHandler)}/>
-                    <GameActionButton value="Next Game" onClick={() => CloseGameAlert(props.nextGameHandler)}/>
-                    <GameActionButton value="Exit" onClick={() => CloseGameAlert(props.resetTheApp)}/>
+                    <GameActionButton value="Reset" onClick={() => CloseGameAlert(props.ResetHandler)}/>
+                    <GameActionButton value="Next Game" onClick={() => CloseGameAlert(props.NextGameHandler)}/>
+                    <GameActionButton value="Exit" onClick={() => CloseGameAlert(props.ResetTheApp)}/>
                 </div>
                 <div>
                     <GameActionButton value="Export History (JSON)"
-                                      onClick={() => setTimeout(() => dispatch(historySlice.exportHistoryToFile()), 100)}/>
+                                      onClick={() => setTimeout(() => (historyArray.length !== 0 ? dispatch(historySlice.exportHistoryToFile()) : null), 100)}/>
                     <GameActionButton value="Export History (Excel)"
-                                      onClick={() => setTimeout(() => dispatch(historySlice.exportHistoryToExcel()), 100)}/>
+                                      onClick={() => setTimeout(() => (historyArray.length !== 0 ? dispatch(historySlice.exportHistoryToExcel()) : null), 100)}/>
                 </div>
             </BackgroundImage>
         </Modal>

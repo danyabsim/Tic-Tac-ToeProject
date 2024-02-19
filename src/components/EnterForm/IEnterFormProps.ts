@@ -2,7 +2,7 @@ import {ChangeEvent, Dispatch, FormEventHandler, SetStateAction} from "react";
 import {IPlayer} from "../../interfaces/IPlayer";
 
 export interface IEnterFormProps {
-    onEnter: FormEventHandler<HTMLFormElement>;
+    OnEnter: FormEventHandler<HTMLFormElement>;
     currentPlayer: IPlayer;
     roomCode: string;
     setRoomCode: Dispatch<SetStateAction<string>>;

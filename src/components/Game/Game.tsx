@@ -11,19 +11,19 @@ function Game(props: IGameProps) {
     const [XOArray, setXOArray] = useState([["", "", ""], ["", "", ""], ["", "", ""]]);
     const dispatch = useDispatch();
 
-    function resetHandler() {
+    function ResetHandler() {
         dispatch(resetTheResults());
         setIsFirstPlayerStars(true);
         setXOArray([["", "", ""], ["", "", ""], ["", "", ""]]);
     }
 
-    function nextGameHandler() {
+    function NextGameHandler() {
         setXOArray([["", "", ""], ["", "", ""], ["", "", ""]]);
     }
 
-    function resetTheApp() {
-        resetHandler();
-        props.resetTheApp();
+    function ResetTheApp() {
+        ResetHandler();
+        props.ResetTheApp();
     }
 
     return (
@@ -32,9 +32,9 @@ function Game(props: IGameProps) {
             <Results firstPlayer={props.firstPlayer} secondPlayer={props.secondPlayer}/>
             <Board firstPlayer={props.firstPlayer} secondPlayer={props.secondPlayer} XOArray={XOArray}
                    setXOArray={setXOArray} isFirstPlayerStars={isFirstPlayerStars}
-                   setIsFirstPlayerStars={setIsFirstPlayerStars} resetHandler={resetHandler}
-                   nextGameHandler={nextGameHandler} resetTheApp={resetTheApp}/>
-            <BottomButtons resetTheApp={resetTheApp}/>
+                   setIsFirstPlayerStars={setIsFirstPlayerStars} ResetHandler={ResetHandler}
+                   NextGameHandler={NextGameHandler} ResetTheApp={ResetTheApp}/>
+            <BottomButtons ResetTheApp={ResetTheApp}/>
         </div>
     );
 }

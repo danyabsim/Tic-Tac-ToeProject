@@ -1,41 +1,28 @@
 import {IBottomButtonsProps} from "./IBottomButtonsProps";
 import {resetXOScript} from "../../../XOScript";
-import {exportHistoryToExcel, exportHistoryToFile} from "../../../redux/History/historySlice";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import GameActionButton from "../../GameActionButton/GameActionButton";
 import React from "react";
+import {RootState} from "../../../redux/store";
+import * as historySlice from "../../../redux/History/historySlice";
 
 function BottomButtons(props: IBottomButtonsProps) {
     const dispatch = useDispatch();
+    const historyArray = useSelector((state: RootState) => state.history.historyArray);
 
     function exitHandler() {
         resetXOScript();
-        props.resetTheApp();
+        props.ResetTheApp();
     }
 
     return (
         <div className="flex justify-center items-center">
             <form className="mt-8 text-black text-4xl text-center font-bold">
-                <GameActionButton
-                    onClick={exitHandler}
-                    value="Exit"
-                />
-                <GameActionButton
-                    value="Export History (JSON)"
-                    onClick={() =>
-                        setTimeout(function (): void {
-                            dispatch(exportHistoryToFile())
-                        }, 100)
-                    }
-                />
-                <GameActionButton
-                    value="Export History (Excel)"
-                    onClick={() =>
-                        setTimeout(function (): void {
-                            dispatch(exportHistoryToExcel())
-                        }, 100)
-                    }
-                />
+                <GameActionButton onClick={exitHandler} value="Exit"/>
+                <GameActionButton value="Export History (JSON)"
+                                  onClick={() => setTimeout(() => (historyArray.length !== 0 ? dispatch(historySlice.exportHistoryToFile()) : null), 100)}/>
+                <GameActionButton value="Export History (Excel)"
+                                  onClick={() => setTimeout(() => (historyArray.length !== 0 ? dispatch(historySlice.exportHistoryToExcel()) : null), 100)}/>
             </form>
         </div>
     );

@@ -6,9 +6,9 @@ export interface IGameAlertProps {
     solvedChar: string;
     modalIsOpen: boolean;
     setModalIsOpen: Dispatch<SetStateAction<boolean>>;
-    resetHandler: () => void;
-    nextGameHandler: () => void;
-    resetTheApp: () => void;
+    ResetHandler: () => void;
+    NextGameHandler: () => void;
+    ResetTheApp: () => void;
     firstPlayer: IPlayer;
     secondPlayer: IPlayer;
 }

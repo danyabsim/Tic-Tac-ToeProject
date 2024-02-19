@@ -30,7 +30,7 @@ function Board(props: IBoardProps) {
 
         setXOFiles(prevXOFiles => {
             let tempXOFileURLs = [...prevXOFiles];
-            tempXOFileURLs[XO_Column - 1][XO_Row - 1] = (props.XOArray[XO_Column - 1][XO_Row - 1] === props.firstPlayer.sign ? props.firstPlayer.URL : (props.XOArray[XO_Column - 1][XO_Row - 1] === props.secondPlayer.sign ? props.secondPlayer.URL : noImage));
+            tempXOFileURLs[XO_Column - 1][XO_Row - 1] = (props.XOArray[XO_Column - 1][XO_Row - 1] === props.firstPlayer.sign ? props.firstPlayer.url : (props.XOArray[XO_Column - 1][XO_Row - 1] === props.secondPlayer.sign ? props.secondPlayer.url : noImage));
             return tempXOFileURLs;
         });
 
@@ -49,9 +49,9 @@ function Board(props: IBoardProps) {
     return (
         <div className="flex justify-center items-center">
             <GameAlert alertText={alertText} solvedChar={solvedChar} modalIsOpen={modalIsOpen}
-                       setModalIsOpen={setModalIsOpen} resetHandler={() => resetBoard(props.resetHandler)}
-                       nextGameHandler={() => resetBoard(props.nextGameHandler)} firstPlayer={props.firstPlayer}
-                       secondPlayer={props.secondPlayer} resetTheApp={props.resetTheApp}/>
+                       setModalIsOpen={setModalIsOpen} ResetHandler={() => resetBoard(props.ResetHandler)}
+                       NextGameHandler={() => resetBoard(props.NextGameHandler)} firstPlayer={props.firstPlayer}
+                       secondPlayer={props.secondPlayer} ResetTheApp={props.ResetTheApp}/>
             <form className="grid grid-cols-3 gap-0 m-0">
                 {props.XOArray.map((row, rowIndex) => (
                     <div key={`row-${rowIndex}`}>

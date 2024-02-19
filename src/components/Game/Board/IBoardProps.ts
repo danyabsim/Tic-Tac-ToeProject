@@ -8,7 +8,7 @@ export interface IBoardProps {
     setIsFirstPlayerStars: Dispatch<SetStateAction<boolean>>;
     XOArray: string[][];
     setXOArray: Dispatch<SetStateAction<string[][]>>;
-    resetHandler: () => void;
-    nextGameHandler: () => void;
-    resetTheApp: () => void;
+    ResetHandler: () => void;
+    NextGameHandler: () => void;
+    ResetTheApp: () => void;
 }

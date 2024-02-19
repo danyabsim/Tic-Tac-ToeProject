@@ -7,7 +7,7 @@ import GameActionButton from "../GameActionButton/GameActionButton";
 
 function EnterForm(props: IEnterFormProps) {
     return (
-        <form className="text-3xl text-center flex flex-col items-center" onSubmit={props.onEnter}>
+        <form className="text-3xl text-center flex flex-col items-center" onSubmit={props.OnEnter}>
             <div className="space-y-4">
                 <PlayerName currentPlayer={props.currentPlayer} setCurrentPlayerName={props.setCurrentPlayerName}/>
                 <PlayerSign currentPlayer={props.currentPlayer} setCurrentPlayerSign={props.setCurrentPlayerSign}

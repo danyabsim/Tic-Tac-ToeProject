@@ -5,7 +5,7 @@ function PlayerSign(props: IPlayerSignProps) {
     const maxLengthOfSigns = 1;
     const [isCharChecked, setIsCharChecked] = useState(true);
     const [isFileChecked, setIsFileChecked] = useState(false);
-    function handleRadioChange (type: "Char" | "File") {
+    function HandleRadioChange (type: "Char" | "File") {
         setIsCharChecked(type === "Char");
         setIsFileChecked(type === "File");
     }
@@ -14,7 +14,7 @@ function PlayerSign(props: IPlayerSignProps) {
         <>
             <label className="block mb-2">Your Player Sign:</label>
             <input type="radio" value="Char" id="text" name="char_or_file" checked={isCharChecked}
-                   onChange={() => handleRadioChange("Char")}/>
+                   onChange={() => HandleRadioChange("Char")}/>
             <label htmlFor="char">Char</label>
             {isCharChecked && (
                 <>
@@ -27,7 +27,7 @@ function PlayerSign(props: IPlayerSignProps) {
             )}
             <br/>
             <input type="radio" value="File" id="file" className="mb-4 mt-4" name="char_or_file" checked={isFileChecked}
-                   onChange={() => handleRadioChange("File")}/>
+                   onChange={() => HandleRadioChange("File")}/>
             <label htmlFor="file">File</label>
             {isFileChecked && (
                 <input type="file" className="block text-lg mb-5" onChange={props.handleFileChange} accept="image/*"/>

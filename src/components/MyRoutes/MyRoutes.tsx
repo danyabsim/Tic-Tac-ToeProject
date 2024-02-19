@@ -14,10 +14,10 @@ function MyRoutes() {
     const [, setSelectedCurrentPlayerFile] = useState<File | null>(null);
     const [fileCurrentPlayerURL, setFileCurrentPlayerURL] = useState<string | null>(null);
     const [roomCode, setRoomCode] = useState("");
-    const currentPlayer: IPlayer = {name: currentPlayerName, sign: currentPlayerSign, URL: fileCurrentPlayerURL};
-    const defaultPlayer: IPlayer = {name: (currentPlayer.name === 'Mr. Know It All' ? 'Abra Cad-bra' : 'Mr. Know It All'), sign: (currentPlayer.sign === 'K' ? 'A' : 'K'), URL: noImage};
+    const currentPlayer: IPlayer = {name: currentPlayerName, sign: currentPlayerSign, url: fileCurrentPlayerURL};
+    const defaultPlayer: IPlayer = {name: (currentPlayer.name === 'Mr. Know It All' ? 'Abra Cad-bra' : 'Mr. Know It All'), sign: (currentPlayer.sign === 'K' ? 'A' : 'K'), url: noImage};
 
-    function resetTheApp() {
+    function ResetTheApp() {
         setIsOnRoom(false);
         setIsOnEnter(true);
         setCurrentPlayerName("");
@@ -27,7 +27,7 @@ function MyRoutes() {
         setTimeout(() => setRoomCode(""), 10);
     }
 
-    function onEnter(event: React.FormEvent<HTMLFormElement>) {
+    function OnEnter(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
         if (currentPlayerName !== "" && ((currentPlayerSign.trim() !== "" && currentPlayerSign.length === 1) || fileCurrentPlayerURL) && roomCode !== "") {
             setIsOnEnter(false);
@@ -51,19 +51,19 @@ function MyRoutes() {
     return (
         <Routes>
             <Route path="/" element={isOnEnter && !isInRoom ?
-                <EnterForm onEnter={onEnter} currentPlayer={currentPlayer} roomCode={roomCode} setRoomCode={setRoomCode}
+                <EnterForm OnEnter={OnEnter} currentPlayer={currentPlayer} roomCode={roomCode} setRoomCode={setRoomCode}
                            setCurrentPlayerName={setCurrentPlayerName} setCurrentPlayerSign={setCurrentPlayerSign}
                            handleFileChange={handleFileChange}/> : isInRoom && !isOnEnter ?
                     <Navigate to={`/room-${roomCode}`}/> : <Navigate to={`/game-${roomCode}`}/>}
             />
             <Route path={`/room-${roomCode}`} element={isInRoom && !isOnEnter ?
                 <Room currentPlayer={currentPlayer} defaultPlayer={defaultPlayer} roomCode={roomCode}
-                      setIsOnRoom={setIsOnRoom} resetTheApp={resetTheApp}/> : isOnEnter && !isInRoom ?
+                      setIsOnRoom={setIsOnRoom} ResetTheApp={ResetTheApp}/> : isOnEnter && !isInRoom ?
                     <Navigate to="/"/> : <Navigate to={`/game-${roomCode}`}/>}
             />
             <Route path={`/game-${roomCode}`} element={!isInRoom && !isOnEnter ?
                 <Game firstPlayer={currentPlayer} secondPlayer={defaultPlayer}
-                      resetTheApp={resetTheApp}/> : isOnEnter && !isInRoom ? <Navigate to="/"/> :
+                      ResetTheApp={ResetTheApp}/> : isOnEnter && !isInRoom ? <Navigate to="/"/> :
                     <Navigate to={`/room-${roomCode}`}/>}
             />
         </Routes>

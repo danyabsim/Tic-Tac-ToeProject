@@ -7,12 +7,8 @@ function RoomCode(props: IRoomCodeProps)
         <>
             <label className="block mb-2">Room Code:</label>
             <input
-                className="inline-block mt-4 mb-4 text-center text-black"
-                type="text"
-                value={props.roomCode}
-                onChange={(event) => {
-                    props.setRoomCode(event.currentTarget.value);
-                }}
+                className="inline-block mt-4 mb-4 text-center text-black" type="text" value={props.roomCode}
+                onChange={(event) => props.setRoomCode(event.currentTarget.value)}
                 data-testid="codeRoom"
             />
         </>

@@ -6,5 +6,5 @@ export interface IRoomProps {
     defaultPlayer: IPlayer;
     roomCode: string;
     setIsOnRoom: Dispatch<SetStateAction<boolean>>;
-    resetTheApp: () => void;
+    ResetTheApp: () => void;
 }
