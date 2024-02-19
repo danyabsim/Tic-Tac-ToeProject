@@ -25,22 +25,8 @@ function Board(props: IBoardProps) {
         [noImage, noImage, noImage],
     ]);
 
-    function resetHandler() {
-        props.resetHandler();
-        setXOClassNames([
-            ["XO", "XO", "XO"],
-            ["XO", "XO", "XO"],
-            ["XO", "XO", "XO"],
-        ]);
-        setXOFiles([
-            [noImage, noImage, noImage],
-            [noImage, noImage, noImage],
-            [noImage, noImage, noImage],
-        ]);
-    }
-
-    function nextGameHandler() {
-        props.nextGameHandler();
+    function resetBoard(additionalCode: () => void) {
+        additionalCode();
         setXOClassNames([
             ["XO", "XO", "XO"],
             ["XO", "XO", "XO"],
@@ -142,8 +128,8 @@ function Board(props: IBoardProps) {
                 solvedChar={solvedChar}
                 modalIsOpen={modalIsOpen}
                 setModalIsOpen={setModalIsOpen}
-                resetHandler={resetHandler}
-                nextGameHandler={nextGameHandler}
+                resetHandler={() => resetBoard(props.resetHandler)}
+                nextGameHandler={() => resetBoard(props.nextGameHandler)}
                 resetTheApp={props.resetTheApp}
                 firstPlayer={props.firstPlayer}
                 secondPlayer={props.secondPlayer}
