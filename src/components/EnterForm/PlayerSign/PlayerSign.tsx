@@ -3,7 +3,7 @@ import {IPlayerSignProps} from "./IPlayerSignProps";
 
 function PlayerSign(props: IPlayerSignProps) {
     const maxLengthOfSigns = 1;
-    const [isCharChecked, setIsCharChecked] = useState(false);
+    const [isCharChecked, setIsCharChecked] = useState(true);
     const [isFileChecked, setIsFileChecked] = useState(false);
 
     return (
