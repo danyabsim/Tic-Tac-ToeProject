@@ -1,10 +1,10 @@
 import React, {useState} from 'react';
-import BoardButton from "../BoardButton/BoardButton";
+import BoardButton from "./BoardButton/BoardButton";
 import {IBoardProps} from "./IBoardProps";
-import {checkBoard, OnClickXOButton, XOCount} from "../../XOScript";
+import {checkBoard, OnClickXOButton, XOCount} from "../../../XOScript";
 import GameAlert from "../GameAlert/GameAlert";
 import {useDispatch} from "react-redux";
-import {addTie, firstPlayerWon, secondPlayerWon} from "../../redux/Results/resultsSlice";
+import {addTie, firstPlayerWon, secondPlayerWon} from "../../../redux/Results/resultsSlice";
 
 function Board(props: IBoardProps) {
     const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';

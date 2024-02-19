@@ -1,8 +1,8 @@
 import {IBottomButtonsProps} from "./IBottomButtonsProps";
-import {resetXOScript} from "../../XOScript";
-import {exportHistoryToExcel, exportHistoryToFile} from "../../redux/History/historySlice";
+import {resetXOScript} from "../../../XOScript";
+import {exportHistoryToExcel, exportHistoryToFile} from "../../../redux/History/historySlice";
 import {useDispatch} from "react-redux";
-import GameActionButton from "../GameActionButton/GameActionButton";
+import GameActionButton from "../../GameActionButton/GameActionButton";
 import React from "react";
 
 function BottomButtons(props: IBottomButtonsProps) {

@@ -1,7 +1,7 @@
 import React from "react";
 import {IResultsProps} from "./IResultsProps";
 import {useSelector} from "react-redux";
-import {RootState} from "../../redux/store";
+import {RootState} from "../../../redux/store";
 
 function Results(props: IResultsProps) {
     const currentResults = useSelector((state: RootState) => state.results);

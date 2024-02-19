@@ -1,17 +1,17 @@
 import Modal from 'react-modal';
 import {IGameAlertProps} from "./IGameAlertProps";
 import React, {useRef, useState} from "react";
-import {RootState} from '../../redux/store';
+import {RootState} from '../../../redux/store';
 import {useDispatch, useSelector} from 'react-redux';
 import {
     addHistory,
     exportHistoryToExcel,
     exportHistoryToFile,
     updateLatestHistory
-} from '../../redux/History/historySlice';
-import {resetXOScript} from "../../XOScript";
-import {BackgroundImage} from "../../styleComponents/BackgroundImage";
-import GameActionButton from "../GameActionButton/GameActionButton";
+} from '../../../redux/History/historySlice';
+import {resetXOScript} from "../../../XOScript";
+import {BackgroundImage} from "../../../styleComponents/BackgroundImage";
+import GameActionButton from "../../GameActionButton/GameActionButton";
 
 function GameAlert(props: IGameAlertProps) {
     const dispatch = useDispatch();
