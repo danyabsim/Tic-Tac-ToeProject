@@ -7,7 +7,7 @@ import {useDispatch} from "react-redux";
 import {addTie, firstPlayerWon, secondPlayerWon} from "../../../redux/Results/resultsSlice";
 
 function Board(props: IBoardProps) {
-    const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
+    const noImage = process.env.PUBLIC_URL + 'black-textured-background.avif';
     const dispatch = useDispatch();
 
     const [countSolved, setCountSolved] = useState(0);

@@ -17,7 +17,7 @@ function App() {
     const [fileCurrentPlayerURL, setFileCurrentPlayerURL] = useState<string | null>(null);
     const [roomCode, setRoomCode] = useState("");
 
-    const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
+    const noImage = process.env.PUBLIC_URL + 'black-textured-background.avif';
     const currentPlayer: IPlayer = {name: currentPlayerName, sign: currentPlayerSign, URL: fileCurrentPlayerURL};
     const defaultPlayer: IPlayer =
         {

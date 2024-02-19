@@ -2,7 +2,7 @@ import React from "react";
 import {IBoardButtonProps} from "./IBoardButtonProps";
 
 function BoardButton(props: IBoardButtonProps) {
-    const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
+    const noImage = process.env.PUBLIC_URL + 'black-textured-background.avif';
 
     function addBorderPerId(id: string): string {
         const XO_Column = parseInt(id.charAt(2));

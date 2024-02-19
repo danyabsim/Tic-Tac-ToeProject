@@ -5,7 +5,7 @@ import {RootState} from "../../../redux/store";
 
 function Results(props: IResultsProps) {
     const currentResults = useSelector((state: RootState) => state.results);
-    const noImage = process.env.PUBLIC_URL + 'grunge-black-concrete-textured-background_53876-124541.avif';
+    const noImage = process.env.PUBLIC_URL + 'black-textured-background.avif';
 
     return (
         <div className="m-0">
