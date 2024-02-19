@@ -9,4 +9,5 @@ export interface IEnterFormProps {
     setCurrentPlayerName: Dispatch<SetStateAction<string>>;
     setCurrentPlayerSign: Dispatch<SetStateAction<string>>;
     handleFileChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    setFileCurrentPlayerURL: Dispatch<SetStateAction<string | null>>;
 }

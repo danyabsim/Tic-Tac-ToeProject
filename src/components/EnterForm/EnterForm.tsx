@@ -11,7 +11,8 @@ function EnterForm(props: IEnterFormProps) {
             <div className="space-y-4">
                 <PlayerName currentPlayer={props.currentPlayer} setCurrentPlayerName={props.setCurrentPlayerName}/>
                 <PlayerSign currentPlayer={props.currentPlayer} setCurrentPlayerSign={props.setCurrentPlayerSign}
-                            handleFileChange={props.handleFileChange}/>
+                            handleFileChange={props.handleFileChange}
+                            setFileCurrentPlayerURL={props.setFileCurrentPlayerURL}/>
                 <RoomCode roomCode={props.roomCode} setRoomCode={props.setRoomCode}/>
                 <br/>
                 <GameActionButton className="text-black" value="Enter" type="submit"/>

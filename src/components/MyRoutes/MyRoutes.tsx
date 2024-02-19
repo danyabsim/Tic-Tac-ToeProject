@@ -11,7 +11,6 @@ function MyRoutes() {
     const [isInRoom, setIsOnRoom] = useState(false);
     const [currentPlayerName, setCurrentPlayerName] = useState('');
     const [currentPlayerSign, setCurrentPlayerSign] = useState('');
-    const [, setSelectedCurrentPlayerFile] = useState<File | null>(null);
     const [fileCurrentPlayerURL, setFileCurrentPlayerURL] = useState<string | null>(null);
     const [roomCode, setRoomCode] = useState("");
     const currentPlayer: IPlayer = {name: currentPlayerName, sign: currentPlayerSign, url: fileCurrentPlayerURL};
@@ -22,16 +21,18 @@ function MyRoutes() {
         setIsOnEnter(true);
         setCurrentPlayerName("");
         setCurrentPlayerSign('');
-        setSelectedCurrentPlayerFile(null);
         setFileCurrentPlayerURL(null);
         setTimeout(() => setRoomCode(""), 10);
     }
 
     function OnEnter(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        if (currentPlayerName !== "" && ((currentPlayerSign.trim() !== "" && currentPlayerSign.length === 1) || fileCurrentPlayerURL) && roomCode !== "") {
+        const isCurrentPlayerSignNotEmptyOrSpace = currentPlayerSign.trim() !== "" && currentPlayerSign.length === 1;
+        const isCurrentPlayerURLNotEmpty = fileCurrentPlayerURL;
+        if (currentPlayerName !== "" && roomCode !== "" && ((isCurrentPlayerSignNotEmptyOrSpace && !isCurrentPlayerURLNotEmpty) || (!isCurrentPlayerSignNotEmptyOrSpace && isCurrentPlayerURLNotEmpty))) {
             setIsOnEnter(false);
             setIsOnRoom(true);
+            if (fileCurrentPlayerURL) setCurrentPlayerSign("File");
         } else {
             alert("Please fill in all the required fields!");
         }
@@ -40,11 +41,9 @@ function MyRoutes() {
     function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
         const files = event.target.files;
         if (files && files.length > 0) {
-            const file = files[0];
-            setSelectedCurrentPlayerFile(file);
             const reader = new FileReader();
             reader.onload = (e) => (e && setFileCurrentPlayerURL(e.target?.result?.toString() || null));
-            reader.readAsDataURL(file);
+            reader.readAsDataURL(files[0]);
         }
     }
 
@@ -53,7 +52,8 @@ function MyRoutes() {
             <Route path="/" element={isOnEnter && !isInRoom ?
                 <EnterForm OnEnter={OnEnter} currentPlayer={currentPlayer} roomCode={roomCode} setRoomCode={setRoomCode}
                            setCurrentPlayerName={setCurrentPlayerName} setCurrentPlayerSign={setCurrentPlayerSign}
-                           handleFileChange={handleFileChange}/> : isInRoom && !isOnEnter ?
+                           handleFileChange={handleFileChange}
+                           setFileCurrentPlayerURL={setFileCurrentPlayerURL}/> : isInRoom && !isOnEnter ?
                     <Navigate to={`/room-${roomCode}`}/> : <Navigate to={`/game-${roomCode}`}/>}
             />
             <Route path={`/room-${roomCode}`} element={isInRoom && !isOnEnter ?
