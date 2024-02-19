@@ -1,5 +1,5 @@
 import React, {HTMLProps, useState} from "react";
-import ToolTip from "../Tooltip/ToolTip";
+import ToolTip from "./Tooltip/ToolTip";
 
 function GameActionButton(props: HTMLProps<HTMLInputElement>) {
     const [tooltipPosition, setTooltipPosition] = useState<{ top: number; left: number }>({ top: 0, left: 0 });

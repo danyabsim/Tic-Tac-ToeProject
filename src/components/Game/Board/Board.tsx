@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import BoardButton from "./BoardButton/BoardButton";
 import {IBoardProps} from "./IBoardProps";
-import {checkBoard, OnClickXOButton, XOCount} from "../../../XOScript";
+import {checkBoard, dispatchAndSetWhoPlaysNext, OnClickXOButton, XOCount} from "../../../XOScript";
 import GameAlert from "../GameAlert/GameAlert";
 import {useDispatch} from "react-redux";
-import {addTie, firstPlayerWon, secondPlayerWon} from "../../../redux/Results/resultsSlice";
 
 function Board(props: IBoardProps) {
     const noImage = process.env.PUBLIC_URL + 'black-textured-background.avif';
@@ -25,13 +24,10 @@ function Board(props: IBoardProps) {
     }
 
     function onClickBoardButtonElement(event: React.MouseEvent<HTMLDivElement>) {
-        if (checkBoard(props.XOArray)[0]) {
-            return;
-        }
-        let XOArray: string[][] = props.XOArray;
+        if (checkBoard(props.XOArray)[0]) return;
         let XO_Column = parseInt(event.currentTarget.id.charAt(2));
         let XO_Row = parseInt(event.currentTarget.id.charAt(3));
-        props.setXOArray(OnClickXOButton(XOArray, XO_Column, XO_Row, props.isFirstPlayerStars, props.firstPlayer.sign, props.secondPlayer.sign));
+        props.setXOArray(OnClickXOButton([...props.XOArray], XO_Column, XO_Row, props.isFirstPlayerStars, props.firstPlayer.sign, props.secondPlayer.sign));
 
         setXOFiles(prevXOFiles => {
             let tempXOFileURLs = [...prevXOFiles];
@@ -47,20 +43,7 @@ function Board(props: IBoardProps) {
             const winner = (innerSolvedChar === props.firstPlayer.sign || innerSolvedChar === props.secondPlayer.sign) ? (innerSolvedChar === props.firstPlayer.sign ? props.firstPlayer : props.secondPlayer) : null;
             setAlertText(winner ? `${winner.name} (${winner.sign}) Won!` : "Game Ended With a Tie!");
             setTimeout(() => setModalIsOpen(true), 100);
-            switch (innerSolvedChar) {
-                case props.firstPlayer.sign:
-                    dispatch(firstPlayerWon());
-                    if (props.isFirstPlayerStars) props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
-                    break;
-                case props.secondPlayer.sign:
-                    dispatch(secondPlayerWon());
-                    if (!props.isFirstPlayerStars) props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
-                    break;
-                case '':
-                    dispatch(addTie());
-                    props.setIsFirstPlayerStars(!props.isFirstPlayerStars);
-                    break;
-            }
+            dispatchAndSetWhoPlaysNext(innerSolvedChar, props.firstPlayer.sign, props.secondPlayer.sign, dispatch, props.isFirstPlayerStars, props.setIsFirstPlayerStars)
         }
     }
 
