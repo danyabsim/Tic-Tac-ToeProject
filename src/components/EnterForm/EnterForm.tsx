@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from "react";
+import React, {useState} from "react";
 import {IEnterFormProps} from "./IEnterFormProps";
 import PlayerSign from "./PlayerSign/PlayerSign";
 import GameActionButton from "../GameActionButton/GameActionButton";
