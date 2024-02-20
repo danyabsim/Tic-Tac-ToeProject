@@ -8,7 +8,7 @@ import * as historySlice from "../../../redux/History/historySlice";
 
 function BottomButtons(props: IBottomButtonsProps) {
     const dispatch = useDispatch();
-    const historyArray = useSelector((state: RootState) => state.history.historyArray);
+    const historyArray = useSelector((state: RootState) => state.history.data);
 
     function exitHandler() {
         resetXOScript();

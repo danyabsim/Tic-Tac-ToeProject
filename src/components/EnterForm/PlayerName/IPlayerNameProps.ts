@@ -1,4 +1,4 @@
-import {IPlayer} from "../../../interfaces/IPlayer";
+import {IPlayer} from "../../../redux/Players/IPlayer";
 import {Dispatch, SetStateAction} from "react";
 
 export interface IPlayerNameProps

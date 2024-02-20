@@ -10,7 +10,7 @@ import GameActionButton from "../../GameActionButton/GameActionButton";
 
 function GameAlert(props: IGameAlertProps) {
     const dispatch = useDispatch();
-    const historyArray = useSelector((state: RootState) => state.history.historyArray);
+    const historyArray = useSelector((state: RootState) => state.history.data);
     const {firstPlayerWins, ties, secondPlayerWins} = useSelector((state: RootState) => state.results);
     const [countUpdate, setCountUpdate] = useState(0);
     const currentHistory = historyArray[historyArray.length - 1];

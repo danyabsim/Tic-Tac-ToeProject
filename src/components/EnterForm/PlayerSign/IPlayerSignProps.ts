@@ -1,5 +1,5 @@
 import {ChangeEvent, Dispatch, SetStateAction} from "react";
-import {IPlayer} from "../../../interfaces/IPlayer";
+import {IPlayer} from "../../../redux/Players/IPlayer";
 
 export interface IPlayerSignProps
 {

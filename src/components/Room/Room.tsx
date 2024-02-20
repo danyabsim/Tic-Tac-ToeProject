@@ -1,11 +1,30 @@
-import {IPlayer} from "../../interfaces/IPlayer";
 import {IRoomProps} from "./IRoomProps";
 import React, {useState} from "react";
 import GameActionButton from "../GameActionButton/GameActionButton";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux/store";
 
 function Room(props: IRoomProps) {
-    let players: IPlayer[] = [props.currentPlayer, props.defaultPlayer]; // need to be taken from server
-    const [readyBool, setReadyBool] = useState([false, false]); // need to be taken from server
+    //const dispatch = useDispatch();
+    // const players = useSelector((state: RootState) => state.players.playersData);
+
+    // useEffect(() => {
+    //     // Simulate fetching data from an API
+    //     const fetchData = async () => {
+    //         try {
+    //             const response = await fetch('your/api/endpoint');
+    //             const data = await response.json();
+    //             dispatch(addNewPlayer(data));
+    //         } catch (error) {
+    //             console.error('Error fetching data:', error);
+    //         }
+    //     };
+    //
+    //     fetchData();
+    // }, [dispatch]);
+
+    let players = useSelector((state: RootState) => state.players.data); // need to be taken from server
+    const [readyBool, setReadyBool] = useState<boolean[]>(Array(players.length).fill(false));
 
     return (
         <div className="text-black text-4xl text-center">
@@ -19,7 +38,7 @@ function Room(props: IRoomProps) {
                     <GameActionButton
                         className={`bg-black ${readyBool[index] ? "text-green-500" : "text-red-500"}`}
                         value={readyBool[index] ? "Ready" : "Not Ready"}
-                        onClick={() =>setReadyBool(prevState => {
+                        onClick={() => setReadyBool(prevState => {
                             let tempReadyBool = [...prevState];
                             tempReadyBool[index] = !tempReadyBool[index];
                             return tempReadyBool;
