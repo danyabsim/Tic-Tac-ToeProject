@@ -30,7 +30,6 @@ function Game(props: IGameProps) {
 
     return (
         <div>
-            <h1 className="text-4xl border-b-0 bg-green-500 text-black m-0">Tic-Tac-Toe</h1><br/>
             <Results firstPlayer={playersData[0]} secondPlayer={playersData[1]}/>
             <Board firstPlayer={playersData[0]} secondPlayer={playersData[1]} XOArray={XOArray}
                    setXOArray={setXOArray} isFirstPlayerStars={isFirstPlayerStars}

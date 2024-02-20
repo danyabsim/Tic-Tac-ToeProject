@@ -6,10 +6,10 @@ function GameActionButton(props: HTMLProps<HTMLInputElement>) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
-        <div className={`border-2 border-black ml-7 mr-7 mt-4 inline-block p-2 rounded-full ${isHovered ? 'bg-green-400' : 'bg-green-500'}`}>
+        <div className={`border-2 border-black ml-7 mr-7 mt-4 inline-block p-2 rounded-full text-black ${props.className} ${props.className ? '' : isHovered ? 'bg-green-400' : 'bg-green-500'}`}>
             {isHovered && <ToolTip text={props.value as string} position={tooltipPosition} />}
             <input
-                className={`${props.className} cursor-pointer`}
+                className={`cursor-pointer`}
                 type={`${props.type ? props.type : 'button'}`}
                 value={props.value}
                 onClick={props.onClick}

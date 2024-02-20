@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import {IPlayerSignProps} from "./IPlayerSignProps";
+import InputEnterForm from "../InputEnterForm/InputEnterForm";
 
 function PlayerSign(props: IPlayerSignProps) {
     const maxLengthOfSigns = 1;
@@ -23,10 +24,8 @@ function PlayerSign(props: IPlayerSignProps) {
             {isCharChecked && (
                 <>
                     <br/>
-                    <input className="inline-block text-center text-black" type="text" value={props.currentPlayer.sign}
-                           onChange={(event) => props.setCurrentPlayerSign(event.currentTarget.value)}
-                           maxLength={maxLengthOfSigns} data-testid="playerSign"
-                    />
+                    <InputEnterForm value={props.currentPlayer.sign} maxLength={maxLengthOfSigns}
+                           onChange={(event) => props.setCurrentPlayerSign(event.currentTarget.value)}/>
                 </>
             )}
             <br/>

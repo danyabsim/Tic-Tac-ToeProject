@@ -1,12 +1,11 @@
 import React, {ChangeEvent, useState} from "react";
 import {IEnterFormProps} from "./IEnterFormProps";
 import PlayerSign from "./PlayerSign/PlayerSign";
-import PlayerName from "./PlayerName/PlayerName";
-import RoomCode from "./RoomCode/RoomCode";
 import GameActionButton from "../GameActionButton/GameActionButton";
 import {addNewPlayer} from "../../redux/Players/playersSlice";
 import {noImage} from "../../XOScript";
 import {useDispatch} from "react-redux";
+import InputEnterForm from "./InputEnterForm/InputEnterForm";
 
 function EnterForm(props: IEnterFormProps) {
     const [currentPlayerName, setCurrentPlayerName] = useState('');
@@ -38,15 +37,17 @@ function EnterForm(props: IEnterFormProps) {
     }
 
     return (
-        <form className="text-3xl text-center flex flex-col items-center" onSubmit={OnEnter}>
+        <form className="text-3xl flex flex-col items-center" onSubmit={OnEnter}>
             <div className="space-y-4">
-                <PlayerName currentPlayer={currentPlayer} setCurrentPlayerName={setCurrentPlayerName}/>
+                <InputEnterForm labelText="Your Player Name:" value={currentPlayer.name}
+                                onChange={(event) => setCurrentPlayerName(event.currentTarget.value)}/>
                 <PlayerSign currentPlayer={currentPlayer} setCurrentPlayerSign={setCurrentPlayerSign}
                             handleFileChange={handleFileChange}
                             setFileCurrentPlayerURL={setFileCurrentPlayerURL}/>
-                <RoomCode roomCode={props.roomCode} setRoomCode={props.setRoomCode}/>
+                <InputEnterForm labelText="Room Code:" value={props.roomCode}
+                                onChange={(event) => props.setRoomCode(event.currentTarget.value)}/>
                 <br/>
-                <GameActionButton className="text-black" value="Enter" type="submit"/>
+                <GameActionButton value="Enter" type="submit"/>
             </div>
         </form>
     );

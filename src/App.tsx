@@ -10,13 +10,16 @@ import {Provider} from "react-redux";
 function App() {
     return (
         <Provider store={store}>
-            {/*<PersistGate loading={null} persistor={persistor}>*/}
-                <div className="flex items-center justify-center h-screen bg-black text-white text-center">
-                    <Router>
-                        <MyRoutes/>
-                    </Router>
-                </div>
-            {/*</PersistGate>*/}
+            <div className="text-center text-4xl bg-black text-white h-screen">
+                {/*<PersistGate loading={null} persistor={persistor}>*/}
+                    <h1 className="border-b-0 bg-green-500 text-black mb-10">Tic-Tac-Toe</h1>
+                    <div className="flex items-center justify-center text-center">
+                        <Router>
+                            <MyRoutes/>
+                        </Router>
+                    </div>
+                {/*</PersistGate>*/}
+            </div>
         </Provider>
     );
 }
