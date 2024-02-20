@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 
 function Room(props: IRoomProps) {
-    //const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     // const players = useSelector((state: RootState) => state.players.playersData);
 
     // useEffect(() => {
@@ -38,19 +38,18 @@ function Room(props: IRoomProps) {
                     <GameActionButton
                         className={`bg-black ${readyBool[index] ? "text-green-500" : "text-red-500"}`}
                         value={readyBool[index] ? "Ready" : "Not Ready"}
-                        onClick={() => setReadyBool(prevState => {
-                            let tempReadyBool = [...prevState];
-                            tempReadyBool[index] = !tempReadyBool[index];
-                            return tempReadyBool;
-                        })}
+                        onClick={() => {
+                            setReadyBool(prevState => {
+                                let tempReadyBool = [...prevState];
+                                tempReadyBool[index] = !tempReadyBool[index];
+                                if (tempReadyBool.every(value => value)) setTimeout(() => props.setIsOnRoom(false), 2000)
+                                return tempReadyBool;
+                            })
+                        }}
                     />
                 </div>
             ))}
-            {players.length === 2 && readyBool.every(value => value) ?
-                <GameActionButton value="Play!" onClick={() => props.setIsOnRoom(false)}/>
-                :
-                <GameActionButton onClick={props.ResetTheApp} value="Exit"/>
-            }
+            <GameActionButton onClick={props.ResetTheApp} value="Exit"/>
         </div>
     );
 }

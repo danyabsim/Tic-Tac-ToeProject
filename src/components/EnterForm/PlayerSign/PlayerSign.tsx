@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {IPlayerSignProps} from "./IPlayerSignProps";
 import InputEnterForm from "../InputEnterForm/InputEnterForm";
+import {useDropzone} from "react-dropzone";
 
 function PlayerSign(props: IPlayerSignProps) {
     const maxLengthOfSigns = 1;
@@ -11,6 +12,20 @@ function PlayerSign(props: IPlayerSignProps) {
         setIsCharChecked(type === "Char");
         setIsFileChecked(type === "File");
     }
+
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({
+        accept: {
+            'image/png': ['.png'],
+            'image/jpg': ['.jpg'],
+            'image/jpeg': ['.jpeg'],
+            'text/html': ['.html', '.htm'],
+            'image/svg': ['.svg']
+        },
+        onDrop: (acceptedFiles: File[]) => {
+            // Handle the dropped files
+            props.handleFileChange(acceptedFiles);
+        },
+    });
 
     return (
         <>
@@ -25,7 +40,7 @@ function PlayerSign(props: IPlayerSignProps) {
                 <>
                     <br/>
                     <InputEnterForm value={props.currentPlayer.sign} maxLength={maxLengthOfSigns}
-                           onChange={(event) => props.setCurrentPlayerSign(event.currentTarget.value)}/>
+                                    onChange={(event) => props.setCurrentPlayerSign(event.currentTarget.value)}/>
                 </>
             )}
             <br/>
@@ -36,7 +51,15 @@ function PlayerSign(props: IPlayerSignProps) {
                    }}/>
             <label htmlFor="file">File</label>
             {isFileChecked && (
-                <input type="file" className="block text-lg mb-5" onChange={props.handleFileChange} accept="image/*"/>
+                // <input type="file" className="block text-lg mb-5" onChange={props.handleFileChange} accept="image/*"/>
+                <div {...getRootProps()} className="bg-green-500 text-black">
+                    <input {...getInputProps()} />
+                    {isDragActive ? (
+                        <p>Drop the files here...</p>
+                    ) : (
+                        <p>Drag 'n' drop some files here, or click to select files!</p>
+                    )}
+                </div>
             )}
         </>
     );

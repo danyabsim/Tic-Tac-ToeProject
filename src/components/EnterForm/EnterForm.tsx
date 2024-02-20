@@ -27,8 +27,8 @@ function EnterForm(props: IEnterFormProps) {
         }
     }
 
-    function handleFileChange(event: ChangeEvent<HTMLInputElement>) {
-        const files = event.target.files;
+    function handleFileChange(acceptedFiles: File[]) {
+        const files = acceptedFiles;
         if (files && files.length > 0) {
             const reader = new FileReader();
             reader.onload = (e) => (e && setFileCurrentPlayerURL(e.target?.result?.toString() || null));
