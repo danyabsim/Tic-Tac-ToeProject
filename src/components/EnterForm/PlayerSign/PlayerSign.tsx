@@ -54,7 +54,7 @@ function PlayerSign(props: IPlayerSignProps) {
                                 onChange={(event) => props.setCurrentPlayerSign(event.currentTarget.value)}/>
             )}
             {isFileChecked && (
-                <div {...getRootProps()} className="bg-green-500 inline-block mt-4 mb-4 text-black">
+                <div {...getRootProps()} className="bg-green-500 inline-block mt-4 mb-4 text-black p-1">
                     <input {...getInputProps()} />
                     {props.currentPlayer.url && <>File was inputted here!<br/></>}
                     {isDragActive ? ("Drop the files here...") : ("Drag 'n' drop some files here, or click to select files!")}
