@@ -39,7 +39,7 @@ function EnterForm(props: IEnterFormProps) {
     return (
         <form className="text-3xl flex flex-col items-center" onSubmit={OnEnter}>
             <div className="space-y-4">
-                <InputEnterForm labelText="Your Player Name:" value={currentPlayer.name}
+                <InputEnterForm labelText="Your Player Name:" value={currentPlayer.name} enableSpace={true}
                                 onChange={(event) => setCurrentPlayerName(event.currentTarget.value)}/>
                 <PlayerSign currentPlayer={currentPlayer} setCurrentPlayerSign={setCurrentPlayerSign}
                             handleFileChange={handleFileChange}
