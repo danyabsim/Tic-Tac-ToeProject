@@ -1,5 +1,4 @@
 import {Dispatch, SetStateAction} from "react";
-import {IPlayer} from "../../../redux/Players/IPlayer";
 
 export interface IGameAlertProps {
     alertText: string;
@@ -9,6 +8,4 @@ export interface IGameAlertProps {
     ResetHandler: () => void;
     NextGameHandler: () => void;
     ResetTheApp: () => void;
-    firstPlayer: IPlayer;
-    secondPlayer: IPlayer;
 }

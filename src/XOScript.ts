@@ -11,9 +11,7 @@ export function resetXOScript() {
 
 export function OnClickXOButton(XOArray: string[][], XO_Column: number, XO_Row: number, isFirstPlayerStars: boolean, firstSign: string, secondSign: string): string[][] {
     XOCount = XOCount + 1;
-    if (XOArray[XO_Column - 1][XO_Row - 1] === "") {
-        XOArray[XO_Column - 1][XO_Row - 1] = XOCount % 2 === 1 ? (isFirstPlayerStars ? firstSign : secondSign) : (isFirstPlayerStars ? secondSign : firstSign)
-    }
+    XOArray[XO_Column - 1][XO_Row - 1] = XOCount % 2 === 1 ? (isFirstPlayerStars ? firstSign : secondSign) : (isFirstPlayerStars ? secondSign : firstSign);
     return XOArray;
 }
 

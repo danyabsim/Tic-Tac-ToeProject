@@ -15,6 +15,9 @@ function GameAlert(props: IGameAlertProps) {
     const [countUpdate, setCountUpdate] = useState(0);
     const currentHistory = historyArray[historyArray.length - 1];
     const audioRef = useRef<HTMLAudioElement>(null);
+    const playersData = useSelector((state: RootState) => state.players.data); // need to be taken from server
+    const firstPlayer = playersData[0];
+    const secondPlayer = playersData[1];
 
     function CloseGameAlert(additionalCode: () => void) {
         resetXOScript();
@@ -25,12 +28,12 @@ function GameAlert(props: IGameAlertProps) {
     function openModalAndPerformAction() {
         if (countUpdate === 0) {
             dispatch(historySlice.addHistory({
-                firstPlayerName: props.firstPlayer.name, secondPlayerName: props.secondPlayer.name,
+                firstPlayerName: firstPlayer.name, secondPlayerName: secondPlayer.name,
                 firstPlayerWins: firstPlayerWins, ties: ties, secondPlayerWins: secondPlayerWins,
             }));
         } else {
             dispatch(historySlice.updateLatestHistory({
-                firstPlayerName: props.firstPlayer.name, secondPlayerName: props.secondPlayer.name,
+                firstPlayerName: firstPlayer.name, secondPlayerName: secondPlayer.name,
                 firstPlayerWins: firstPlayerWins, ties: ties, secondPlayerWins: secondPlayerWins,
             }));
         }
@@ -43,8 +46,8 @@ function GameAlert(props: IGameAlertProps) {
                className={`text-black text-4xl text-center font-bold flex flex-col justify-center items-center`}
         >
             <BackgroundImage
-                $marginLeft={props.solvedChar === props.firstPlayer.sign ? '0' : 'auto'}
-                $marginRight={props.solvedChar === props.secondPlayer.sign ? '0' : 'auto'}
+                $marginLeft={props.solvedChar === firstPlayer.sign ? '0' : 'auto'}
+                $marginRight={props.solvedChar === secondPlayer.sign ? '0' : 'auto'}
             >
                 <audio ref={audioRef} src={process.env.PUBLIC_URL + '/sounds/Audience_Applause.wav'}
                        onError={(e) => console.error('Audio error:', e)}/>

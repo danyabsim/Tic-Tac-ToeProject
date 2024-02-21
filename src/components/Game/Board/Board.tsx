@@ -3,7 +3,8 @@ import BoardButton from "./BoardButton/BoardButton";
 import {IBoardProps} from "./IBoardProps";
 import {checkBoard, dispatchAndSetWhoPlaysNext, noImage, OnClickXOButton, XOCount} from "../../../XOScript";
 import GameAlert from "../GameAlert/GameAlert";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../redux/store";
 
 function Board(props: IBoardProps) {
     const dispatch = useDispatch();
@@ -13,6 +14,9 @@ function Board(props: IBoardProps) {
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [solvedChar, setSolvedChar] = useState("");
     const [XOFileURLs, setXOFiles] = useState<(string | null)[][]>([[noImage, noImage, noImage], [noImage, noImage, noImage], [noImage, noImage, noImage]]);
+    const playersData = useSelector((state: RootState) => state.players.data); // need to be taken from server
+    const firstPlayer = playersData[0];
+    const secondPlayer = playersData[1];
 
     function resetBoard(additionalCode: () => void) {
         additionalCode();
@@ -26,11 +30,12 @@ function Board(props: IBoardProps) {
         if (checkBoard(props.XOArray)[0]) return;
         let XO_Column = parseInt(event.currentTarget.id.charAt(2));
         let XO_Row = parseInt(event.currentTarget.id.charAt(3));
-        props.setXOArray(OnClickXOButton([...props.XOArray], XO_Column, XO_Row, props.isFirstPlayerStars, props.firstPlayer.sign, props.secondPlayer.sign));
+        if (props.XOArray[XO_Column - 1][XO_Row - 1]) return;
+        props.setXOArray(OnClickXOButton([...props.XOArray], XO_Column, XO_Row, props.isFirstPlayerStars, firstPlayer.sign, secondPlayer.sign));
 
         setXOFiles(prevXOFiles => {
             let tempXOFileURLs = [...prevXOFiles];
-            tempXOFileURLs[XO_Column - 1][XO_Row - 1] = (props.XOArray[XO_Column - 1][XO_Row - 1] === props.firstPlayer.sign ? props.firstPlayer.url : (props.XOArray[XO_Column - 1][XO_Row - 1] === props.secondPlayer.sign ? props.secondPlayer.url : noImage));
+            tempXOFileURLs[XO_Column - 1][XO_Row - 1] = (props.XOArray[XO_Column - 1][XO_Row - 1] === firstPlayer.sign ? firstPlayer.url : (props.XOArray[XO_Column - 1][XO_Row - 1] === secondPlayer.sign ? secondPlayer.url : noImage));
             return tempXOFileURLs;
         });
 
@@ -39,10 +44,10 @@ function Board(props: IBoardProps) {
         if ((solvedBoard && countSolved === 0) || XOCount === 9) {
             setXOClassNames(prevClassNames => prevClassNames.map((row, i) => row.map((col, j) => (indexes.some(([x, y]) => x === i && y === j) ? "WinningXO" : col))));
             setCountSolved(countSolved + 1);
-            const winner = (innerSolvedChar === props.firstPlayer.sign || innerSolvedChar === props.secondPlayer.sign) ? (innerSolvedChar === props.firstPlayer.sign ? props.firstPlayer : props.secondPlayer) : null;
+            const winner = (innerSolvedChar === firstPlayer.sign || innerSolvedChar === secondPlayer.sign) ? (innerSolvedChar === firstPlayer.sign ? firstPlayer : secondPlayer) : null;
             setAlertText(winner ? `${winner.name} (${winner.sign}) Won!` : "Game Ended With a Tie!");
             setTimeout(() => setModalIsOpen(true), 100);
-            dispatchAndSetWhoPlaysNext(innerSolvedChar, props.firstPlayer.sign, props.secondPlayer.sign, dispatch, props.isFirstPlayerStars, props.setIsFirstPlayerStars)
+            dispatchAndSetWhoPlaysNext(innerSolvedChar, firstPlayer.sign, secondPlayer.sign, dispatch, props.isFirstPlayerStars, props.setIsFirstPlayerStars)
         }
     }
 
@@ -50,8 +55,7 @@ function Board(props: IBoardProps) {
         <div className="flex justify-center items-center">
             <GameAlert alertText={alertText} solvedChar={solvedChar} modalIsOpen={modalIsOpen}
                        setModalIsOpen={setModalIsOpen} ResetHandler={() => resetBoard(props.ResetHandler)}
-                       NextGameHandler={() => resetBoard(props.NextGameHandler)} firstPlayer={props.firstPlayer}
-                       secondPlayer={props.secondPlayer} ResetTheApp={props.ResetTheApp}/>
+                       NextGameHandler={() => resetBoard(props.NextGameHandler)} ResetTheApp={props.ResetTheApp}/>
             <form className="grid grid-cols-3 gap-0 m-0">
                 {props.XOArray.map((row, rowIndex) => (
                     <div key={`row-${rowIndex}`}>

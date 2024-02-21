@@ -1,4 +1,5 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import socketIOClient from 'socket.io-client';
 import historyReducer from './History/historySlice';
 import resultsReducer from "./Results/resultsSlice";
 import playersReducer from './Players/playersSlice';
@@ -15,23 +16,20 @@ const store = configureStore({
     reducer: rootReducer,
 });
 
+const socket = socketIOClient('http://localhost:4000');
+
+// Listen for state updates from the server
+socket.on('state', (newState) => {
+    store.dispatch({type: 'SET_STATE', payload: newState});
+});
+
+// Listen for actions from the server
+store.subscribe(() => {
+    const action = store.getState();
+    if (action) {
+        // Send the action to the server
+        socket.emit('action', action);
+    }
+})
+
 export default store;
-// import { persistReducer, persistStore } from 'redux-persist';
-// import storage from 'redux-persist/lib/storage'; // defaults to localStorage
-//
-// // Configure persisting the state to localStorage
-// const persistConfig = {
-//     key: 'root',
-//     storage,
-// };
-//
-// const persistedReducer = persistReducer(persistConfig, rootReducer);
-//
-// // Create the Redux store
-// const store = configureStore({
-//     reducer: persistedReducer,
-// });
-//
-// const persistor = persistStore(store);
-//
-// export { store, persistor };
