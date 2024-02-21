@@ -3,12 +3,13 @@ import {IPlayerSignProps} from "./IPlayerSignProps";
 import InputEnterForm from "../InputEnterForm/InputEnterForm";
 import {useDropzone} from "react-dropzone";
 import ToggleButton from "./ToggleButton/ToggleButton";
+import {IOption} from "./ToggleButton/IOption";
 
 function PlayerSign(props: IPlayerSignProps) {
     const maxLengthOfSigns = 1;
     const [isCharChecked, setIsCharChecked] = useState(true);
     const [isFileChecked, setIsFileChecked] = useState(false);
-    const firstOption =
+    const firstOption: IOption =
         {
             label: "One Letter Sign",
             onChange: () => {
@@ -16,7 +17,7 @@ function PlayerSign(props: IPlayerSignProps) {
                 props.setFileCurrentPlayerURL(null);
             }
         };
-    const secondOption =
+    const secondOption: IOption =
         {
             label: "File",
             onChange: () => {
@@ -55,6 +56,7 @@ function PlayerSign(props: IPlayerSignProps) {
             {isFileChecked && (
                 <div {...getRootProps()} className="bg-green-500 inline-block mt-4 mb-4 text-black">
                     <input {...getInputProps()} />
+                    {props.currentPlayer.url && <>File was inputted here!<br/></>}
                     {isDragActive ? ("Drop the files here...") : ("Drag 'n' drop some files here, or click to select files!")}
                 </div>
             )}

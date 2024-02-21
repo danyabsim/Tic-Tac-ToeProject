@@ -1,10 +1,6 @@
+import {IOption} from "./IOption";
+
 export interface IToggleButtonProps {
-    firstOption?: {
-        label: string;
-        onChange: () => void;
-    };
-    secondOption?: {
-        label: string;
-        onChange: () => void;
-    };
+    firstOption: IOption;
+    secondOption: IOption;
 }

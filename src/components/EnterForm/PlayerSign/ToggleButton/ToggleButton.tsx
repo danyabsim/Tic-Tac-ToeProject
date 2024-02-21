@@ -8,12 +8,12 @@ function ToggleButton(props: IToggleButtonProps) {
     return (
         <Switch.Group>
             <div>
-                <Switch.Label className="mr-2">{props.firstOption?.label}</Switch.Label>
+                <Switch.Label className="mr-2">{props.firstOption.label}</Switch.Label>
                 <Switch
                     checked={enabled}
                     onChange={
                         () => {
-                            enabled ? props.firstOption?.onChange() : props.secondOption?.onChange();
+                            enabled ? props.firstOption.onChange() : props.secondOption.onChange();
                             setEnabled(!enabled);
                         }
                     }
