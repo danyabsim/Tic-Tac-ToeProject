@@ -55,8 +55,7 @@ function PlayerSign(props: IPlayerSignProps) {
                 </>
             )}
             {isFileChecked && (
-                // <input type="file" className="block text-lg mb-5" onChange={props.handleFileChange} accept="image/*"/>
-                <div {...getRootProps()} className="bg-green-500 text-black">
+                <div {...getRootProps()} className="bg-green-500 inline-block mt-4 mb-4 text-black">
                     <input {...getInputProps()} />
                     {isDragActive ? (
                         <p>Drop the files here...</p>
