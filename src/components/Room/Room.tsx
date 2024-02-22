@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import GameActionButton from "../GameActionButton/GameActionButton";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
+import Countdown from "./Countdown/Countdown";
 
 function Room(props: IRoomProps) {
     let players = useSelector((state: RootState) => state.players.data); // need to be taken from server
@@ -24,14 +25,17 @@ function Room(props: IRoomProps) {
                             setReadyBool(prevState => {
                                 let tempReadyBool = [...prevState];
                                 tempReadyBool[index] = !tempReadyBool[index];
-                                if (tempReadyBool.every(value => value)) setTimeout(() => props.setIsOnRoom(false), 2000)
                                 return tempReadyBool;
                             })
                         }}
                     />
                 </div>
             ))}
-            <GameActionButton onClick={props.ResetTheApp} value="Exit"/>
+            {readyBool.every(value => value) ?
+                <Countdown doAfterCountdown={() => props.setIsOnRoom(false)}
+                           stopCountdown={!readyBool.every(value => value)}/> :
+                <GameActionButton onClick={props.ResetTheApp} value="Exit"/>
+            }
         </div>
     );
 }

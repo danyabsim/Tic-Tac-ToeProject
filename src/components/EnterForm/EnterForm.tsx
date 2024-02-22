@@ -16,11 +16,11 @@ function EnterForm(props: IEnterFormProps) {
 
     function OnEnter(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
-        const isCurrentPlayerSignNotEmptyOrSpace = currentPlayerSign.trim() !== "" && currentPlayerSign.length === 1;
+        const isCurrentPlayerSignNotEmpty = currentPlayerSign.length === 1;
         const isCurrentPlayerURLNotEmpty = fileCurrentPlayerURL;
-        if (currentPlayerName !== "" && props.roomCode !== "" && ((isCurrentPlayerSignNotEmptyOrSpace && !isCurrentPlayerURLNotEmpty) || (!isCurrentPlayerSignNotEmptyOrSpace && isCurrentPlayerURLNotEmpty))) {
+        if (currentPlayerName !== "" && props.roomCode !== "" && ((isCurrentPlayerSignNotEmpty && !isCurrentPlayerURLNotEmpty) || (!isCurrentPlayerSignNotEmpty && isCurrentPlayerURLNotEmpty))) {
             dispatch(addNewPlayer({name: currentPlayerName, sign: fileCurrentPlayerURL ? "File" : currentPlayerSign, url: fileCurrentPlayerURL}));
-            dispatch(addNewPlayer({name: (currentPlayerName === 'Mr. Know It All' ? 'Abra Cad-bra' : 'Mr. Know It All'), sign: (currentPlayerSign === 'K' ? 'A' : 'K'), url: noImage}))
+            dispatch(addNewPlayer({name: (currentPlayerName === 'Mr. Know It All' ? 'Abra Cad-bra' : 'Mr. Know It All'), sign: (currentPlayerSign.toUpperCase() === 'K' ? 'A' : 'K'), url: noImage}))
             props.OnEnter();
         } else {
             alert("Please fill in all the required fields!");
