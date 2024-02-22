@@ -1,13 +1,30 @@
 import {IRoomProps} from "./IRoomProps";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import GameActionButton from "../GameActionButton/GameActionButton";
-import {useSelector} from "react-redux";
-import {RootState} from "../../redux/store";
 import Countdown from "./Countdown/Countdown";
+import * as signalR from '@microsoft/signalr';
+import {IPlayer} from "../../redux/Players/IPlayer";
 
 function Room(props: IRoomProps) {
-    let players = useSelector((state: RootState) => state.players.data); // need to be taken from server
+    //const [players, setPlayers] = useState<IPlayer[]>(useSelector((state: RootState) => state.players.data)); // need to be taken from server
+    const [players, setPlayers] = useState<IPlayer[]>([]); // need to be taken from server
     const [readyBool, setReadyBool] = useState<boolean[]>(Array(players.length).fill(false));
+
+    useEffect(() => {
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl('/hub') // Adjust the URL as needed
+            .build();
+
+        connection.on('message', (msg: IPlayer[]) => {
+            setPlayers(msg);
+        });
+
+        connection.start().catch((err) => console.error(err));
+
+        return () => {
+            connection.stop().catch((err) => console.error(err));
+        };
+    }, []);
 
     return (
         <div className="text-black">
@@ -31,7 +48,7 @@ function Room(props: IRoomProps) {
                     />
                 </div>
             ))}
-            {readyBool.every(value => value) ?
+            {readyBool.every(value => value) && readyBool.length !== 0 ?
                 <Countdown doAfterCountdown={() => props.setIsOnRoom(false)}
                            stopCountdown={!readyBool.every(value => value)}/> :
                 <GameActionButton onClick={props.ResetTheApp} value="Exit"/>
