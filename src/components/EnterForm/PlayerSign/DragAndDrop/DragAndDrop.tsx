@@ -20,11 +20,11 @@ function DragAndDrop(props: IDragAndDropProps) {
         <>
             <div {...getRootProps()} className="bg-green-500 inline-block mt-4 mb-4 text-black p-1">
                 <input {...getInputProps()} />
-                {isDragActive ? ("Drop the file here...") : ("Drag 'n' drop the file here, or click here to select the file!")}
+                {isDragActive ? ("Drop the image here...") : ("Drag 'n' drop the file here, or click here to select the image!")}
             </div>
             {props.url &&
                 <>
-                    <label className="block mb-2">Your Selected File:</label>
+                    <label className="block mb-2">Your Selected Image:</label>
                     <img className="block mx-auto h-24 w-24 object-cover mb-2" src={props.url} alt=""/>
                 </>
             }

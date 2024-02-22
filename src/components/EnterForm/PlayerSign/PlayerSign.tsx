@@ -18,7 +18,7 @@ function PlayerSign(props: IPlayerSignProps) {
         };
     const secondOption: IOption =
         {
-            label: "File",
+            label: "Image",
             onChange: () => {
                 HandleRadioChange("File");
                 props.setCurrentPlayerSign("");
