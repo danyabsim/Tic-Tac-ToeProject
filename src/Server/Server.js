@@ -1,12 +1,23 @@
-import express from 'express';
-import http from 'http';
-import {Server} from 'socket.io';
-import {IPlayer} from "../redux/Players/IPlayer";
+const express = require('express');
+const cors = require('cors');
+const http = require('http');
+const { Server } = require('socket.io');
 
 const app = express();
+const port = 5000;
+
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+};
+
+app.use(cors(corsOptions));
+
 const server = http.createServer(app);
 const io = new Server(server);
-const players: IPlayer[] = [];
+io.attach(server);
+
+let players = [];
 
 io.on('connection', (socket) => {
     console.log('A client connected');
@@ -27,33 +38,39 @@ io.on('connection', (socket) => {
 
 app.use(express.json());
 
+// Handle HTTP requests
+app.get('/', (req, res) => {
+    res.send(JSON.stringify(players));
+});
+
 app.post('/api/addPlayer', (req, res) => {
-    const {name, sign, url, roomCode} = req.body;
-    const newUser: IPlayer = {name, sign, url, roomCode};
+    const { name, sign, url, roomCode } = req.body;
+    const newUser = { name, sign, url, roomCode };
     players.push(newUser);
-    res.json({success: true});
+    res.json({ success: true });
 });
 
 app.post('/api/removeAllPlayersInThisRoomCode', (req, res) => {
-    const {rcToRemove} = req.body;
-    const tempPlayers = players.filter(item => item.roomCode !== rcToRemove);
+    const { roomCode } = req.body;
+    const tempPlayers = players.filter(item => item.roomCode !== roomCode);
     players.length = 0;
     players.push(...tempPlayers);
-    res.json({success: true});
+    res.json({ success: true });
 });
 
 app.get('/api/getAllPlayersInThisRoomCode', (req, res) => {
-    const {rcToRemove} = req.body;
-    res.json(players.filter(item => item.roomCode === rcToRemove));
+    //players = req.body;
+    const { roomCode } = req.body;
+    res.json(players.filter(item => item.roomCode === roomCode));
 });
 
 app.post('/api/sendMessage', (req, res) => {
-    const {message} = req.body;
+    const { message } = req.body;
     // Broadcast the message to all connected clients
     io.emit('message', `Server: ${message}`);
-    res.json({success: true});
+    res.json({ success: true });
 });
 
-server.listen(3001, () => {
-    console.log('Server is running on port 3001');
+app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
 });

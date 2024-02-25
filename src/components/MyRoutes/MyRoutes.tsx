@@ -12,11 +12,12 @@ function MyRoutes() {
     const [roomCode, setRoomCode] = useState("");
     const dispatch = useDispatch();
 
-    function ResetTheApp() {
+    async function ResetTheApp() {
         dispatch(removeLastPlayer());
         dispatch(removeLastPlayer());
         setIsOnRoom(false);
         setIsOnEnter(true);
+        //await Client({functionName: 'removeAllPlayersInThisRoomCode', args: [roomCode]});
         setTimeout(() => setRoomCode(""), 10);
     }
 
@@ -34,20 +35,22 @@ function MyRoutes() {
     }, []);
 
     return (
-        <Routes>
-            <Route path="/" element={isOnEnter && !isInRoom ?
-                <EnterForm OnEnter={OnEnter} roomCode={roomCode} setRoomCode={setRoomCode}/> : isInRoom && !isOnEnter ?
-                    <Navigate to={`/room-${roomCode}`}/> : <Navigate to={`/game-${roomCode}`}/>}
-            />
-            <Route path={`/room-${roomCode}`} element={isInRoom && !isOnEnter ?
-                <Room roomCode={roomCode} setIsOnRoom={setIsOnRoom} ResetTheApp={ResetTheApp}/>
-                : isOnEnter && !isInRoom ? <Navigate to="/"/> : <Navigate to={`/game-${roomCode}`}/>}
-            />
-            <Route path={`/game-${roomCode}`} element={!isInRoom && !isOnEnter ?
-                <Game ResetTheApp={ResetTheApp}/> : isOnEnter && !isInRoom ? <Navigate to="/"/> :
-                    <Navigate to={`/room-${roomCode}`}/>}
-            />
-        </Routes>
+        <>
+            <Routes>
+                <Route path="/" element={isOnEnter && !isInRoom ?
+                    <EnterForm OnEnter={OnEnter} roomCode={roomCode} setRoomCode={setRoomCode}/> : isInRoom && !isOnEnter ?
+                        <Navigate to={`/room-${roomCode}`}/> : <Navigate to={`/game-${roomCode}`}/>}
+                />
+                <Route path={`/room-${roomCode}`} element={isInRoom && !isOnEnter ?
+                    <Room roomCode={roomCode} setIsOnRoom={setIsOnRoom} ResetTheApp={ResetTheApp}/>
+                    : isOnEnter && !isInRoom ? <Navigate to="/"/> : <Navigate to={`/game-${roomCode}`}/>}
+                />
+                <Route path={`/game-${roomCode}`} element={!isInRoom && !isOnEnter ?
+                    <Game ResetTheApp={ResetTheApp}/> : isOnEnter && !isInRoom ? <Navigate to="/"/> :
+                        <Navigate to={`/room-${roomCode}`}/>}
+                />
+            </Routes>
+        </>
     );
 }
 
