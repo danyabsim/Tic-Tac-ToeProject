@@ -21,7 +21,7 @@ function EnterForm(props: IEnterFormProps) {
             // dispatch(addNewPlayer({name: currentPlayerName, sign: fileCurrentPlayerURL ? "File" : currentPlayerSign, url: fileCurrentPlayerURL}));
             // dispatch(addNewPlayer({name: (currentPlayerName === 'Mr. Know It All' ? 'Abra Cad-bra' : 'Mr. Know It All'), sign: (currentPlayerSign.toUpperCase() === 'K' ? 'A' : 'K'), url: noImage}))
             setIsOn(true);
-            props.OnEnter();
+            setTimeout(() => props.OnEnter(), 10);
         } else {
             alert("Please fill in all the required fields!");
         }
@@ -40,7 +40,7 @@ function EnterForm(props: IEnterFormProps) {
         <form className="text-3xl flex flex-col items-center" onSubmit={OnEnter}>
             <div className="space-y-4">
                 <Client functionName='addPlayer' args={[currentPlayerName, fileCurrentPlayerURL ? "File" : currentPlayerName !== "" ? currentPlayerSign : "null", fileCurrentPlayerURL ? fileCurrentPlayerURL : "null", props.roomCode]} isOn={isOn}/>
-                <InputEnterForm labelText="Your Player Name:" value={currentPlayer.name} enableSpace={true}
+                <InputEnterForm labelText="Your Player Name:" value={currentPlayer.name}
                                 onChange={(event) => setCurrentPlayerName(event.currentTarget.value)}/>
                 <PlayerSign currentPlayer={currentPlayer} setCurrentPlayerSign={setCurrentPlayerSign}
                             handleFileChange={handleFileChange}

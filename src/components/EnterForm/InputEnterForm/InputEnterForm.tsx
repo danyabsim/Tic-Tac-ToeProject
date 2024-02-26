@@ -9,7 +9,7 @@ function InputEnterForm(props: IInputEnterFormProps) {
                 className="inline-block mt-4 mb-4 text-center text-black" type="text" value={props.value}
                 onChange={props.onChange} maxLength={props.maxLength}
                 onKeyDown={(event) => {
-                    if ([((props.enableSpace && props.value?.toString().length !== 0) ? '' : ' '), '/', '\\'].indexOf(event.key) !== -1) {
+                    if ([' ', '/', '\\'].indexOf(event.key) !== -1) {
                         event.preventDefault();
                     }
                 }}

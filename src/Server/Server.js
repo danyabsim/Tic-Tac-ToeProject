@@ -1,74 +1,85 @@
 const express = require('express');
 const cors = require('cors');
 const http = require('http');
-const { Server } = require('socket.io');
+const {Server} = require('socket.io');
+const {v4: uuidv4} = require('uuid');
 
 const app = express();
 const port = 5000;
-
-const corsOptions = {
-    origin: 'http://localhost:3000',
-    credentials: true,
-};
-
+const corsOptions = {origin: 'http://localhost:3000', credentials: true};
 app.use(cors(corsOptions));
-
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {transports: ['websocket', 'polling']});
 io.attach(server);
-
 let players = [];
 
-io.on('connection', (socket) => {
+io.on('connection', (connection) => {
     console.log('A client connected');
 
-    // Listen for messages from clients
-    socket.on('message', (message) => {
-        console.log(`Received message from client: ${message}`);
+    const {func, name, sign, url, roomCode } = connection.handshake.query;
+    connection.join(roomCode);
+    switch (func) {
+        case 'removeAllPlayersInThisRoomCode':
+            players = players.filter(player => player.roomCode !== roomCode);
+            connection.emit('playersRemoved', roomCode); // Emit an event to notify clients about the removed players
+            break;
+        case 'getAllPlayersInThisRoomCode':
+            const roomPlayers = players.filter(player => player.roomCode === roomCode);
+            connection.emit('allPlayersInRoom', roomPlayers); // Emit the list of players back to the client
+            break;
+        case 'addPlayer':
+            const newPlayer = {name: name, sign: sign, url: url, roomCode: roomCode};
+            players.push(newPlayer);
+            connection.emit('playerAdded', newPlayer); // Emit an event to notify clients about the new player
+            break;
+        default:
+            break;
+    }
 
-        // Broadcast the message to all connected clients
+    connection.on('message', (message) => {
+        console.log(`Received message from client: ${message}`);
         io.emit('message', `Server: ${message}`);
     });
 
-    // Handle disconnection
-    socket.on('disconnect', () => {
-        console.log('A client disconnected');
+    /*
+    connection.on('removeAllPlayersInThisRoomCode', (roomCode) => {
+        players = players.filter(player => player.roomCode !== roomCode);
+        connection.emit('playersRemoved', roomCode); // Emit an event to notify clients about the removed players
     });
+
+    connection.on('getAllPlayersInThisRoomCode', (roomCode) => {
+        const roomPlayers = players.filter(player => player.roomCode === roomCode);
+        connection.emit('allPlayersInRoom', roomPlayers); // Emit the list of players back to the client
+    });
+
+    connection.on('addPlayer', (player) => {
+        const {message, name, sign, url, roomCode} = player;
+        console.log(`Message: ${message}`);
+        const newPlayer = {name: name, sign: sign, url: url, roomCode: roomCode};
+        players.push(newPlayer);
+        connection.emit('playerAdded', newPlayer); // Emit an event to notify clients about the new player
+    });
+     */
+
+    connection.on('disconnect', () => console.log('A client disconnected'));
 });
 
 app.use(express.json());
 
-// Handle HTTP requests
-app.get('/', (req, res) => {
-    res.send(JSON.stringify(players));
-});
+app.post('/', (req, res) => res.send(JSON.stringify(players)));
+app.get('/socket.io', (req, res) => res.send(JSON.stringify(players)));
+app.get('/', (req, res) => res.send(JSON.stringify(players)));
 
-app.post('/api/addPlayer', (req, res) => {
-    const { name, sign, url, roomCode } = req.body;
-    const newUser = { name, sign, url, roomCode };
-    players.push(newUser);
-    res.json({ success: true });
-});
-
-app.post('/api/removeAllPlayersInThisRoomCode', (req, res) => {
-    const { roomCode } = req.body;
-    const tempPlayers = players.filter(item => item.roomCode !== roomCode);
-    players.length = 0;
-    players.push(...tempPlayers);
-    res.json({ success: true });
-});
-
-app.get('/api/getAllPlayersInThisRoomCode', (req, res) => {
-    //players = req.body;
-    const { roomCode } = req.body;
-    res.json(players.filter(item => item.roomCode === roomCode));
-});
-
-app.post('/api/sendMessage', (req, res) => {
-    const { message } = req.body;
-    // Broadcast the message to all connected clients
-    io.emit('message', `Server: ${message}`);
-    res.json({ success: true });
+app.post('/negotiate', (req, res) => {
+    const connectionToken = uuidv4(undefined, undefined, undefined);
+    const negotiateResponse = {
+        connectionId: connectionToken,
+        availableTransports: [
+            {transport: 'WebSockets', transferFormats: ['Text', 'Binary']},
+            {transport: 'LongPolling', transferFormats: ['Text', 'Binary']},
+        ],
+    };
+    res.json(negotiateResponse);
 });
 
 app.listen(port, () => {
