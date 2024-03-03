@@ -4,10 +4,12 @@ import GameActionButton from "../GameActionButton/GameActionButton";
 import Countdown from "./Countdown/Countdown";
 import {IPlayer} from "../../redux/Players/IPlayer";
 import Client from "../../Client/Client";
+import {useSelector} from "react-redux";
+import {RootState} from "../../redux/store";
 
 function Room(props: IRoomProps) {
-    //const [players,] = useState<IPlayer[]>(useSelector((state: RootState) => state.players.data)); // need to be taken from server
-    const [players,] = useState<IPlayer[]>([]);
+    const [players,] = useState<IPlayer[]>(useSelector((state: RootState) => state.players.data)); // need to be taken from server
+    //const [players,] = useState<IPlayer[]>([]);
     const [readyBool, setReadyBool] = useState<boolean[]>(Array(players.length).fill(false));
 
     return (
