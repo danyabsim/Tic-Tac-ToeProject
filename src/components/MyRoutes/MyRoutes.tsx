@@ -27,7 +27,7 @@ function MyRoutes() {
     }
 
     useEffect(() => {
-        ResetTheApp();
+        ResetTheApp().then(r => r);
         if (performance.getEntriesByType("navigation")[0].type === "reload") {
             window.location.href = "/";
         }

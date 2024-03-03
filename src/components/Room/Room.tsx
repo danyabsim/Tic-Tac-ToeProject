@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import GameActionButton from "../GameActionButton/GameActionButton";
 import Countdown from "./Countdown/Countdown";
 import {IPlayer} from "../../redux/Players/IPlayer";
-import Client from "../../Client/Client";
 import {useSelector} from "react-redux";
 import {RootState} from "../../redux/store";
 
@@ -14,7 +13,7 @@ function Room(props: IRoomProps) {
 
     return (
         <div className="text-black">
-            <Client functionName='getAllPlayersInThisRoomCode' args={[props.roomCode]} isOn={true}/>
+            {/*<Client functionName='getAllPlayersInThisRoomCode' args={[props.roomCode]} isOn={true}/>*/}
             <h2 className="border-b-0 bg-green-500 m-0 p-2">
                 {players.length === 2 && readyBool.every(value => value) ? "Game will be started shortly!" : "Waiting For Players..."}
             </h2>
