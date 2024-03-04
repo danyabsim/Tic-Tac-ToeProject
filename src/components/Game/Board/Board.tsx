@@ -24,7 +24,7 @@ function Board(props: IBoardProps) {
         props.setXOArray(OnClickXOButton([...props.XOArray], XO_Column, XO_Row, props.isFirstPlayerStars, playersData[0].sign, playersData[1].sign));
         setXOData(prevState => {
             let tempXOFileURLs = [...prevState];
-            tempXOFileURLs[XO_Column][XO_Row].file = (props.XOArray[XO_Column][XO_Row] === playersData[0].sign ? playersData[0].url : (props.XOArray[XO_Column - 1][XO_Row - 1] === playersData[1].sign ? playersData[1].url : noImage));
+            tempXOFileURLs[XO_Column][XO_Row].file = (props.XOArray[XO_Column][XO_Row] ? (props.XOArray[XO_Column][XO_Row] === playersData[0].sign ? playersData[0].url : (props.XOArray[XO_Column][XO_Row] === playersData[1].sign ? playersData[1].url : noImage)) : noImage);
             return tempXOFileURLs;
         });
         const [solvedBoard, innerSolvedChar, indexes] = checkBoard(props.XOArray);
@@ -46,9 +46,8 @@ function Board(props: IBoardProps) {
         } else {
             const move = getBestMove(props.XOArray, playersData[0].sign, playersData[1].sign);
             if (move.row === -1 && move.col === -1) return;
-            console.log(move);
-            if (props.XOArray[move.col][move.row]) return;
-            setXOElementAndCheckIfEnd(move.col, move.row);
+            if (props.XOArray[move.row][move.col]) return;
+            setXOElementAndCheckIfEnd(move.row, move.col);
         }
     }
 

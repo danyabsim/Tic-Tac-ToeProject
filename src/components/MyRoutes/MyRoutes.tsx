@@ -12,7 +12,7 @@ function MyRoutes() {
     const [roomCode, setRoomCode] = useState("");
     const dispatch = useDispatch();
 
-    async function ResetTheApp() {
+    function ResetTheApp() {
         dispatch(removeLastPlayer());
         dispatch(removeLastPlayer());
         setIsOnRoom(false);
@@ -27,7 +27,7 @@ function MyRoutes() {
     }
 
     useEffect(() => {
-        ResetTheApp().then(r => r);
+        ResetTheApp();
         if (performance.getEntriesByType("navigation")[0].type === "reload") {
             window.location.href = "/";
         }

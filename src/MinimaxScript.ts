@@ -35,7 +35,6 @@ const minimax = (board: string[][], depth: number, maximizingPlayer: boolean) =>
                 bestMove = square;
             }
         }
-
         return { score: maxScore, move: bestMove };
     } else {
         let minScore = Infinity;
@@ -52,7 +51,6 @@ const minimax = (board: string[][], depth: number, maximizingPlayer: boolean) =>
                 bestMove = square;
             }
         }
-
         return { score: minScore, move: bestMove };
     }
 };
