@@ -17,10 +17,10 @@ const minimax = (board: string[][], depth: number, maximizingPlayer: boolean): {
     count: number;
     move?: { row: number; col: number; } | undefined;
 } => {
-    const [, winner,] = checkBoard(board);
-    if (board.every(row => row.every(cell => cell !== ''))) {
-        if (winner === firstSign) return {score: -1, count: -1};
-        if (winner === secondSign) return {score: 1, count: 1};
+    const [finished, winner,] = checkBoard(board);
+    if (finished/* board.every(row => row.every(cell => cell !== '')) */) {
+        if (winner === firstSign) return {score: -(9 - depth), count: -1};
+        if (winner === secondSign) return {score: (9 - depth), count: 1};
         if (winner === '') return {score: 0, count: 0};
     }
 
