@@ -5,7 +5,7 @@ import {checkBoard, dispatchAndSetWhoPlaysNext, noImage, OnClickXOButton, XOCoun
 import GameAlert from "../GameAlert/GameAlert";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../redux/store";
-import {getBestMove} from "../../../MinimaxScript";
+import * as tf from '@tensorflow/tfjs';
 
 function Board(props: IBoardProps) {
     const dispatch = useDispatch();
@@ -13,6 +13,25 @@ function Board(props: IBoardProps) {
     const [XOData, setXOData] = useState<{className: string, file: string | null}[][]>([[{className: "XO", file: noImage}, {className: "XO", file: noImage}, {className: "XO", file: noImage}], [{className: "XO", file: noImage}, {className: "XO", file: noImage}, {className: "XO", file: noImage}], [{className: "XO", file: noImage}, {className: "XO", file: noImage}, {className: "XO", file: noImage}]]);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const playersData = useSelector((state: RootState) => state.players.data); // need to be taken from server
+
+    // Neural network model
+    const model = tf.sequential({
+        layers: [
+            tf.layers.flatten({ inputShape: [3, 3, 1] }),
+            tf.layers.dense({ units: 128, activation: 'relu' }),
+            tf.layers.dense({ units: 9, activation: 'softmax' }), // Output layer for policy
+            tf.layers.dense({ units: 1 }), // Output layer for value
+        ],
+    });
+
+    // Training parameters
+    const optimizer = tf.train.adam(0.001);
+    model.compile({ optimizer, loss: 'categoricalCrossentropy' });
+
+    // Function to preprocess the board for the neural network
+    const preprocessBoard = () => {
+        return tf.tensor3d([props.XOArray.map(row => row.map(cell => (cell === playersData[0].sign ? 1 : 0)))]);
+    };
 
     function resetBoard(additionalCode: () => void) {
         additionalCode();
@@ -44,10 +63,45 @@ function Board(props: IBoardProps) {
             if (props.XOArray[XO_Column - 1][XO_Row - 1]) return;
             setXOElementAndCheckIfEnd(XO_Column - 1, XO_Row - 1);
         } else {
-            const move = getBestMove(props.XOArray, playersData[0].sign, playersData[1].sign);
-            if (move.row === -1 && move.col === -1) return;
-            if (props.XOArray[move.row][move.col]) return;
-            setXOElementAndCheckIfEnd(move.row, move.col);
+            // const availableMoves: { row: number; col: number }[] = [];
+            // props.XOArray.forEach((row, i) => {
+            //     row.forEach((cell, j) => {
+            //         if (cell === '') availableMoves.push({ row: i, col: j });
+            //     });
+            // });
+            // const move = availableMoves[Math.floor(Math.random() * availableMoves.length)];
+            // if (props.XOArray[move.row][move.col]) return;
+            // setXOElementAndCheckIfEnd(move.row, move.col);
+
+            // Preprocess the board for the neural network
+            const inputTensor = preprocessBoard();
+
+            // Get policy and value predictions from the neural network
+            const [policy, value] = model.predict(inputTensor) as [tf.Tensor, tf.Tensor];
+
+            // Convert policy tensor to array
+            const policyArray = Array.from(policy.dataSync());
+
+            // Filter out invalid moves (where the board is already occupied)
+            const availableMoves = policyArray
+                .map((probability, index) => ({ probability, index }))
+                .filter(({ index }) => props.XOArray[Math.floor(index / 3)][index % 3] === '');
+
+            // Choose the move with the highest probability
+            const bestMove = availableMoves.reduce((best, move) => (move.probability > best.probability ? move : best), {
+                probability: -1,
+                index: -1,
+            });
+
+            // Extract row and column from the index
+            const row = Math.floor(bestMove.index / 3);
+            const col = bestMove.index % 3;
+
+            // Update the board with the AI's move
+            setXOElementAndCheckIfEnd(row, col);
+
+            // Dispose of the input tensor to avoid memory leaks
+            inputTensor.dispose();
         }
     }
 
