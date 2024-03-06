@@ -12,49 +12,38 @@ const getEmptySquares = (board: string[][]) => {
     return emptySquares;
 };
 
-const minimax = (board: string[][], depth: number, maximizingPlayer: boolean): {
+const minimax = (board: string[][], depth: number, isMaximizing: boolean): {
     score: number;
-    count: number;
     move?: { row: number; col: number; } | undefined;
 } => {
     const [finished, winner,] = checkBoard(board);
-    if (finished/* board.every(row => row.every(cell => cell !== '')) */) {
-        if (winner === firstSign) return {score: -(9 - depth), count: -1};
-        if (winner === secondSign) return {score: (9 - depth), count: 1};
-        if (winner === '') return {score: 0, count: 0};
+    if (finished || board.every(row => row.every(cell => cell !== ''))) {
+        if (winner === firstSign) return {score: depth - 10};
+        if (winner === secondSign) return {score: 10 - depth};
+        if (winner === '') return {score: 0};
     }
 
     const emptySquares = getEmptySquares(board);
-    let bestMove, bestCount = 0, count = 0;
+    let bestMove;
 
-    if (maximizingPlayer) {
+    if (isMaximizing) {
         let maxScore = -Infinity;
         for (const square of emptySquares) {
             const newBoard = cloneBoard(board);
             newBoard[square.row][square.col] = secondSign;
             const minimaxResult = minimax(newBoard, depth + 1, false);
-            if (originalBoard[square.row][square.col] === '')
-                if (minimaxResult.score > maxScore) [maxScore, bestMove, bestCount, count] = [minimaxResult.score, square, minimaxResult.count, 1];
-                else if (minimaxResult.score === maxScore) {
-                    count++;
-                    if (minimaxResult.count > bestCount) [bestCount, bestMove] = [minimaxResult.count, square];
-                }
+            if (originalBoard[square.row][square.col] === '' && minimaxResult.score > maxScore) [maxScore, bestMove] = [minimaxResult.score, square];
         }
-        return {score: maxScore, move: bestMove, count: count};
+        return {score: maxScore, move: bestMove};
     } else {
         let minScore = Infinity;
         for (const square of emptySquares) {
             const newBoard = cloneBoard(board);
             newBoard[square.row][square.col] = firstSign;
             const minimaxResult = minimax(newBoard, depth + 1, true);
-            if (originalBoard[square.row][square.col] === '')
-                if (minimaxResult.score < minScore) [minScore, bestMove, bestCount, count] = [minimaxResult.score, square, minimaxResult.count, 1];
-                else if (minimaxResult.score === minScore) {
-                    count++;
-                    if (minimaxResult.count > bestCount) [bestCount, bestMove] = [minimaxResult.count, square];
-                }
+            if (originalBoard[square.row][square.col] === '' && minimaxResult.score < minScore) [minScore, bestMove] = [minimaxResult.score, square, 1];
         }
-        return {score: minScore, move: bestMove, count: count};
+        return {score: minScore, move: bestMove};
     }
 };
 
