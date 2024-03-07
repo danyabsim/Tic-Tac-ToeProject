@@ -16,8 +16,6 @@ function GameAlert(props: IGameAlertProps) {
     const currentHistory = historyArray[historyArray.length - 1];
     const audioRef = useRef<HTMLAudioElement>(null);
     const playersData = useSelector((state: RootState) => state.players.data); // need to be taken from server
-    const firstPlayer = playersData[0];
-    const secondPlayer = playersData[1];
 
     function CloseGameAlert(additionalCode: () => void) {
         resetXOScript();
@@ -28,12 +26,12 @@ function GameAlert(props: IGameAlertProps) {
     function openModalAndPerformAction() {
         if (countUpdate === 0) {
             dispatch(historySlice.addHistory({
-                firstPlayerName: firstPlayer.name, secondPlayerName: secondPlayer.name,
+                firstPlayerName: playersData[0].name, secondPlayerName: playersData[1].name,
                 firstPlayerWins: firstPlayerWins, ties: ties, secondPlayerWins: secondPlayerWins,
             }));
         } else {
             dispatch(historySlice.updateLatestHistory({
-                firstPlayerName: firstPlayer.name, secondPlayerName: secondPlayer.name,
+                firstPlayerName: playersData[0].name, secondPlayerName: playersData[1].name,
                 firstPlayerWins: firstPlayerWins, ties: ties, secondPlayerWins: secondPlayerWins,
             }));
         }
@@ -46,8 +44,8 @@ function GameAlert(props: IGameAlertProps) {
                className={`text-black text-4xl text-center font-bold flex flex-col justify-center items-center`}
         >
             <BackgroundImage
-                $marginLeft={props.solvedChar === firstPlayer.sign ? '0' : 'auto'}
-                $marginRight={props.solvedChar === secondPlayer.sign ? '0' : 'auto'}
+                $marginLeft={props.solvedChar === playersData[0].sign ? '0' : 'auto'}
+                $marginRight={props.solvedChar === playersData[1].sign ? '0' : 'auto'}
             >
                 <audio ref={audioRef} src={process.env.PUBLIC_URL + '/sounds/Audience_Applause.wav'}
                        onError={(e) => console.error('Audio error:', e)}/>
